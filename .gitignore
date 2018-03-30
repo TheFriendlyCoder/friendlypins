@@ -1,0 +1,14 @@
+# Temporary build files
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+sdist/
+
+# Temporary unit test files
+htmlcov/
+.tox/
+.coverage
+
+# Virtual environmenments
+venv?/
