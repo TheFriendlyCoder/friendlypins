@@ -16,10 +16,10 @@ matrix:
       env: TOXENV=py3
 
 install:
-  - pip install wheel
-  - pip install twine
-  - pip install tox
-  #- pip install coveralls
+  - pip install wheel twine tox coveralls
+
+script:
+  - tox
 
 jobs:
   include:
