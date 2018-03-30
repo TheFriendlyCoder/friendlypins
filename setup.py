@@ -6,7 +6,8 @@ import os
 # project specific parameters
 PROJECT_NAME = 'friendly_pinterest'
 PROJECT_DEPENDENCIES = [
-    'requests[security]>=2.0.1',
+    #'requests[security]>=2.0.1',
+    'requests',
     'six',
     'tqdm']
 PROJECT_DEV_DEPENDENCIES = [
