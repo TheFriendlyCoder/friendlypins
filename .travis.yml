@@ -1,19 +1,25 @@
 anguage: python
 sudo: false  # enable container-based build
-python:
-  - 2.7
-  - 3.3
-  - 3.4
-  - 3.5
+
+matrix:
+  include:
+    - python: 2.7
+      env: TOXENV=py2
+
+    - python: 3.3
+      env: TOXENV=py3
+    - python: 3.4
+      env: TOXENV=py3
+    - python: 3.5
+      env: TOXENV=py3
+    - python: 3.6
+      env: TOXENV=py3
 
 install:
-  - pip install tox twine wheel
+  - pip install wheel
+  - pip install twine
+  - pip install tox
   #- pip install coveralls
-
-script:
-  - export PYVER=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`
-  - echo $PYVER
-  - tox -e py$PYVER
 
 jobs:
   include:
