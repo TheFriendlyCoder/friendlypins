@@ -16,9 +16,7 @@ matrix:
 install:
   - pip install wheel twine tox coveralls
 
-jobs:
-  include:
-    - script: tox
+script: tox
 
 
 # before_deploy:
