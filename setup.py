@@ -1,8 +1,9 @@
+"""Package script"""
 #!/usr/bin/env python
-from setuptools import setup, find_packages
 import os
+from setuptools import setup, find_packages
 
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # project specific parameters
 PROJECT_NAME = 'friendly_pinterest'
 PROJECT_DEPENDENCIES = [
@@ -22,7 +23,7 @@ PROJECT_DEV_DEPENDENCIES = [
     'tox']
 PROJECT_DESCRIPTION = 'Python wrapper around the Pinterest developer APIs'
 PROJECT_KEYWORDS = 'pinterest api wrapper library'
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 
 def load_console_scripts(project):
@@ -93,18 +94,21 @@ def check_tag_name(tag_name):
 def get_version_number():
     """Retrieves the version number for a project"""
 
-    # If we are building from a tag using Travis-CI, set our version number to the tag name
+    # If we are building from a tag using Travis-CI, set our version number
+    # to the tag name
     if 'TRAVIS_TAG' in os.environ and not os.environ['TRAVIS_TAG'] == '':
         if not check_tag_name(os.environ['TRAVIS_TAG']):
-            raise Exception("Invalid tag name {0}. Must be of the form 'X.Y.Z'".format(os.environ['TRAVIS_TAG']))
+            raise Exception(
+                "Invalid tag name {0}. Must be of the form 'X.Y.Z'".format(
+                    os.environ['TRAVIS_TAG']))
         return os.environ['TRAVIS_TAG']
 
     # if we get here we know we're building a pre-release version
     # so we set a fake version as a place holder
     retval = "0.0"
 
-    # If we are building from a branch using Travis-CI, append the build number so we know where the
-    # package came from
+    # If we are building from a branch using Travis-CI, append the build number
+    # so we know where the package came from
     if 'TRAVIS_BUILD_NUMBER' in os.environ:
         retval += "." + os.environ['TRAVIS_BUILD_NUMBER']
     else:
@@ -122,15 +126,13 @@ setup(
     author='Kevin S. Phillips',
     author_email='kevin@thefriendlycoder.com',
     packages=find_packages('src'),
+    package_dir={'':'src'},
     description=PROJECT_DESCRIPTION,
     long_description=open('README.rst').read(),
     url='https://github.com/TheFriendlyCoder/' + PROJECT_NAME,
     keywords=PROJECT_KEYWORDS,
     entry_points={
         'console_scripts': load_console_scripts(PROJECT_NAME),
-        'pyjen.plugins': [
-            'subversion=pyjen.plugins.subversion:Subversion'
-        ]
     },
     install_requires=PROJECT_DEPENDENCIES,
     extras_require={

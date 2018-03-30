@@ -1,9 +1,9 @@
 """Primary entry point for the Friendly Pinterest library"""
 
-class API(object):
+class API(object):  # pylint: disable=too-few-public-methods
     """High level abstraction for the core Pinterest API"""
     def __init__(self):
-        pass
+        self.name = "hello"
 
     def get_user(self, username=None):
         """Gets all primitives associated with a particular Pinterst user
@@ -14,6 +14,7 @@ class API(object):
         returns: Pinterest user with the given name
         rtype: :class:`friendly_pinterest.user.User`
         """
+        print(self.name)
         if username:
             return None
         return None
