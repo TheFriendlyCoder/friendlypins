@@ -25,7 +25,7 @@ deploy:
     - python setup.py bdist_wheel
     - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
   on:
-    tags: true
+    # tags: true
     python: 3.6
 #after_success:
 #  - coveralls
