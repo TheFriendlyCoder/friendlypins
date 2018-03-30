@@ -21,13 +21,13 @@ install:
 script:
   - tox
 
-jobs:
-  include:
-    - stage: package
-      python: 3.5
-      script:
-      - python setup.py bdist_wheel
-      - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
-
+deploy:
+  provider: script
+  script:
+    - python setup.py bdist_wheel
+    - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
+  on:
+    tags: true
+    python: 3.6
 #after_success:
 #  - coveralls
