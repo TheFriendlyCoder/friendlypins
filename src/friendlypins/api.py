@@ -19,5 +19,6 @@ class API(object):  # pylint: disable=too-few-public-methods
             return None
         return None
 
+
 if __name__ == "__main__":
     pass
