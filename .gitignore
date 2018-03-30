@@ -12,3 +12,6 @@ htmlcov/
 
 # Virtual environmenments
 venv?/
+
+# project files
+.vscode/
