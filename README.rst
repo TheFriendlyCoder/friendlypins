@@ -9,28 +9,28 @@
 Overview
 =============
 
-.. image:: https://img.shields.io/pypi/l/friendly_pinterest.svg
-    :target: https://pypi.python.org/pypi/friendly_pinterest/
+.. image:: https://img.shields.io/pypi/l/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
     :alt: License
 
-.. image:: https://img.shields.io/pypi/pyversions/friendly_pinterest.svg
-    :target: https://pypi.python.org/pypi/friendly_pinterest/
+.. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Python Versions
 
-.. image:: https://img.shields.io/pypi/dm/friendly_pinterest.svg
-    :target: https://pypi.python.org/pypi/friendly_pinterest/
+.. image:: https://img.shields.io/pypi/dm/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Downloads
 
-.. image:: https://img.shields.io/pypi/format/friendly_pinterest.svg
-    :target: https://pypi.python.org/pypi/friendly_pinterest/
+.. image:: https://img.shields.io/pypi/format/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Format
 
-.. image:: https://badge.fury.io/py/friendly_pinterest.svg
-    :target: https://pypi.python.org/pypi/friendly_pinterest/
+.. image:: https://badge.fury.io/py/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Latest Version
 
-.. image:: https://api.travis-ci.org/TheFriendlyCoder/pyjen.svg?branch=master
-    :target: https://travis-ci.org/TheFriendlyCoder/pyjen
+.. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
+    :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
     :alt: Build status
 
 User friendly Python wrapper for the
@@ -45,4 +45,4 @@ Comments, suggestions and bugs may be reported to the project
 `maintainer <mailto:kevin@thefriendlycoder.com>`_
 
 Full API documentation can be found on
-`ReadTheDocs.org <http://friendly_pinterest.readthedocs.org/en/v0.0.1dev/>`_.
+`ReadTheDocs.org <http://friendlypins.readthedocs.org/en/v0.0.1dev/>`_.

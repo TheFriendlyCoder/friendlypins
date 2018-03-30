@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # project specific parameters
-PROJECT_NAME = 'friendly_pinterest'
+PROJECT_NAME = 'friendlypins'
 PROJECT_DEPENDENCIES = [
     #'requests[security]>=2.0.1',
     'requests',
