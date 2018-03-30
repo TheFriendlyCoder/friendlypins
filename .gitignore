@@ -11,6 +11,7 @@ build/
 htmlcov/
 .tox/
 .coverage
+docs/_*
 
 # Virtual environmenments
 venv?/
