@@ -33,7 +33,8 @@ Overview
     :target: https://travis-ci.org/TheFriendlyCoder/pyjen
     :alt: Build status
 
-Wrapper around the `Pinterest developer APIs <https://developers.pinterest.com/>`_.
+User friendly Python wrapper for the
+`Pinterest developer APIs <https://developers.pinterest.com/>`_.
 This project is currently in very early development, with only a bare minimum
 of functionality, intended for some of my personal projects. I'm sharing it here
 in case someone finds the implementation helpful for their projects. Also, if
