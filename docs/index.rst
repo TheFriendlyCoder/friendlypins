@@ -28,6 +28,7 @@ Welcome to friendlypins's documentation!
 
 .. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
     :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
+    :alt: Build status
 
 .. toctree::
    :maxdepth: 1
