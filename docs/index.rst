@@ -6,9 +6,34 @@
 Welcome to friendlypins's documentation!
 ========================================
 
+.. image:: https://img.shields.io/pypi/l/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
+    :alt: License
+
+.. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
+    :alt: Python Versions
+
+.. image:: https://img.shields.io/pypi/dm/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
+    :alt: Downloads
+
+.. image:: https://img.shields.io/pypi/format/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
+    :alt: Format
+
+.. image:: https://badge.fury.io/py/friendlypins.svg
+    :target: https://pypi.python.org/pypi/friendlypins/
+    :alt: Latest Version
+
+.. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
+    :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
+
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
+
+   modules
 
 Overview
 ========
