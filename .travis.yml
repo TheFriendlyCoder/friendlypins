@@ -4,7 +4,7 @@ sudo: false  # enable container-based build
 stages:
   - test
   - name: deploy
-    if: tag IS present
+    if: tag IS present OR branch == master
 
 # matrix:
 #   include:
@@ -25,7 +25,7 @@ python:
 install: pip install wheel twine tox coveralls
 
 script:
-  - export TOXENV=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`
+  - export TOXENV=py`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`
   - echo $TOXENV
   - tox
 
