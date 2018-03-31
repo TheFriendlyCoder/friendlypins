@@ -12,6 +12,7 @@ htmlcov/
 .tox/
 .coverage
 docs/_*
+.pytest_cache/
 
 # Virtual environmenments
 venv?/
