@@ -10,6 +10,10 @@ Welcome to friendlypins' documentation!
     :target: https://pypi.python.org/pypi/friendlypins/
     :alt: License
 
+.. image:: https://coveralls.io/repos/github/TheFriendlyCoder/friendlypins/badge.svg?branch=master
+    :target: https://coveralls.io/github/TheFriendlyCoder/friendlypins?branch=master
+    :alt: Test Coverage
+
 .. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
     :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Python Versions
