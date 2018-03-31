@@ -25,8 +25,7 @@ install: pip install wheel twine tox coveralls
 # version stated above
 script:
   - echo $TRAVIS_PYTHON_VERSION
-  - "[ $TRAVIS_PYTHON_VERSION == "pypy ] && export TOXENV=pypy"
-  - "[ -z $TOKENENV ] && export TOXENV=py`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`"
+  - source ./travisenv.sh
   - tox
 
 # Default a secondary, custom job that only runs after the default 'test'
