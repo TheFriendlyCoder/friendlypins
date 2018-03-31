@@ -29,10 +29,6 @@ Overview
     :target: https://pypi.org/project/friendlypins/
     :alt: Python Versions
 
-.. image:: https://img.shields.io/pypi/dm/friendlypins.svg
-    :target: https://pypi.org/project/friendlypins/#files
-    :alt: Downloads
-
 .. image:: https://img.shields.io/pypi/format/friendlypins.svg
     :target: https://pypi.org/project/friendlypins/
     :alt: Format
