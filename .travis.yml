@@ -6,22 +6,24 @@ stages:
   - name: deploy
     if: tag IS present
 
-matrix:
-  include:
-    - python: 2.7
-      env: TOXENV=py2
+# matrix:
+#   include:
+#     - python: 2.7
+#       env: TOXENV=py2
 
-    - python: 3.4
-      env: TOXENV=py3
-    - python: 3.5
-      env: TOXENV=py3
-    - python: 3.6
-      env: TOXENV=py3
+#     - python: 3.4
+#       env: TOXENV=py3
+#     - python: 3.5
+#       env: TOXENV=py3
+#     - python: 3.6
+#       env: TOXENV=py3
+
+python:
+  - 2.7
+  - 3.6
 
 install:
   - pip install wheel twine tox coveralls
-
-
 
 jobs:
   include:
