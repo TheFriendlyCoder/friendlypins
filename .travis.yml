@@ -1,34 +1,37 @@
 language: python
 sudo: false  # enable container-based build
 
+# Make sure we run all 'test' stages before we deply
+# and ensure we only deploy from production branches / tags
 stages:
   - test
   - name: deploy
     if: tag IS present OR branch == master
 
-# matrix:
-#   include:
-#     - python: 2.7
-#       env: TOXENV=py2
-
-#     - python: 3.4
-#       env: TOXENV=py3
-#     - python: 3.5
-#       env: TOXENV=py3
-#     - python: 3.6
-#       env: TOXENV=py3
-
+# Generate a matrix for all Python versions we support
 python:
   - 2.7
+  - 3.4
+  - 3.5
   - 3.6
 
+# Install all of our build-time dependencies
 install: pip install wheel twine tox coveralls
 
+# Scripts for the default "test" stage
+# one copy of this default job will be generated for each python
+# version stated above
 script:
+  - echo $TRAVIS_PYTHON_VERSION
   - export TOXENV=py`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`
-  - echo $TOXENV
   - tox
 
+# Default a secondary, custom job that only runs after the default 'test'
+# job completes successfully
+# NOTE: Deploy stages will only run on tags or off the master branch as
+#       defined in the stage declarations above
+# NOTE: We've restricted this deploy job to only run for Python v3.6
+#       since we're generating a version-agnostic package
 jobs:
   include:
     - stage: deploy
@@ -36,26 +39,6 @@ jobs:
       script:
         - python setup.py bdist_wheel
         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
-# before_deploy:
-#   - python setup.py bdist_wheel
-
-# deploy:
-#   provider: pypi
-#   user: $DEPLOY_USER
-#   password: $DEPLOY_PASS
-#   distributions: "bdist_wheel"
-#   on:
-#     # tags: true
-#     python: 3.6
-# after_success:
-#   script:
-#     - stage: deploy
-#       script:
-#         - python setup.py bdist_wheel
-#         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
-      # if: tag IS present
-      # python: 3.6
-
 
 #after_success:
 #  - coveralls
