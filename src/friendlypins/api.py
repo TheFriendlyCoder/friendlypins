@@ -1,7 +1,7 @@
 """Primary entry point for the Friendly Pinterest library"""
 from __future__ import print_function
 
-class API(object):  # pylint: disable=too-few-public-methods
+class API(object):
     """High level abstraction for the core Pinterest API"""
     def __init__(self):
         self.name = "hello"
