@@ -3,8 +3,8 @@ sudo: false  # enable container-based build
 
 stages:
   - test
-  - deploy
-    #
+  - name: deploy
+    if: tag IS present
 
 matrix:
   include:
@@ -27,11 +27,9 @@ jobs:
   include:
     - stage: test
       script: tox
-jobs:
-  include:
+
     - stage: deploy
       python: 3.6
-      # if: tag IS present
       script:
         - python setup.py bdist_wheel
         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
