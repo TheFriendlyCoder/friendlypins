@@ -24,7 +24,10 @@ python:
 
 install: pip install wheel twine tox coveralls
 
-script: tox
+script:
+  - export TOXENV=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1`
+  - echo $TOXENV
+  - tox
 
 jobs:
   include:
