@@ -14,6 +14,14 @@ Welcome to friendlypins' documentation!
     :target: https://coveralls.io/github/TheFriendlyCoder/friendlypins?branch=master
     :alt: Test Coverage
 
+.. image:: https://readthedocs.org/projects/friendlypins/badge/?version=latest
+    :target: http://friendlypins.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. image:: https://requires.io/github/TheFriendlyCoder/friendlypins/requirements.svg?branch=master
+     :target: https://requires.io/github/TheFriendlyCoder/friendlypins/requirements/?branch=master
+     :alt: Requirements Status
+
 .. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
     :target: https://pypi.python.org/pypi/friendlypins/
     :alt: Python Versions
