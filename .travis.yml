@@ -24,7 +24,6 @@ install: pip install wheel twine tox coveralls
 # one copy of this default job will be generated for each python
 # version stated above
 script:
-  - echo $TRAVIS_PYTHON_VERSION
   - source ./travisenv.sh
   - tox
 
