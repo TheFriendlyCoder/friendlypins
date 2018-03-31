@@ -10,7 +10,7 @@ Overview
 =============
 
 .. image:: https://img.shields.io/pypi/l/friendlypins.svg
-    :target: https://pypi.python.org/pypi/friendlypins/
+    :target: https://github.com/TheFriendlyCoder/friendlypins/blob/master/LICENSE
     :alt: License
 
 .. image:: https://coveralls.io/repos/github/TheFriendlyCoder/friendlypins/badge.svg?branch=master
@@ -18,7 +18,7 @@ Overview
     :alt: Test Coverage
 
 .. image:: https://readthedocs.org/projects/friendlypins/badge/?version=latest
-    :target: http://friendlypins.readthedocs.io/en/latest/?badge=latest
+    :target: http://friendlypins.readthedocs.io/en/latest
     :alt: Documentation Status
 
 .. image:: https://requires.io/github/TheFriendlyCoder/friendlypins/requirements.svg?branch=master
@@ -26,19 +26,19 @@ Overview
      :alt: Requirements Status
 
 .. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
-    :target: https://pypi.python.org/pypi/friendlypins/
+    :target: https://pypi.org/project/friendlypins/
     :alt: Python Versions
 
 .. image:: https://img.shields.io/pypi/dm/friendlypins.svg
-    :target: https://pypi.python.org/pypi/friendlypins/
+    :target: https://pypi.org/project/friendlypins/#files
     :alt: Downloads
 
 .. image:: https://img.shields.io/pypi/format/friendlypins.svg
-    :target: https://pypi.python.org/pypi/friendlypins/
+    :target: https://pypi.org/project/friendlypins/
     :alt: Format
 
 .. image:: https://badge.fury.io/py/friendlypins.svg
-    :target: https://pypi.python.org/pypi/friendlypins/
+    :target: https://pypi.org/project/friendlypins/
     :alt: Latest Version
 
 .. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
