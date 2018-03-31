@@ -41,5 +41,5 @@ jobs:
         - python setup.py bdist_wheel
         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
 
-#after_success:
-#  - coveralls
+after_success:
+ - coveralls
