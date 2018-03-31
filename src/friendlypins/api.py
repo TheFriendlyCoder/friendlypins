@@ -3,10 +3,10 @@ from __future__ import print_function
 
 class API(object):  # pylint: disable=too-few-public-methods
     """High level abstraction for the core Pinterest API"""
-    def __init__(self):  # pragma: no cover
+    def __init__(self):
         self.name = "hello"
 
-    def get_user(self, username=None):  # pragma: no cover
+    def get_user(self, username=None):
         """Gets all primitives associated with a particular Pinterst user
 
         :param str username:

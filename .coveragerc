@@ -2,9 +2,10 @@
 # Include branch detection in coverage scan
 branch = True
 
+
 [report]
 # fail the build if less than 0% of the code is covered by tests
-fail_under = 80
+fail_under = 75
 
 # Regexes for lines to exclude from consideration
 exclude_lines =
