@@ -7,20 +7,18 @@ from setuptools import setup, find_packages
 # project specific parameters
 PROJECT_NAME = 'friendlypins'
 PROJECT_DEPENDENCIES = [
-    #'requests[security]>=2.0.1',
-    'requests',
-    'six',
-    'tqdm']
+    'requests<3.0.0,>=2.0.0',
+    'six<2.0.0,>=1.0.0',]
 PROJECT_DEV_DEPENDENCIES = [
-    'wheel',
-    'twine',
-    'pytest',
-    'pytest-cov',
-    'mock',
-    'radon',
-    'pylint',
-    'sphinx>=1.2.3',
-    'tox']
+    'wheel<1.0.0',
+    'twine<2.0.0',
+    'pytest>=3.5.0<4.0.0',
+    'pytest-cov>=2.5.0<3.0.0',
+    'mock>=2.0.0<3.0.0',
+    'radon>=2.2.0<3.0.0',
+    'pylint>=1.8.0<2.0.0',
+    'sphinx>=1.2.3<2.0.0',
+    'tox>=3.0.0<4.0.0']
 PROJECT_DESCRIPTION = 'Python wrapper around the Pinterest developer APIs'
 PROJECT_KEYWORDS = 'pinterest api wrapper library'
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
