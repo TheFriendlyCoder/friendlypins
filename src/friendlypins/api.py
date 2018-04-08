@@ -27,8 +27,9 @@ class API(object):  # pylint: disable=too-few-public-methods
         :param str username:
             Optional name of a user to look up
             If not provided, the currently authentcated user will be returned
+
         returns: Pinterest user with the given name
-        rtype: :class:`friendly_pinterest.user.User`
+        rtype: :class:`friendlypins.user.User`
         """
         if username:
             raise NotImplementedError(
