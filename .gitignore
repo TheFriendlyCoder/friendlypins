@@ -16,6 +16,7 @@ docs/_*
 
 # Virtual environmenments
 venv?/
+venv*/
 
 # project files
 .vscode/
