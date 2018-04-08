@@ -5,19 +5,17 @@ import requests
 from friendlypins.user import User
 
 class API(object):  # pylint: disable=too-few-public-methods
-    """High level abstraction for the core Pinterest API"""
+    """High level abstraction for the core Pinterest API
+
+    :param str personal_access_token:
+            API authentication token used for secure access to a users'
+            Pinterest data
+    """
 
     # URL of the root namespace for the Pinterest API
     _root_url = 'https://api.pinterest.com/v1'
 
     def __init__(self, personal_access_token):
-        """Constructor
-
-        :param str personal_access_token:
-            API authentication token used for secure access to a users'
-            Pinterest data
-        """
-
         self._log = logging.getLogger(__name__)
         self._token = personal_access_token
 
@@ -28,8 +26,8 @@ class API(object):  # pylint: disable=too-few-public-methods
             Optional name of a user to look up
             If not provided, the currently authentcated user will be returned
 
-        returns: Pinterest user with the given name
-        rtype: :class:`friendlypins.user.User`
+        :returns: Pinterest user with the given name
+        :rtype: :class:`friendlypins.user.User`
         """
         if username:
             raise NotImplementedError(
