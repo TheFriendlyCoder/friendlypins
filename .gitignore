@@ -18,5 +18,8 @@ docs/_*
 venv?/
 venv*/
 
+# diff files
+**/*.orig
+
 # project files
 .vscode/
