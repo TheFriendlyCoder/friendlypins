@@ -40,11 +40,13 @@ class API(object):  # pylint: disable=too-few-public-methods
         response.raise_for_status()
 
         header = Headers(response.headers)
+        self._log.debug("Getting user query response: %s", header)
+
         raw = response.json()
 
         assert 'data' in raw
 
-        return User(raw['data'])
+        return User(raw['data'], self._root_url, self._token)
 
 
 # pylint: disable-all

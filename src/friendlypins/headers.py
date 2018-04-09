@@ -12,11 +12,18 @@ class Headers(object):
         self._data = data
 
     def __str__(self):
-        """String representation of the header data
+        """String representation of this object, for debugging purposes
 
         :rtype: :class:`str`
         """
         return json.dumps(dict(self._data), sort_keys=True, indent=4)
+
+    def __repr__(self):
+        """Object representation in string format
+
+        :rtype: :class:`str`
+        """
+        return "<{0} ({1})>".format(self.__class__.__name__, self.date)
 
     @property
     def rate_limit(self):
