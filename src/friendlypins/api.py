@@ -3,6 +3,7 @@ from __future__ import print_function
 import logging
 import requests
 from friendlypins.user import User
+from friendlypins.headers import Headers
 
 class API(object):  # pylint: disable=too-few-public-methods
     """High level abstraction for the core Pinterest API
@@ -37,8 +38,13 @@ class API(object):  # pylint: disable=too-few-public-methods
         temp_url += "?access_token={0}".format(self._token)
         response = requests.get(temp_url)
         response.raise_for_status()
-        assert 'data' in response.json()
-        return User(response.json()['data'])
+
+        header = Headers(response.headers)
+        raw = response.json()
+
+        assert 'data' in raw
+
+        return User(raw['data'])
 
 
 # pylint: disable-all

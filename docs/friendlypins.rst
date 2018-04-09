@@ -7,6 +7,7 @@ Submodules
 .. toctree::
 
    friendlypins.api
+   friendlypins.headers
    friendlypins.user
 
 Module contents

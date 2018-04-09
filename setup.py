@@ -7,8 +7,9 @@ from setuptools import setup, find_packages
 # project specific parameters
 PROJECT_NAME = 'friendlypins'
 PROJECT_DEPENDENCIES = [
-    'requests<3.0.0,>=2.0.0',
-    'six<2.0.0,>=1.0.0',]
+    'requests',
+    'six',
+    'dateutils']
 PROJECT_DEV_DEPENDENCIES = [
     'wheel<1.0.0',
     'twine<2.0.0',
