@@ -45,7 +45,7 @@ class Headers(object):
 
         :rtype: :class:`float`
         """
-        percent = self.rate_remaining / self.rate_limit
+        percent = float(self.rate_remaining) / float(self.rate_limit)
         return int(percent * 100)
 
     @property
