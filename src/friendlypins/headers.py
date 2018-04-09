@@ -43,7 +43,7 @@ class Headers(object):
 
         See :meth:`rate_remaining` for more info
 
-        :rtype: :class:`float`
+        :rtype: :class:`int`
         """
         percent = float(self.rate_remaining) / float(self.rate_limit)
         return int(percent * 100)
