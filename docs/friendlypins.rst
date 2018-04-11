@@ -9,6 +9,7 @@ Submodules
    friendlypins.api
    friendlypins.board
    friendlypins.headers
+   friendlypins.pin
    friendlypins.user
 
 Module contents
