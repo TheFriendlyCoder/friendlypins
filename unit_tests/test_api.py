@@ -7,13 +7,13 @@ def test_get_user():
     expected_url = 'https://www.pinterest.com/MyUserName/'
     expected_firstname = "John"
     expected_lastname = "Doe"
-    expected_id = "12345678"
+    expected_id = 12345678
     expected_data = {
         'data': {
             'url': expected_url,
             'first_name': expected_firstname,
             'last_name': expected_lastname,
-            'id': expected_id
+            'id': str(expected_id)
         }
     }
     with mock.patch("friendlypins.api.requests") as mock_requests:
