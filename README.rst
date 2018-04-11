@@ -53,4 +53,4 @@ Comments, suggestions and bugs may be reported to the project
 `maintainer <mailto:kevin@thefriendlycoder.com>`_
 
 Full API documentation can be found on
-`ReadTheDocs.org <http://friendlypins.readthedocs.org/en/v0.0.1dev/>`_.
+`ReadTheDocs.org <http://friendlypins.readthedocs.io/en/latest/>`_.
