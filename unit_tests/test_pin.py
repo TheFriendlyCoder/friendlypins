@@ -63,5 +63,20 @@ def test_delete():
         obj.delete()
         mock_requests.delete.assert_called_once()
         mock_response.raise_for_status.assert_called_once()
+
+def test_get_thumbnail():
+    expected_url = "https://i.pinimg.com/r/pin/12345"
+    data = {
+        "image": {
+            "original": {
+                "url": expected_url
+            }
+        }
+    }
+
+    obj = Pin(data, "http://www.pinterest.com", "1234abcd")
+    result = obj.thumbnail
+
+    assert result.url == expected_url
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])

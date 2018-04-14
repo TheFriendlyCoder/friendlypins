@@ -10,6 +10,7 @@ Submodules
    friendlypins.board
    friendlypins.headers
    friendlypins.pin
+   friendlypins.thumbnail
    friendlypins.user
 
 Module contents

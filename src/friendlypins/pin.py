@@ -3,6 +3,7 @@ import logging
 import json
 import requests
 from friendlypins.headers import Headers
+from friendlypins.thumbnail import Thumbnail
 
 
 class Pin(object):
@@ -69,12 +70,24 @@ class Pin(object):
     def media_type(self):
         """Gets descriptor for the type of data stored in the pin's link
 
+        Returns None if the type of data associated with the Pin
+        is unknown
+
         :rtype: :class:`str`
         """
         if 'media' not in self._data:
             return None
 
         return self._data['media']['type']
+
+    @property
+    def thumbnail(self):
+        """Gets the thumbnail image associated with this pin
+
+        :rtype: :class:`friendlypins.thumbnail.Thumbnail`
+        """
+        assert 'image' in self._data
+        return Thumbnail(self._data['image'])
 
     def delete(self):
         """Removes this pin from it's respective board"""
