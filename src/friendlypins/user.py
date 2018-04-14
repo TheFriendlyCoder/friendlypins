@@ -21,14 +21,14 @@ class User(object):
         self._token = token
 
     def __str__(self):
-        """String representation of this object, for debugging purposes
+        """String representation of this user, for debugging purposes
 
         :rtype: :class:`str`
         """
         return json.dumps(dict(self._data), sort_keys=True, indent=4)
 
     def __repr__(self):
-        """Object representation in string format
+        """User representation in string format
 
         :rtype: :class:`str`
         """
@@ -88,7 +88,7 @@ class User(object):
 
         retval = []
         for cur_item in raw['data']:
-            retval.append(Board(cur_item))
+            retval.append(Board(cur_item, self._root_url, self._token))
         return retval
 
 if __name__ == "__main__":
