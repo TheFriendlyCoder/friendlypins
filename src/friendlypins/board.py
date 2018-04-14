@@ -82,7 +82,7 @@ class Board(object):
             assert 'data' in raw
 
             for cur_item in raw['data']:
-                retval.append(Pin(cur_item))
+                retval.append(Pin(cur_item, self._root_url, self._token))
 
             self._log.debug("Raw keys are %s", raw.keys())
             self._log.debug("Paged info is %s", raw['page'])

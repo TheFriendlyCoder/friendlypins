@@ -18,7 +18,7 @@ def test_pin_properties():
         }
     }
 
-    obj = Pin(sample_data)
+    obj = Pin(sample_data, "http://www.pinterest.com", "1234abcd")
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
@@ -31,7 +31,6 @@ def test_pin_missing_media_type():
     expected_note = "Here's my note"
     expected_url = "https://www.pinterest.ca/MyName/MyPin/"
     expected_link = "http://www.google.ca"
-    expected_media_type = "video"
     sample_data = {
         "id": str(expected_id),
         "note": expected_note,
@@ -39,7 +38,7 @@ def test_pin_missing_media_type():
         "url": expected_url,
     }
 
-    obj = Pin(sample_data)
+    obj = Pin(sample_data, "http://www.pinterest.com", "1234abcd")
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
@@ -47,5 +46,22 @@ def test_pin_missing_media_type():
     assert obj.link == expected_link
     assert obj.media_type is None
 
+def test_delete():
+    api_url = "https://pinterest_url/v1"
+    token = "1234abcd"
+
+    data = {
+        "id": "12345678"
+    }
+
+    obj = Pin(data, api_url, token)
+
+    with mock.patch("friendlypins.pin.requests") as mock_requests:
+        mock_response = mock.MagicMock()
+        mock_requests.delete.return_value = mock_response
+
+        obj.delete()
+        mock_requests.delete.assert_called_once()
+        mock_response.raise_for_status.assert_called_once()
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])
