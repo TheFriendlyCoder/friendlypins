@@ -58,5 +58,6 @@ def test_get_all_pins():
         assert expected_mediatype == result[0].media_type
 
         mock_response.raise_for_status.assert_called_once()
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])
