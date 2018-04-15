@@ -62,6 +62,16 @@ class User(object):
         return self._data['last_name']
 
     @property
+    def name(self):
+        """Gets the name of the user
+
+        alias for first_name + last_name
+
+        :rtype: :class:`str`
+        """
+        return "{0} {1}".format(self.first_name, self.last_name)
+
+    @property
     def url(self):
         """Gets the URL of the users profile
 
@@ -75,6 +85,8 @@ class User(object):
 
         :rtype: :class:`list` of :class:`friendlypins.board.Board`
         """
+        self._log.debug("Loading boards for user %s...", self.name)
+
         temp_url = '{0}/me/boards/'.format(self._root_url)
         temp_url += "?access_token={0}".format(self._token)
         response = requests.get(temp_url)

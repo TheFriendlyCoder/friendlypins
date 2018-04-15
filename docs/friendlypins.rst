@@ -1,6 +1,14 @@
 friendlypins package
 ====================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    friendlypins.scripts
+    friendlypins.utils
+
 Submodules
 ----------
 

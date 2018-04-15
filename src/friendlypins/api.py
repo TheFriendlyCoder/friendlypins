@@ -30,6 +30,7 @@ class API(object):  # pylint: disable=too-few-public-methods
         :returns: Pinterest user with the given name
         :rtype: :class:`friendlypins.user.User`
         """
+        self._log.debug("Getting authenticated user details...")
         if username:
             raise NotImplementedError(
                 "Querying arbitrary Pinerest users is not yet supported.")

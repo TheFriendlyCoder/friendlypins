@@ -51,7 +51,8 @@ def test_delete():
     token = "1234abcd"
 
     data = {
-        "id": "12345678"
+        "id": "12345678",
+        "note": "My Pin Description"
     }
 
     obj = Pin(data, api_url, token)
