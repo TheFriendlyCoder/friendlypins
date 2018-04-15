@@ -1,18 +1,41 @@
-"""Command line interface for the friendly pins APIs"""
+"""Command line tool for converting webp images into jpegs
+
+                            WARNING
+This is a prototype, that needs to be more fully tested before it
+should be considered production ready.
+"""
+# pylint: skip-file
 import argparse
 import logging
 import shlex
 import sys
-from friendlypins.utils.console_actions import download_thumbnails
+import os
+from PIL import Image
 
-def _download_thumbnails(args):
-    """Callback for performing the thumbnail download operation
+
+def _convert(args):
+    """Worker function that converts webp images to jpeg
 
     :param args: Command line arguements customizing the behavior of the action
     :returns: zero on success, non-zero on failure
     :rtype: :class:`int`
     """
-    return download_thumbnails(args.token, args.board, args.path, args.delete)
+    log = logging.getLogger(__name__)
+    (output_folder, old_filename) = os.path.split(args.source_file)
+    new_filename = os.path.splitext(old_filename)[0] + ".jpeg"
+    output_file = os.path.join(output_folder, new_filename)
+
+    if os.path.exists(output_file):
+        log.error('Output file already exists %s', output_file)
+        return 1
+
+    im = Image.open(args.source_file).convert("RGB")
+    im.save(output_file, "jpeg")
+
+    if args.delete:
+        os.remove(args.source_file)
+
+    return 0
 
 
 def get_args(args):
@@ -25,7 +48,7 @@ def get_args(args):
     :rtype: :class:`argparse.Namespace`
     """
     parser = argparse.ArgumentParser(
-        description="Tool for interacting with Pinterest"
+        description="Tool for converting webp formatted images to jpeg"
     )
 
     # Global options
@@ -34,34 +57,15 @@ def get_args(args):
         action='count',
         default=0)
     parser.add_argument(
-        '--token', '-t',
-        required=True,
-        help="Pinterest API token to use for authentication")
-    sub_commands = parser.add_subparsers()
-
-    # Thumnail Downloader subparser
-    desc = 'Downloads thumbnail images from pins'
-    thumbnails_cmd = sub_commands.add_parser(
-        'download_thumbnails',
-        aliases=['dt'],
-        description=desc,
-        help=desc)
-    thumbnails_cmd.set_defaults(func=_download_thumbnails)
-
-    thumbnails_cmd.add_argument(
-        '--board', '-b',
-        required=True,
-        help="Name of the board where the pins to download are located",
+        "source_file",
+        action="store",
     )
-    thumbnails_cmd.add_argument(
-        '--path', '-p',
-        required=True,
-        help="Path to the folder where thumbnails are to be downloaded",
-    )
-    thumbnails_cmd.add_argument(
+
+    msg = "Deletes original webp source file after conversion completes."
+    parser.add_argument(
         '--delete', '-d',
         action="store_true",
-        help="Deletes each pin as it's thumbnail is downloaded"
+        help=msg
     )
 
     # If we've been given debugging arguments, convert them to the
@@ -94,7 +98,7 @@ def configure_logging(verbosity):
 
     # Configure a file logger for all verbose output to be streamed
     # to regardless of the source
-    file_handler = logging.FileHandler('friendlypins.log', 'w')
+    file_handler = logging.FileHandler('webp2jpeg.log', 'w')
     fmt = '%(asctime)s %(levelname)s (%(name)s.%(funcName)s) %(message)s'
     file_formatter = logging.Formatter(fmt=fmt)
     file_handler.setFormatter(file_formatter)
@@ -131,7 +135,7 @@ def main(args=None):
     try:
         parser = get_args(args)
         configure_logging(parser.verbose)
-        retval = parser.func(parser)
+        retval = _convert(parser)
         if retval == 0:
             log.info("Operation completed successfully!")
         return retval
@@ -142,4 +146,4 @@ def main(args=None):
         return -1
 
 if __name__ == "__main__":
-    pass
+    main("my/path/test.webp")
