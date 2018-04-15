@@ -3,7 +3,9 @@ import logging
 import os
 from six.moves import urllib
 import requests
+from tqdm import tqdm
 from friendlypins.api import API
+from friendlypins.headers import Headers
 
 def _download_pin(pin, folder):
     """Helper method for downloading a thumbnail from a single pin
@@ -15,6 +17,7 @@ def _download_pin(pin, folder):
     :rtype: :class:`int`
     """
     log = logging.getLogger(__name__)
+
     temp_url = urllib.parse.urlparse(pin.thumbnail.url)
     temp_filename = os.path.basename(temp_url.path)
     output_file = os.path.join(folder, temp_filename)
@@ -28,6 +31,9 @@ def _download_pin(pin, folder):
     try:
         response = requests.get(pin.thumbnail.url, stream=True)
         response.raise_for_status()
+        headers = Headers(response.headers)
+        log.debug(headers)
+
         with open(output_file, "wb") as handle:
             for data in response.iter_content():
                 handle.write(data)
@@ -64,16 +70,18 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
         return 1
 
     all_pins = selected_board.all_pins
-    log.info('Downloading %s thumbnails...', len(all_pins))
+    log.info('Downloading thumbnails...')
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    for cur_pin in all_pins:
-        retval = _download_pin(cur_pin, output_folder)
-        if retval:
-            return retval
-        if delete:
-            cur_pin.delete()
+    with tqdm(total=selected_board.num_pins, unit='b', ncols=80) as pbar:
+        for cur_pin in all_pins:
+            retval = _download_pin(cur_pin, output_folder)
+            if retval:
+                return retval
+            if delete:
+                cur_pin.delete()
+            pbar.update()
 
     return 0
 
