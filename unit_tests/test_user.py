@@ -2,6 +2,33 @@ import pytest
 import mock
 from friendlypins.user import User
 
+def test_user_properties():
+    expected_url = 'https://www.pinterest.com/MyUserName/'
+    expected_firstname = "John"
+    expected_lastname = "Doe"
+    expected_id = 12345678
+    expected_board_count = 32
+    expected_pin_count = 512
+    data = {
+        'url': expected_url,
+        'first_name': expected_firstname,
+        'last_name': expected_lastname,
+        'id': str(expected_id),
+        'counts': {
+            'boards': str(expected_board_count),
+            'pins': str(expected_pin_count)
+        }
+    }
+
+    obj = User(data, "https://pinterest_url/v1", "1234abcd")
+    assert expected_url == obj.url
+    assert expected_firstname == obj.first_name
+    assert expected_lastname == obj.last_name
+    assert expected_id == obj.unique_id
+    assert expected_board_count == obj.num_boards
+    assert expected_pin_count == obj.num_pins
+
+
 def test_get_boards():
     data = {
         "first_name": "John",
