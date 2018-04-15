@@ -1,6 +1,6 @@
 """Command line tool for converting webp images into jpegs
 
-                            WARNING
+*WARNING*
 This is a prototype, that needs to be more fully tested before it
 should be considered production ready.
 """

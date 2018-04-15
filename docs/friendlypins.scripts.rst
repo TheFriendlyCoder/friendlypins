@@ -7,6 +7,7 @@ Submodules
 .. toctree::
 
    friendlypins.scripts.fpins
+   friendlypins.scripts.webp2jpeg
 
 Module contents
 ---------------
