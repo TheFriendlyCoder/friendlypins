@@ -13,7 +13,7 @@ def _download_thumbnails(args):
     :returns: zero on success, non-zero on failure
     :rtype: :class:`int`
     """
-    return download_thumbnails(args.token, args.board, args.path)
+    return download_thumbnails(args.token, args.board, args.path, args.delete)
 
 
 def get_args(args):
@@ -58,6 +58,11 @@ def get_args(args):
         '--path', '-p',
         required=True,
         help="Path to the folder where thumbnails are to be downloaded",
+    )
+    thumbnails_cmd.add_argument(
+        '--delete', '-d',
+        action="store_true",
+        help="Deletes each pin as it's thumbnail is downloaded"
     )
 
     # If we've been given debugging arguments, convert them to the
