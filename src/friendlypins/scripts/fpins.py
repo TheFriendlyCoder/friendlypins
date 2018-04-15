@@ -88,6 +88,10 @@ def configure_logging(verbosity):
     # Configure a console logger for everything that should show up
     # on the shell to the user
     console_handler = logging.StreamHandler(sys.stdout)
+    if verbosity == 0:
+        console_handler.setLevel(logging.INFO)
+    else:
+        console_handler.setLevel(logging.DEBUG)
 
     # Configure a file logger for all verbose output to be streamed
     # to regardless of the source
@@ -103,17 +107,10 @@ def configure_logging(verbosity):
 
     global_log.addHandler(file_handler)
 
-    # Next, create our application logger here, and configure
-    # it's verbosity based on user input
-    log = logging.getLogger('friendlypins')
-    if verbosity == 0:
-        log.setLevel(logging.INFO)
-    else:
-        log.setLevel(logging.DEBUG)
-
     # Make sure we hook our console loggers to the appropriate logger
     # based on the level of verbosity the user has requested
     if verbosity < 2:
+        log = logging.getLogger('friendlypins')
         log.addHandler(console_handler)
     else:
         global_log.addHandler(console_handler)
@@ -139,7 +136,7 @@ def main(args=None):
         if retval == 0:
             log.info("Operation completed successfully!")
         return retval
-    except:  # pylint: disable=bare-except
+    except Exception:  # pylint: disable=broad-except
         log.error("Critical error processing command")
         log.error("See verbose output for details")
         log.debug("Details: ", exc_info=True)
