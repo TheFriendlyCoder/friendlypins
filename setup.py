@@ -9,7 +9,9 @@ PROJECT_NAME = 'friendlypins'
 PROJECT_DEPENDENCIES = [
     'requests',
     'six',
-    'dateutils']
+    'dateutils',
+    'tqdm',
+    'pillow']
 PROJECT_DEV_DEPENDENCIES = [
     'wheel<1.0.0',
     'twine<2.0.0',

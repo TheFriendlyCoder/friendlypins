@@ -28,7 +28,10 @@ def test_download_thumbnails(api_requests, user_requests, board_requests, action
         "data": [{
             "id": "6789",
             "name": expected_board_name,
-            "url": "https://www.pinterest.ca/MyName/MyBoard/"
+            "url": "https://www.pinterest.ca/MyName/MyBoard/",
+            "counts": {
+                "pins": 1
+            }
         }]
     }
 
@@ -110,7 +113,10 @@ def test_download_thumbnails_with_delete(pin_requests, api_requests, user_reques
         "data": [{
             "id": "6789",
             "name": expected_board_name,
-            "url": "https://www.pinterest.ca/MyName/MyBoard/"
+            "url": "https://www.pinterest.ca/MyName/MyBoard/",
+            "counts": {
+                "pins": 1
+            }
         }]
     }
 
@@ -194,7 +200,10 @@ def test_download_thumbnails_error(api_requests, user_requests, board_requests, 
         "data": [{
             "id": "6789",
             "name": expected_board_name,
-            "url": "https://www.pinterest.ca/MyName/MyBoard/"
+            "url": "https://www.pinterest.ca/MyName/MyBoard/",
+            "counts": {
+                "pins": 1
+            }
         }]
     }
 
@@ -278,7 +287,10 @@ def test_download_thumbnails_missing_board(api_requests, user_requests, board_re
         "data": [{
             "id": "6789",
             "name": "MyBoard",
-            "url": "https://www.pinterest.ca/MyName/MyBoard/"
+            "url": "https://www.pinterest.ca/MyName/MyBoard/",
+            "counts": {
+                "pins": 1
+            }
         }]
     }
 
@@ -358,7 +370,10 @@ def test_download_thumbnails_exists(api_requests, user_requests, board_requests,
         "data": [{
             "id": "6789",
             "name": expected_board_name,
-            "url": "https://www.pinterest.ca/MyName/MyBoard/"
+            "url": "https://www.pinterest.ca/MyName/MyBoard/",
+            "counts": {
+                "pins": 1
+            }
         }]
     }
 

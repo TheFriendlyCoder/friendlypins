@@ -79,5 +79,13 @@ class Headers(object):
         # return time data in current locale for convenience
         return date_with_tz.astimezone(tz.tzlocal())
 
+    @property
+    def bytes(self):
+        """Gets the number of bytes contained in the response data
+
+        :rtype: :class:`int`
+        """
+        return int(self._data['Content-Length'])
+
 if __name__ == "__main__":
     pass
