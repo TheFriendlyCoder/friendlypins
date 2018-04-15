@@ -80,7 +80,8 @@ class Board(object):
         temp_url = '{0}/boards/{1}/pins/'.format(self._root_url, self.unique_id)
         temp_url += "?access_token={0}".format(self._token)
         temp_url += "&limit=100"
-        temp_url += "&fields=id,image,metadata,link,url,original_link,media"
+        temp_url += "&fields=id,link,url,creator,board,created_at,note,color"
+        temp_url += ",counts,media,attribution,image,metadata,original_link"
         response = requests.get(temp_url)
         response.raise_for_status()
         retval = []
