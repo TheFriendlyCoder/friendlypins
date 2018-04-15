@@ -38,12 +38,13 @@ def _download_pin(pin, folder):
         return 2
     return 0
 
-def download_thumbnails(api_token, board_name, output_folder):
+def download_thumbnails(api_token, board_name, output_folder, delete):
     """Downloads thumbnails of all pins on a board
 
     :param str api_token: Authentication token for accessing the Pinterest API
     :param str board_name: name of the board containing the pins to process
     :param str output_folder: path where the thumbnails are to be downloaded
+    :param bool delete: flag to delete pins as their thumbnails are downloaded
     :returns:
         status code describing the result of the action
         zero on success, non-zero on failure
@@ -71,6 +72,9 @@ def download_thumbnails(api_token, board_name, output_folder):
         retval = _download_pin(cur_pin, output_folder)
         if retval:
             return retval
+        if delete:
+            cur_pin.delete()
+
     return 0
 
 if __name__ == "__main__":
