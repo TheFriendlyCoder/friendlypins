@@ -37,6 +37,7 @@ class API(object):  # pylint: disable=too-few-public-methods
         else:
             temp_url = "{0}/me".format(self._root_url)
         temp_url += "?access_token={0}".format(self._token)
+        temp_url += "&fields=id,username,first_name,last_name,bio,created_at,counts,image"
         response = requests.get(temp_url)
         response.raise_for_status()
 

@@ -80,6 +80,22 @@ class User(object):
         return self._data['url']
 
     @property
+    def num_pins(self):
+        """Gets the total number of pins owned by this user
+
+        :rtype: :class:`int`
+        """
+        return int(self._data['counts']['pins'])
+
+    @property
+    def num_boards(self):
+        """Gets the total number of boards owned by this user
+
+        :rtype: :class:`int`
+        """
+        return int(self._data['counts']['boards'])
+
+    @property
     def boards(self):
         """Gets a list of boards owned by this user
 
@@ -89,6 +105,7 @@ class User(object):
 
         temp_url = '{0}/me/boards/'.format(self._root_url)
         temp_url += "?access_token={0}".format(self._token)
+        temp_url += "&fields=id,name,url,description,creator,created_at,counts,image"
         response = requests.get(temp_url)
 
         header = Headers(response.headers)

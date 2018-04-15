@@ -6,16 +6,21 @@ def test_board_properties():
     expected_id = 1234
     expected_name = "MyBoard"
     expected_url = "https://www.pinterest.ca/MyName/MyBoard/"
+    expected_pin_count = 42
     sample_data = {
         "id": str(expected_id),
         "name": expected_name,
-        "url": expected_url
+        "url": expected_url,
+        "counts": {
+            "pins": str(expected_pin_count)
+        }
     }
 
     obj = Board(sample_data, 'http://pinterest_url', '1234abcd')
     assert obj.unique_id == expected_id
     assert obj.name == expected_name
     assert obj.url == expected_url
+    assert obj.num_pins == expected_pin_count
 
 def test_get_all_pins():
     data = {

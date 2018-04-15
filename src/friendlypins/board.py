@@ -59,6 +59,14 @@ class Board(object):
         return self._data['url']
 
     @property
+    def num_pins(self):
+        """Gets the total number of pins linked to this board
+
+        :rtype: :class:`int`
+        """
+        return int(self._data['counts']['pins'])
+
+    @property
     def all_pins(self):
         """Gets a list of all pins from this board
 
