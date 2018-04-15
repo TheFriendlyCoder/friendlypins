@@ -67,6 +67,8 @@ class Board(object):
 
         :rtype: :class:`list` of :class:`friendlypins.pin.Pin`
         """
+        self._log.debug('Gettings all pins for board %s...', self.name)
+
         temp_url = '{0}/boards/{1}/pins/'.format(self._root_url, self.unique_id)
         temp_url += "?access_token={0}".format(self._token)
         temp_url += "&limit=100"

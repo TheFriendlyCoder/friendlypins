@@ -3,7 +3,10 @@ import mock
 from friendlypins.user import User
 
 def test_get_boards():
-    data = dict()
+    data = {
+        "first_name": "John",
+        "last_name": "Doe"
+    }
     api_url = "https://pinterest_url/v1"
     token = "1234abcd"
     obj = User(data, api_url, token)

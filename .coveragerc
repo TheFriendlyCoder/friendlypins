@@ -1,7 +1,7 @@
 [run]
 # Include branch detection in coverage scan
 branch = True
-
+omit = */friendlypins/scripts/*
 
 [report]
 # fail the build if less than 0% of the code is covered by tests

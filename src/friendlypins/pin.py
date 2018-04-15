@@ -91,6 +91,7 @@ class Pin(object):
 
     def delete(self):
         """Removes this pin from it's respective board"""
+        self._log.debug('Deleting pin %s', repr(self))
         temp_url = '{0}/pins/{1}/'.format(
             self._root_url,
             self.unique_id)

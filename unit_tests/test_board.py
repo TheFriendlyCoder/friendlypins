@@ -19,7 +19,8 @@ def test_board_properties():
 
 def test_get_all_pins():
     data = {
-        'id': '987654321'
+        'id': '987654321',
+        'name': 'MyBoard'
     }
     api_url = "https://pinterest_url/v1"
     token = "1234abcd"
