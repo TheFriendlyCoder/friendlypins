@@ -75,7 +75,8 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
-    with tqdm(total=selected_board.num_pins, unit='b', ncols=80) as pbar:
+    fmt = "{bar}| {n_fmt}/{total_fmt} [ETA {remaining}]"
+    with tqdm(total=selected_board.num_pins, ncols=80, bar_format=fmt) as pbar:
         for cur_pin in selected_board.pins:
             retval = _download_pin(cur_pin, output_folder)
             if retval:
