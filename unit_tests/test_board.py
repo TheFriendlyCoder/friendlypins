@@ -24,7 +24,7 @@ def test_board_properties():
     assert obj.num_pins == expected_pin_count
 
 
-def test_get_all_pins():
+def test_get_pins():
     data = {
         'id': '987654321',
         'name': 'MyBoard'
@@ -54,7 +54,9 @@ def test_get_all_pins():
     mock_io.get.return_value = expected_data
     obj = Board(data, mock_io)
 
-    result = obj.all_pins
+    result = list()
+    for item in obj.pins:
+        result.append(item)
 
     assert len(result) == 1
     assert expected_url == result[0].url
