@@ -1,8 +1,6 @@
 """Primitives for interacting with Pinterest boards"""
 import logging
 import json
-import requests
-from friendlypins.headers import Headers
 from friendlypins.pin import Pin
 
 
@@ -10,15 +8,14 @@ class Board(object):
     """Abstraction around a Pinterest board
 
     :param dict data: Raw Pinterest API data describing the board
-    :param str root_url: URL of the Pinterest REST API
-    :param str token: Authentication token for the REST API
+    :param rest_io: reference to the Pinterest REST API
+    :type rest_io: :class:`friendlypins.utils.rest_io.RestIO`
     """
 
-    def __init__(self, data, root_url, token):
+    def __init__(self, data, rest_io):
         self._log = logging.getLogger(__name__)
         self._data = data
-        self._root_url = root_url
-        self._token = token
+        self._io = rest_io
 
     def __str__(self):
         """String representation of this board, for debugging purposes
@@ -76,37 +73,40 @@ class Board(object):
         :rtype: :class:`list` of :class:`friendlypins.pin.Pin`
         """
         self._log.debug('Gettings all pins for board %s...', self.name)
+        retval = list()
 
-        temp_url = '{0}/boards/{1}/pins/'.format(self._root_url, self.unique_id)
-        temp_url += "?access_token={0}".format(self._token)
-        temp_url += "&limit=100"
-        temp_url += "&fields=id,link,url,creator,board,created_at,note,color"
-        temp_url += ",counts,media,attribution,image,metadata,original_link"
-        response = requests.get(temp_url)
-        response.raise_for_status()
-        retval = []
-        header = Headers(response.headers)
-        self._log.debug("Pins query response header %s", header)
+        properties = {
+            "fields": ','.join([
+                "id",
+                "link",
+                "url",
+                "creator",
+                "board",
+                "created_at",
+                "note,color",
+                "counts",
+                "media",
+                "attribution",
+                "image",
+                "metadata",
+                "original_link"
+            ])
+        }
 
         while True:
-            raw = response.json()
-            assert 'data' in raw
+            result = self._io.get(
+                "boards/{0}/pins".format(self.unique_id),
+                properties)
+            assert 'data' in result
 
-            for cur_item in raw['data']:
-                retval.append(Pin(cur_item, self._root_url, self._token))
-
-            self._log.debug("Raw keys are %s", raw.keys())
-            self._log.debug("Paged info is %s", raw['page'])
-            if not raw['page']['cursor']:
+            for cur_item in result['data']:
+                retval.append(Pin(cur_item, self._io))
+            if not result["page"]["cursor"]:
                 break
-
-            paged_url = temp_url + "&cursor={0}".format(raw['page']['cursor'])
-            response = requests.get(paged_url)
-            response.raise_for_status()
-            header = Headers(response.headers)
-            self._log.debug("Pins query response header %s", header)
+            properties["cursor"] = result["page"]["cursor"]
 
         return retval
+
 
 if __name__ == "__main__":
     pass

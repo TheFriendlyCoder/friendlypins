@@ -7,6 +7,7 @@ from tqdm import tqdm
 from friendlypins.api import API
 from friendlypins.headers import Headers
 
+
 def _download_pin(pin, folder):
     """Helper method for downloading a thumbnail from a single pin
 
@@ -43,6 +44,7 @@ def _download_pin(pin, folder):
         log.debug("Details: ", exc_info=True)
         return 2
     return 0
+
 
 def download_thumbnails(api_token, board_name, output_folder, delete):
     """Downloads thumbnails of all pins on a board
@@ -84,6 +86,7 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
             pbar.update()
 
     return 0
+
 
 if __name__ == "__main__":
     pass

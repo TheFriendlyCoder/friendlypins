@@ -3,7 +3,6 @@ import mock
 from friendlypins.api import API
 
 def test_get_user():
-    obj = API('abcd1234')
     expected_url = 'https://www.pinterest.com/MyUserName/'
     expected_firstname = "John"
     expected_lastname = "Doe"
@@ -16,18 +15,18 @@ def test_get_user():
             'id': str(expected_id)
         }
     }
-    with mock.patch("friendlypins.api.requests") as mock_requests:
-        mock_response = mock.MagicMock()
-        mock_response.json.return_value = expected_data
-        mock_requests.get.return_value = mock_response
+    with mock.patch("friendlypins.api.RestIO") as mock_io:
+        mock_obj = mock.MagicMock()
+        mock_obj.get.return_value = expected_data
+        mock_io.return_value = mock_obj
+
+        obj = API('abcd1234')
         result = obj.get_user()
 
         assert expected_url == result.url
         assert expected_firstname == result.first_name
         assert expected_lastname == result.last_name
         assert expected_id == result.unique_id
-
-        mock_response.raise_for_status.assert_called_once()
 
 
 if __name__ == "__main__":

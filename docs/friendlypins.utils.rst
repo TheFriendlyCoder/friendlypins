@@ -7,6 +7,7 @@ Submodules
 .. toctree::
 
    friendlypins.utils.console_actions
+   friendlypins.utils.rest_io
 
 Module contents
 ---------------

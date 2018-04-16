@@ -7,10 +7,8 @@ from friendlypins.utils.console_actions import download_thumbnails
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
-@mock.patch("friendlypins.board.requests")
-@mock.patch("friendlypins.user.requests")
-@mock.patch("friendlypins.api.requests")
-def test_download_thumbnails(api_requests, user_requests, board_requests, action_requests, mock_open, mock_os):
+@mock.patch("friendlypins.api.RestIO")
+def test_download_thumbnails(rest_io, action_requests, mock_open, mock_os):
 
     # Fake user data for the user authenticating to Pinterest
     expected_user_data = {
@@ -60,17 +58,13 @@ def test_download_thumbnails(api_requests, user_requests, board_requests, action
     }
 
     # fake our Pinterest API data to flex our implementation logic
-    mock_user_response = mock.MagicMock()
-    mock_user_response.json.return_value = expected_user_data
-    api_requests.get.return_value = mock_user_response
-
-    mock_board_response = mock.MagicMock()
-    mock_board_response.json.return_value = expected_board_data
-    user_requests.get.return_value = mock_board_response
-
-    mock_pin_response = mock.MagicMock()
-    mock_pin_response.json.return_value = expected_pin_data
-    board_requests.get.return_value = mock_pin_response
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data,
+        expected_board_data,
+        expected_pin_data
+        ]
+    rest_io.return_value = mock_response
 
     # Make sure the code think's the output file where the
     # thumbnail is to be downloaded doesn't already exist
@@ -91,11 +85,8 @@ def test_download_thumbnails(api_requests, user_requests, board_requests, action
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
-@mock.patch("friendlypins.board.requests")
-@mock.patch("friendlypins.user.requests")
-@mock.patch("friendlypins.api.requests")
-@mock.patch("friendlypins.pin.requests")
-def test_download_thumbnails_with_delete(pin_requests, api_requests, user_requests, board_requests, action_requests, mock_open, mock_os):
+@mock.patch("friendlypins.api.RestIO")
+def test_download_thumbnails_with_delete(rest_io, action_requests, mock_open, mock_os):
 
     # Fake user data for the user authenticating to Pinterest
     expected_user_data = {
@@ -145,20 +136,13 @@ def test_download_thumbnails_with_delete(pin_requests, api_requests, user_reques
     }
 
     # fake our Pinterest API data to flex our implementation logic
-    mock_user_response = mock.MagicMock()
-    mock_user_response.json.return_value = expected_user_data
-    api_requests.get.return_value = mock_user_response
-
-    mock_board_response = mock.MagicMock()
-    mock_board_response.json.return_value = expected_board_data
-    user_requests.get.return_value = mock_board_response
-
-    mock_pin_response = mock.MagicMock()
-    mock_pin_response.json.return_value = expected_pin_data
-    board_requests.get.return_value = mock_pin_response
-
-    mock_delete_response = mock.MagicMock()
-    pin_requests.delete.return_value = mock_delete_response
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data,
+        expected_board_data,
+        expected_pin_data
+        ]
+    rest_io.return_value = mock_response
 
     # Make sure the code think's the output file where the
     # thumbnail is to be downloaded doesn't already exist
@@ -174,15 +158,13 @@ def test_download_thumbnails_with_delete(pin_requests, api_requests, user_reques
     mock_os.makedirs.assert_called()
     mock_os.path.exists.assert_called()
     mock_open.assert_called()
-    pin_requests.delete.assert_called_once()
+    mock_response.delete.assert_called_once()
 
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
-@mock.patch("friendlypins.board.requests")
-@mock.patch("friendlypins.user.requests")
-@mock.patch("friendlypins.api.requests")
-def test_download_thumbnails_error(api_requests, user_requests, board_requests, action_requests, mock_open, mock_os):
+@mock.patch("friendlypins.api.RestIO")
+def test_download_thumbnails_error(rest_io, action_requests, mock_open, mock_os):
 
     # Fake user data for the user authenticating to Pinterest
     expected_user_data = {
@@ -232,17 +214,13 @@ def test_download_thumbnails_error(api_requests, user_requests, board_requests, 
     }
 
     # fake our Pinterest API data to flex our implementation logic
-    mock_user_response = mock.MagicMock()
-    mock_user_response.json.return_value = expected_user_data
-    api_requests.get.return_value = mock_user_response
-
-    mock_board_response = mock.MagicMock()
-    mock_board_response.json.return_value = expected_board_data
-    user_requests.get.return_value = mock_board_response
-
-    mock_pin_response = mock.MagicMock()
-    mock_pin_response.json.return_value = expected_pin_data
-    board_requests.get.return_value = mock_pin_response
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data,
+        expected_board_data,
+        expected_pin_data
+        ]
+    rest_io.return_value = mock_response
 
     # Make sure the code think's the output file where the
     # thumbnail is to be downloaded doesn't already exist
@@ -267,10 +245,8 @@ def test_download_thumbnails_error(api_requests, user_requests, board_requests, 
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
-@mock.patch("friendlypins.board.requests")
-@mock.patch("friendlypins.user.requests")
-@mock.patch("friendlypins.api.requests")
-def test_download_thumbnails_missing_board(api_requests, user_requests, board_requests, action_requests, mock_open, mock_os):
+@mock.patch("friendlypins.api.RestIO")
+def test_download_thumbnails_missing_board(rest_io, action_requests, mock_open, mock_os):
 
     # Fake user data for the user authenticating to Pinterest
     expected_user_data = {
@@ -319,17 +295,13 @@ def test_download_thumbnails_missing_board(api_requests, user_requests, board_re
     }
 
     # fake our Pinterest API data to flex our implementation logic
-    mock_user_response = mock.MagicMock()
-    mock_user_response.json.return_value = expected_user_data
-    api_requests.get.return_value = mock_user_response
-
-    mock_board_response = mock.MagicMock()
-    mock_board_response.json.return_value = expected_board_data
-    user_requests.get.return_value = mock_board_response
-
-    mock_pin_response = mock.MagicMock()
-    mock_pin_response.json.return_value = expected_pin_data
-    board_requests.get.return_value = mock_pin_response
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data,
+        expected_board_data,
+        expected_pin_data
+        ]
+    rest_io.return_value = mock_response
 
     # Make sure the code think's the output file where the
     # thumbnail is to be downloaded doesn't already exist
@@ -349,10 +321,8 @@ def test_download_thumbnails_missing_board(api_requests, user_requests, board_re
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
-@mock.patch("friendlypins.board.requests")
-@mock.patch("friendlypins.user.requests")
-@mock.patch("friendlypins.api.requests")
-def test_download_thumbnails_exists(api_requests, user_requests, board_requests, action_requests, mock_open, mock_os):
+@mock.patch("friendlypins.api.RestIO")
+def test_download_thumbnails_exists(rest_io, action_requests, mock_open, mock_os):
 
     # Fake user data for the user authenticating to Pinterest
     expected_user_data = {
@@ -403,17 +373,13 @@ def test_download_thumbnails_exists(api_requests, user_requests, board_requests,
     }
 
     # fake our Pinterest API data to flex our implementation logic
-    mock_user_response = mock.MagicMock()
-    mock_user_response.json.return_value = expected_user_data
-    api_requests.get.return_value = mock_user_response
-
-    mock_board_response = mock.MagicMock()
-    mock_board_response.json.return_value = expected_board_data
-    user_requests.get.return_value = mock_board_response
-
-    mock_pin_response = mock.MagicMock()
-    mock_pin_response.json.return_value = expected_pin_data
-    board_requests.get.return_value = mock_pin_response
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data,
+        expected_board_data,
+        expected_pin_data
+        ]
+    rest_io.return_value = mock_response
 
     # Make sure the code think's the output file where the
     # thumbnail is to be downloaded exists already

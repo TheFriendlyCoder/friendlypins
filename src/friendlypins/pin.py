@@ -1,8 +1,6 @@
 """Primitives for operating on Pinterest pins"""
 import logging
 import json
-import requests
-from friendlypins.headers import Headers
 from friendlypins.thumbnail import Thumbnail
 
 
@@ -10,14 +8,13 @@ class Pin(object):
     """Abstraction around a Pinterest pin
 
     :param dict data: Raw Pinterest API data describing a pin
-    :param str root_url: URL of the Pinterest REST API
-    :param str token: Authentication token for interacting with the API
+    :param rest_io: reference to the Pinterest REST API
+    :type rest_io: :class:`friendlypins.utils.rest_io.RestIO`
     """
 
-    def __init__(self, data, root_url, token):
+    def __init__(self, data, rest_io):
         self._log = logging.getLogger(__name__)
-        self._root_url = root_url
-        self._token = token
+        self._io = rest_io
         self._data = data
 
     def __str__(self):
@@ -92,17 +89,8 @@ class Pin(object):
     def delete(self):
         """Removes this pin from it's respective board"""
         self._log.debug('Deleting pin %s', repr(self))
-        temp_url = '{0}/pins/{1}/'.format(
-            self._root_url,
-            self.unique_id)
-        temp_url += "?access_token={0}".format(self._token)
+        self._io.delete('pins/{0}'.format(self.unique_id))
 
-        response = requests.delete(temp_url)
-
-        header = Headers(response.headers)
-        self._log.debug("Boards query response header %s", header)
-
-        response.raise_for_status()
 
 if __name__ == "__main__":
     pass
