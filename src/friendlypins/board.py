@@ -89,20 +89,12 @@ class Board(object):
             ])
         }
 
-        page = 0
-        while True:
-            self._log.debug("Loading pins page %s", page)
-            result = self._io.get(
-                "boards/{0}/pins".format(self.unique_id),
-                properties)
-            assert 'data' in result
+        path = "boards/{0}/pins".format(self.unique_id)
+        for cur_page in self._io.get_pages(path, properties):
+            assert 'data' in cur_page
 
-            for cur_item in result['data']:
+            for cur_item in cur_page['data']:
                 yield Pin(cur_item, self._io)
-            if not result["page"]["cursor"]:
-                break
-            properties["cursor"] = result["page"]["cursor"]
-            page += 1
 
 
 if __name__ == "__main__":

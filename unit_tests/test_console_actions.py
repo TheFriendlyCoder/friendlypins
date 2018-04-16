@@ -59,10 +59,12 @@ def test_download_thumbnails(rest_io, action_requests, mock_open, mock_os):
 
     # fake our Pinterest API data to flex our implementation logic
     mock_response = mock.MagicMock()
+    mock_response.get_pages.side_effect = [
+        [expected_board_data],
+        [expected_pin_data]
+    ]
     mock_response.get.side_effect = [
-        expected_user_data,
-        expected_board_data,
-        expected_pin_data
+        expected_user_data
         ]
     rest_io.return_value = mock_response
 
@@ -139,8 +141,10 @@ def test_download_thumbnails_with_delete(rest_io, action_requests, mock_open, mo
     mock_response = mock.MagicMock()
     mock_response.get.side_effect = [
         expected_user_data,
-        expected_board_data,
-        expected_pin_data
+    ]
+    mock_response.get_pages.side_effect = [
+        [expected_board_data],
+        [expected_pin_data]
         ]
     rest_io.return_value = mock_response
 
@@ -217,8 +221,10 @@ def test_download_thumbnails_error(rest_io, action_requests, mock_open, mock_os)
     mock_response = mock.MagicMock()
     mock_response.get.side_effect = [
         expected_user_data,
-        expected_board_data,
-        expected_pin_data
+    ]
+    mock_response.get_pages.side_effect = [
+        [expected_board_data],
+        [expected_pin_data]
         ]
     rest_io.return_value = mock_response
 
@@ -379,8 +385,10 @@ def test_download_thumbnails_exists(rest_io, action_requests, mock_open, mock_os
     mock_response = mock.MagicMock()
     mock_response.get.side_effect = [
         expected_user_data,
-        expected_board_data,
-        expected_pin_data
+        ]
+    mock_response.get_pages.side_effect = [
+        [expected_board_data],
+        [expected_pin_data]
         ]
     rest_io.return_value = mock_response
 
