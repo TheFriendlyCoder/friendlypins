@@ -5,6 +5,7 @@ import shlex
 import sys
 from friendlypins.utils.console_actions import download_thumbnails
 
+
 def _download_thumbnails(args):
     """Callback for performing the thumbnail download operation
 
@@ -140,6 +141,7 @@ def main(args=None):
         log.error("See verbose output for details")
         log.debug("Details: ", exc_info=True)
         return -1
+
 
 if __name__ == "__main__":
     pass

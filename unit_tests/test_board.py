@@ -16,20 +16,19 @@ def test_board_properties():
         }
     }
 
-    obj = Board(sample_data, 'http://pinterest_url', '1234abcd')
+    mock_io = mock.MagicMock()
+    obj = Board(sample_data, mock_io)
     assert obj.unique_id == expected_id
     assert obj.name == expected_name
     assert obj.url == expected_url
     assert obj.num_pins == expected_pin_count
+
 
 def test_get_all_pins():
     data = {
         'id': '987654321',
         'name': 'MyBoard'
     }
-    api_url = "https://pinterest_url/v1"
-    token = "1234abcd"
-    obj = Board(data, api_url, token)
 
     expected_id = 1234
     expected_url = "https://www.pinterest.ca/MyName/MyPin/"
@@ -51,19 +50,18 @@ def test_get_all_pins():
         }
     }
 
-    with mock.patch("friendlypins.board.requests") as mock_requests:
-        mock_response = mock.MagicMock()
-        mock_response.json.return_value = expected_data
-        mock_requests.get.return_value = mock_response
-        result = obj.all_pins
+    mock_io = mock.MagicMock()
+    mock_io.get.return_value = expected_data
+    obj = Board(data, mock_io)
 
-        assert len(result) == 1
-        assert expected_url == result[0].url
-        assert expected_note == result[0].note
-        assert expected_id == result[0].unique_id
-        assert expected_mediatype == result[0].media_type
+    result = obj.all_pins
 
-        mock_response.raise_for_status.assert_called_once()
+    assert len(result) == 1
+    assert expected_url == result[0].url
+    assert expected_note == result[0].note
+    assert expected_id == result[0].unique_id
+    assert expected_mediatype == result[0].media_type
+
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])

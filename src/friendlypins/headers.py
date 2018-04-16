@@ -3,6 +3,7 @@ from datetime import datetime
 import json
 from dateutil import tz
 
+
 class Headers(object):
     """Abstraction around the Pinterest API HTTP response header
 
@@ -86,6 +87,7 @@ class Headers(object):
         :rtype: :class:`int`
         """
         return int(self._data['Content-Length'])
+
 
 if __name__ == "__main__":
     pass

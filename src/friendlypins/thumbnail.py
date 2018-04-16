@@ -56,5 +56,6 @@ class Thumbnail(object):
         """
         return self._data['original']['url']
 
+
 if __name__ == "__main__":
     pass

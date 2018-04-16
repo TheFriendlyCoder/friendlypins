@@ -1,24 +1,21 @@
 """Interfaces for interacting with Pinterest users"""
 import logging
 import json
-import requests
 from friendlypins.board import Board
-from friendlypins.headers import Headers
 
 
 class User(object):
     """Abstraction around a Pinterest user and their associated data
 
     :param dict data: JSON data parsed from the API
-    :param str root_url: URL of the Pinterest REST API
-    :param str token: Authentication token for interacting with the API
+    :param rest_io: reference to the Pinterest REST API
+    :type rest_io: :class:`friendlypins.utils.rest_io.RestIO`
     """
 
-    def __init__(self, data, root_url, token):
+    def __init__(self, data, rest_io):
         self._log = logging.getLogger(__name__)
         self._data = data
-        self._root_url = root_url
-        self._token = token
+        self._io = rest_io
 
     def __str__(self):
         """String representation of this user, for debugging purposes
@@ -103,22 +100,16 @@ class User(object):
         """
         self._log.debug("Loading boards for user %s...", self.name)
 
-        temp_url = '{0}/me/boards/'.format(self._root_url)
-        temp_url += "?access_token={0}".format(self._token)
-        temp_url += "&fields=id,name,url,description,creator,created_at,counts,image"
-        response = requests.get(temp_url)
+        fields = "id,name,url,description,creator,created_at,counts,image"
+        result = self._io.get('me/boards', {"fields": fields})
 
-        header = Headers(response.headers)
-        self._log.debug("Boards query response header %s", header)
-
-        response.raise_for_status()
-        raw = response.json()
-        assert 'data' in raw
+        assert 'data' in result
 
         retval = []
-        for cur_item in raw['data']:
-            retval.append(Board(cur_item, self._root_url, self._token))
+        for cur_item in result['data']:
+            retval.append(Board(cur_item, self._io))
         return retval
+
 
 if __name__ == "__main__":
     pass

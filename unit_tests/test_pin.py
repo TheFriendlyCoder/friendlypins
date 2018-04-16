@@ -18,13 +18,15 @@ def test_pin_properties():
         }
     }
 
-    obj = Pin(sample_data, "http://www.pinterest.com", "1234abcd")
+    mock_io = mock.MagicMock()
+    obj = Pin(sample_data, mock_io)
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
     assert obj.url == expected_url
     assert obj.link == expected_link
     assert obj.media_type == expected_media_type
+
 
 def test_pin_missing_media_type():
     expected_id = 1234
@@ -38,7 +40,8 @@ def test_pin_missing_media_type():
         "url": expected_url,
     }
 
-    obj = Pin(sample_data, "http://www.pinterest.com", "1234abcd")
+    mock_io = mock.MagicMock()
+    obj = Pin(sample_data, mock_io)
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
@@ -46,24 +49,19 @@ def test_pin_missing_media_type():
     assert obj.link == expected_link
     assert obj.media_type is None
 
-def test_delete():
-    api_url = "https://pinterest_url/v1"
-    token = "1234abcd"
 
+def test_delete():
     data = {
         "id": "12345678",
         "note": "My Pin Description"
     }
 
-    obj = Pin(data, api_url, token)
+    mock_io = mock.MagicMock()
+    obj = Pin(data, mock_io)
+    obj.delete()
 
-    with mock.patch("friendlypins.pin.requests") as mock_requests:
-        mock_response = mock.MagicMock()
-        mock_requests.delete.return_value = mock_response
+    mock_io.delete.assert_called_once()
 
-        obj.delete()
-        mock_requests.delete.assert_called_once()
-        mock_response.raise_for_status.assert_called_once()
 
 def test_get_thumbnail():
     expected_url = "https://i.pinimg.com/r/pin/12345"
@@ -75,9 +73,12 @@ def test_get_thumbnail():
         }
     }
 
-    obj = Pin(data, "http://www.pinterest.com", "1234abcd")
+    mock_io = mock.MagicMock()
+    obj = Pin(data, mock_io)
     result = obj.thumbnail
 
     assert result.url == expected_url
+
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])
