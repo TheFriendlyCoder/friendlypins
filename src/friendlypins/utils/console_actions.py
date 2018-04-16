@@ -71,13 +71,12 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
         log.error("Could not find selected board: %s", board_name)
         return 1
 
-    all_pins = selected_board.all_pins
     log.info('Downloading thumbnails...')
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
     with tqdm(total=selected_board.num_pins, unit='b', ncols=80) as pbar:
-        for cur_pin in all_pins:
+        for cur_pin in selected_board.pins:
             retval = _download_pin(cur_pin, output_folder)
             if retval:
                 return retval

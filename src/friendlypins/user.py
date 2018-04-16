@@ -94,21 +94,39 @@ class User(object):
 
     @property
     def boards(self):
-        """Gets a list of boards owned by this user
+        """Generator for iterating over the boards owned by this user
 
-        :rtype: :class:`list` of :class:`friendlypins.board.Board`
+        :rtype: Generator of :class:`friendlypins.board.Board`
         """
-        self._log.debug("Loading boards for user %s...", self.name)
+        self._log.debug('Loading boards for user %s...', self.name)
 
-        fields = "id,name,url,description,creator,created_at,counts,image"
-        result = self._io.get('me/boards', {"fields": fields})
+        properties = {
+            "fields": ','.join([
+                "id",
+                "name",
+                "url",
+                "description",
+                "creator",
+                "created_at",
+                "counts",
+                "image"
+            ])
+        }
 
-        assert 'data' in result
+        page = 0
+        while True:
+            self._log.debug("Loading boards page %s", page)
+            result = self._io.get("me/boards", properties)
+            assert 'data' in result
 
-        retval = []
-        for cur_item in result['data']:
-            retval.append(Board(cur_item, self._io))
-        return retval
+            for cur_item in result['data']:
+                yield Board(cur_item, self._io)
+
+            if not result["page"]["cursor"]:
+                break
+
+            properties["cursor"] = result["page"]["cursor"]
+            page += 1
 
 
 if __name__ == "__main__":

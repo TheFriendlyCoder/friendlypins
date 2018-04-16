@@ -44,13 +44,19 @@ def test_get_boards():
             "id": str(expected_id),
             "name": expected_name,
             "url": expected_url
-        }]
+        }],
+        "page": {
+            "cursor": None
+        }
     }
 
     mock_io = mock.MagicMock()
     mock_io.get.return_value = expected_data
     obj = User(data, mock_io)
-    result = obj.boards
+
+    result = list()
+    for item in obj.boards:
+        result.append(item)
 
     assert len(result) == 1
     assert expected_url == result[0].url

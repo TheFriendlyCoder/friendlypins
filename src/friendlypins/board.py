@@ -64,16 +64,12 @@ class Board(object):
         return int(self._data['counts']['pins'])
 
     @property
-    def all_pins(self):
-        """Gets a list of all pins from this board
+    def pins(self):
+        """Generator for iterating over the pins linked to this board
 
-        NOTE: This process may take a long time to complete and require
-        a lot of memory for boards that contain large numbers of pins
-
-        :rtype: :class:`list` of :class:`friendlypins.pin.Pin`
+        :rtype: Generator of :class:`friendlypins.pin.Pin`
         """
-        self._log.debug('Gettings all pins for board %s...', self.name)
-        retval = list()
+        self._log.debug('Loading pins for board %s...', self.name)
 
         properties = {
             "fields": ','.join([
@@ -93,19 +89,20 @@ class Board(object):
             ])
         }
 
+        page = 0
         while True:
+            self._log.debug("Loading pins page %s", page)
             result = self._io.get(
                 "boards/{0}/pins".format(self.unique_id),
                 properties)
             assert 'data' in result
 
             for cur_item in result['data']:
-                retval.append(Pin(cur_item, self._io))
+                yield Pin(cur_item, self._io)
             if not result["page"]["cursor"]:
                 break
             properties["cursor"] = result["page"]["cursor"]
-
-        return retval
+            page += 1
 
 
 if __name__ == "__main__":

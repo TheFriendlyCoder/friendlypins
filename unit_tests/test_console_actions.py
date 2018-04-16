@@ -267,7 +267,10 @@ def test_download_thumbnails_missing_board(rest_io, action_requests, mock_open, 
             "counts": {
                 "pins": 1
             }
-        }]
+        }],
+        "page": {
+            "cursor": None
+        }
     }
 
     # Fake pin data for the fake board, with fake thumbnail metadata
