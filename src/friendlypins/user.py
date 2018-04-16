@@ -113,20 +113,11 @@ class User(object):
             ])
         }
 
-        page = 0
-        while True:
-            self._log.debug("Loading boards page %s", page)
-            result = self._io.get("me/boards", properties)
-            assert 'data' in result
+        for cur_page in self._io.get_pages("me/boards", properties):
+            assert 'data' in cur_page
 
-            for cur_item in result['data']:
+            for cur_item in cur_page['data']:
                 yield Board(cur_item, self._io)
-
-            if not result["page"]["cursor"]:
-                break
-
-            properties["cursor"] = result["page"]["cursor"]
-            page += 1
 
 
 if __name__ == "__main__":

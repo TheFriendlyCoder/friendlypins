@@ -58,6 +58,29 @@ class RestIO(object):
 
         return response.json()
 
+    def get_pages(self, path, properties=None):
+        """Generator for iterating over paged results returned from API
+
+        :param str path: sub-path with in the REST API to query
+        :param dict properties:
+            optional set of request properties to append to the API call
+        :returns: json data returned from the API endpoint
+        :rtype: Generator of :class:`dict`
+        """
+        page = 0
+        while True:
+            self._log.debug("Loading results page %s", page)
+            result = self.get(path, properties)
+            yield result
+
+            if not result["page"]["cursor"]:
+                break
+
+            if properties is None:
+                properties = dict()
+            properties["cursor"] = result["page"]["cursor"]
+            page += 1
+
     def delete(self, path):
         """Sends a delete request to a remote endpoint
 

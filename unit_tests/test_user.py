@@ -51,7 +51,7 @@ def test_get_boards():
     }
 
     mock_io = mock.MagicMock()
-    mock_io.get.return_value = expected_data
+    mock_io.get_pages.return_value = [expected_data]
     obj = User(data, mock_io)
 
     result = list()
