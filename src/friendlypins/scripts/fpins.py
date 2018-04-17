@@ -174,6 +174,9 @@ def main(args=None):
         if retval == 0:
             log.info("Operation completed successfully!")
         return retval
+    except KeyboardInterrupt:
+        log.info("Process terminated...")
+        return 0
     except Exception:  # pylint: disable=broad-except
         log.error("Critical error processing command")
         log.error("See verbose output for details")
