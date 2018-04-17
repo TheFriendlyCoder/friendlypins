@@ -87,6 +87,33 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
 
     return 0
 
+def delete_board(api_token, board_name):
+    """Deletes a board owned by a specific user
+
+    :param str api_token: Authentication token for the user who owns the board
+    :param str board_name: Name of the board to delete
+    :returns: 0 if the board was deleted, otherwise an error code is returned
+    :rtype: :class:`int`
+    """
+    log = logging.getLogger(__name__)
+    obj = API(api_token)
+    user = obj.get_user()
+
+    selected_board = None
+    for cur_board in user.boards:
+        if cur_board.name == board_name:
+            selected_board = cur_board
+            break
+    if not selected_board:
+        log.error("Could not find selected board: %s", board_name)
+        return 1
+
+    log.info(
+        "Deleting board %s (%s)",
+        selected_board.name,
+        selected_board.unique_id)
+    selected_board.delete()
+    return 0
 
 if __name__ == "__main__":
     pass
