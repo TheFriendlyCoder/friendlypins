@@ -115,5 +115,19 @@ def delete_board(api_token, board_name):
     selected_board.delete()
     return 0
 
+def check_rate_limit(api_token):
+    """Checks to see when the next rate limit renewal is to occur
+
+    :param str api_token: Authentication token for the user who owns the board
+    :returns: 0 if the operation succeeded, otherwise an error code
+    :rtype: :class:`int`
+    """
+    log = logging.getLogger(__name__)
+    obj = API(api_token)
+    log.info("Transactions allowed: %s", obj.transaction_limit)
+    log.info("Transactions available: %s", obj.transaction_remaining)
+    log.info("Next rate limit renewal is at %s", obj.rate_limit_refresh)
+    return 0
+
 if __name__ == "__main__":
     pass

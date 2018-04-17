@@ -1,5 +1,5 @@
 """Primitives for operation in HTTP response headers provided by Pinterest"""
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 from dateutil import tz
 
@@ -57,12 +57,23 @@ class Headers(object):
         return int(percent * 100)
 
     @property
+    def time_to_refresh(self):
+        """Gets the time stamp of when the rate limiting threshold is renewed
+
+        :rtype: :class:`datetime.datetime`
+        """
+        if "X-Ratelimit-Refresh" not in self._data:
+            return datetime.now()
+
+        diff = timedelta(seconds=int(self._data['X-Ratelimit-Refresh']))
+        return self.date + diff
+
+    @property
     def date(self):
         """Date/time when this header was last populated
 
         :rtype: :class:`datetime.datetime`
         """
-        #TBD: Confirm if time encoding is 12h or 24h
         # parse dateimte string
         parsed_date = \
             datetime.strptime(self._data['Date'], "%a, %d %b %Y %H:%M:%S %Z")
