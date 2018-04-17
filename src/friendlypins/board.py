@@ -97,6 +97,10 @@ class Board(object):
             for cur_item in cur_page['data']:
                 yield Pin(cur_item, self._io)
 
+    def delete(self):
+        """Removes this board and all pins attached to it"""
+        self._log.debug('Deleting board %s', repr(self))
+        self._io.delete('boards/{0}'.format(self.unique_id))
 
 if __name__ == "__main__":
     pass

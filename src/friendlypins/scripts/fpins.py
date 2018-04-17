@@ -3,7 +3,7 @@ import argparse
 import logging
 import shlex
 import sys
-from friendlypins.utils.console_actions import download_thumbnails
+from friendlypins.utils.console_actions import download_thumbnails, delete_board
 
 
 def _download_thumbnails(args):
@@ -15,6 +15,17 @@ def _download_thumbnails(args):
     """
     return download_thumbnails(args.token, args.board, args.path, args.delete)
 
+def _edit_board(args):
+    """Callback for manipulating a Pinterest board
+
+    :param args: Command line arguements customizing the behavior of the action
+    :returns: zero on success, non-zero on failure
+    :rtype: :class:`int`
+    """
+    if args.delete:
+        return delete_board(args.token, args.board_name)
+
+    return 0
 
 def get_args(args):
     """Helper method used to parse command line parameters
@@ -63,6 +74,31 @@ def get_args(args):
         '--delete', '-d',
         action="store_true",
         help="Deletes each pin as it's thumbnail is downloaded"
+    )
+
+    # Board manipulation sub-command
+    desc = 'Manipulates boards owned by the authenticated user'
+    board_cmd = sub_commands.add_parser(
+        'board',
+        description=desc,
+        help=desc)
+    board_cmd.set_defaults(func=_edit_board)
+
+    operation_group = board_cmd.add_mutually_exclusive_group(required=True)
+    operation_group.add_argument(
+        '--delete', '-d',
+        action="store_true",
+        help="deletes the selected group",
+    )
+    operation_group.add_argument(
+        '--create', '-c',
+        action="store_true",
+        help="creates a new group",
+    )
+
+    board_cmd.add_argument(
+        "board_name",
+        help="Name of the board to manipulate"
     )
 
     # If we've been given debugging arguments, convert them to the
@@ -129,6 +165,8 @@ def main(args=None):
     :rtype: :class:`int`
     """
     log = logging.getLogger(__name__)
+    # Default logger - helpful when debugging initialization problems
+    # logging.basicConfig(level=logging.DEBUG)
     try:
         parser = get_args(args)
         configure_logging(parser.verbose)
