@@ -60,7 +60,7 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
-    user = obj.get_user()
+    user = obj.user
 
     selected_board = None
     for cur_board in user.boards:
@@ -97,7 +97,7 @@ def delete_board(api_token, board_name):
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
-    user = obj.get_user()
+    user = obj.user
 
     selected_board = None
     for cur_board in user.boards:
