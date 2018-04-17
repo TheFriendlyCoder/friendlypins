@@ -43,5 +43,30 @@ def test_get_headers(mock_requests):
     assert tmp.bytes == expected_bytes
 
 
+@mock.patch("friendlypins.utils.rest_io.requests")
+def test_post(mock_requests):
+    obj = RestIO("1234abcd")
+    expected_path = "me/boards"
+    expected_data = {
+        "name": "My New Board",
+        "description": "Here is my cool description"
+    }
+
+    expected_results = {
+        "testing": "123"
+    }
+    mock_response = mock.MagicMock()
+    mock_requests.post.return_value = mock_response
+    mock_response.json.return_value = expected_results
+
+    res = obj.post(expected_path, expected_data)
+
+    mock_response.json.assert_called_once()
+    mock_requests.post.assert_called_once()
+
+    assert expected_path in mock_requests.post.call_args[0][0]
+    assert "data" in mock_requests.post.call_args[1]
+    assert mock_requests.post.call_args[1]["data"] == expected_data
+
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])

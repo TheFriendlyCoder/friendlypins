@@ -59,8 +59,40 @@ class RestIO(object):
         properties["access_token"] = self._token
 
         response = requests.get(temp_url, params=properties)
+
+        self._log.debug("Get response text is %s", response.text)
         self._latest_header = Headers(response.headers)
         self._log.debug("%s query header: %s", path, self._latest_header)
+        response.raise_for_status()
+
+        return response.json()
+
+    def post(self, path, data, properties=None):
+        """Posts API data to a given sub-path
+
+        :param str path: sub-path with in the REST API to send data to
+        :param dict data: form data to be posted to the API endpoint
+        :param dict properties:
+            optional set of request properties to append to the API call
+        :returns: json data returned from the API endpoint
+        :rtype: :class:`dict`
+        """
+        self._log.debug(
+            "Posting data from %s with options %s",
+            path,
+            properties
+        )
+        temp_url = "{0}/{1}/".format(self._root_url, path)
+
+        if properties is None:
+            properties = dict()
+        properties["access_token"] = self._token
+
+        response = requests.post(temp_url, data=data, params=properties)
+        self._latest_header = Headers(response.headers)
+        self._log.debug("%s query header: %s", path, self._latest_header)
+        self._log.debug("Post response text is %s", response.text)
+
         response.raise_for_status()
 
         return response.json()

@@ -109,7 +109,9 @@ class User(object):
                 "creator",
                 "created_at",
                 "counts",
-                "image"
+                "image",
+                "reason",
+                "privacy"
             ])
         }
 
@@ -119,6 +121,35 @@ class User(object):
             for cur_item in cur_page['data']:
                 yield Board(cur_item, self._io)
 
+    def create_board(self, name, description=None):
+        """Creates a new board for the currently authenticated user
+
+        :param str name: name for the new board
+        :param str description: optional descriptive text for the board
+        :returns: reference to the newly created board
+        :rtype: :class:`friendlypins.board.Board`
+        """
+        properties = {
+            "fields": ','.join([
+                "id",
+                "name",
+                "url",
+                "description",
+                "creator",
+                "created_at",
+                "counts",
+                "image",
+                "reason",
+                "privacy"
+            ])
+        }
+
+        data = {"name": name}
+        if description:
+            data["description"] = description
+
+        result = self._io.post("boards", data, properties)
+        return Board(result['data'], self._io)
 
 if __name__ == "__main__":
     pass

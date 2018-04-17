@@ -25,7 +25,18 @@ class API(object):  # pylint: disable=too-few-public-methods
         """
         self._log.debug("Getting authenticated user details...")
 
-        fields = "id,username,first_name,last_name,bio,created_at,counts,image"
+        fields = ",".join([
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "bio",
+            "created_at",
+            "counts",
+            "image",
+            "account_type",
+            "url"
+        ])
         result = self._io.get("me", {"fields": fields})
         assert 'data' in result
 
