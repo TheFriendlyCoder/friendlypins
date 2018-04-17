@@ -21,7 +21,7 @@ def test_get_user():
         mock_io.return_value = mock_obj
 
         obj = API('abcd1234')
-        result = obj.get_user()
+        result = obj.user
 
         assert expected_url == result.url
         assert expected_firstname == result.first_name
