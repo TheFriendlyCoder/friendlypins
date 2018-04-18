@@ -2,7 +2,8 @@ import pytest
 import mock
 import os
 from friendlypins.utils.console_actions import download_thumbnails, delete_board
-
+import friendlypins.utils.console_actions as ca
+ca.DISABLE_PROGRESS_BARS = True
 
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
