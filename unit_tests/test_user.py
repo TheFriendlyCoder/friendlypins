@@ -63,6 +63,29 @@ def test_get_boards():
     assert expected_name == result[0].name
     assert expected_id == result[0].unique_id
 
+def test_create_board():
+    expected_name = "My Board"
+    expected_desc = "My new board is about this stuff..."
+    data = {
+        "id": "1234",
+        "first_name": "Jonh",
+        "last_name": "Doe"
+    }
+    mock_io = mock.MagicMock()
+    mock_io.post.return_value = {
+        "data": {
+            "name": expected_name,
+            "description": expected_desc,
+            "id": "12345"
+        }
+    }
+    obj = User(data, mock_io)
+
+    board = obj.create_board(expected_name, expected_desc)
+    mock_io.post.assert_called_once()
+    assert board is not None
+    assert board.name == expected_name
+    assert board.description == expected_desc
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])

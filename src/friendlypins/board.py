@@ -48,6 +48,14 @@ class Board(object):
         return self._data['name']
 
     @property
+    def description(self):
+        """Gets the descriptive text associated with this board
+
+        :rtype: :class:`str`
+        """
+        return self._data['description']
+
+    @property
     def url(self):
         """Web address for the UI associated with the dashboard
 
