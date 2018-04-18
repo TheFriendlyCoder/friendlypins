@@ -31,6 +31,41 @@ class API(object):  # pylint: disable=too-few-public-methods
 
         return User(result['data'], self._io)
 
+    @property
+    def rate_limit_refresh(self):
+        """Gets the time when the next refresh for API queries takes effect
+
+        :rtype: :class:`datetime.datetime`
+        """
+        try:
+            if self._io.headers is None:
+                self._io.get("me")
+        finally:
+            return self._io.headers.time_to_refresh  # pylint: disable=lost-exception
+
+    @property
+    def transaction_limit(self):
+        """Gets the total number of transactions per hour we're allotted
+
+        :rtype: :class:`int`
+        """
+        try:
+            if self._io.headers is None:
+                self._io.get("me")
+        finally:
+            return self._io.headers.rate_limit  # pylint: disable=lost-exception
+
+    @property
+    def transaction_remaining(self):
+        """Gets the total number of transactions per hour we're allotted
+
+        :rtype: :class:`int`
+        """
+        try:
+            if self._io.headers is None:
+                self._io.get("me")
+        finally:
+            return self._io.headers.rate_remaining  # pylint: disable=lost-exception
 
 if __name__ == "__main__":
     pass

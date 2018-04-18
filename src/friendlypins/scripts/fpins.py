@@ -3,7 +3,8 @@ import argparse
 import logging
 import shlex
 import sys
-from friendlypins.utils.console_actions import download_thumbnails, delete_board
+from friendlypins.utils.console_actions import download_thumbnails, \
+    delete_board, check_rate_limit
 
 
 def _download_thumbnails(args):
@@ -26,6 +27,15 @@ def _edit_board(args):
         return delete_board(args.token, args.board_name)
 
     return 0
+
+def _check_rate_refresh(args):
+    """Callback for checking when the next rate limite renewal is to occur
+
+    :param args: Command line arguements customizing the behavior of the action
+    :returns: zero on success, non-zero on failure
+    :rtype: :class:`int`
+    """
+    return check_rate_limit(args.token)
 
 def get_args(args):
     """Helper method used to parse command line parameters
@@ -100,6 +110,14 @@ def get_args(args):
         "board_name",
         help="Name of the board to manipulate"
     )
+
+    # Rate limit check subcommand
+    desc = 'Checks when the next rate limit renewal is due to occur'
+    rate_cmd = sub_commands.add_parser(
+        'check_rate_limit',
+        description=desc,
+        help=desc)
+    rate_cmd.set_defaults(func=_check_rate_refresh)
 
     # If we've been given debugging arguments, convert them to the
     # format argparse expects

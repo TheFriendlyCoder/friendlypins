@@ -29,6 +29,14 @@ class RestIO(object):
         """Gets API token"""
         return self._token
 
+    @property
+    def headers(self):
+        """Gets the HTTP headers from the most recent API operation
+
+        :rtype: :class:`friendlypins.headers.Headers`
+        """
+        return self._latest_header
+
     def get(self, path, properties=None):
         """Gets API data from a given sub-path
 
@@ -51,10 +59,9 @@ class RestIO(object):
         properties["access_token"] = self._token
 
         response = requests.get(temp_url, params=properties)
-        response.raise_for_status()
-
         self._latest_header = Headers(response.headers)
         self._log.debug("%s query header: %s", path, self._latest_header)
+        response.raise_for_status()
 
         return response.json()
 
@@ -94,11 +101,10 @@ class RestIO(object):
         }
 
         response = requests.delete(temp_url, params=properties)
-        response.raise_for_status()
         header = Headers(response.headers)
         self._log.debug("Headers for delete on %s are: %s", path, header)
         self._log.debug("Response from delete was %s", response.text)
-
+        response.raise_for_status()
 
 if __name__ == "__main__":
     pass
