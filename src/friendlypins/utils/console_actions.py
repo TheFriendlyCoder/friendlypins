@@ -7,6 +7,8 @@ from tqdm import tqdm
 from friendlypins.api import API
 from friendlypins.headers import Headers
 
+# Flag used to turn progress bars for downloads and such on and off
+DISABLE_PROGRESS_BARS = False
 
 def _download_pin(pin, folder):
     """Helper method for downloading a thumbnail from a single pin
@@ -76,7 +78,13 @@ def download_thumbnails(api_token, board_name, output_folder, delete):
         os.makedirs(output_folder)
 
     fmt = "{bar}| {n_fmt}/{total_fmt} [ETA {remaining}]"
-    with tqdm(total=selected_board.num_pins, ncols=80, bar_format=fmt) as pbar:
+    parms = {
+        "total": selected_board.num_pins,
+        "ncols": 80,
+        "bar_format": fmt,
+        "disable": DISABLE_PROGRESS_BARS
+    }
+    with tqdm(**parms) as pbar:
         for cur_pin in selected_board.pins:
             retval = _download_pin(cur_pin, output_folder)
             if retval:
