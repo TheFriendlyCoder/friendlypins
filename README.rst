@@ -86,6 +86,17 @@ under the "Postman" app section.
 13. under "Add authorization data to” select “request url”
 14. click “get new access token”
 15. fill out the form that pops up as follows:
+
+    * grant type: authorization code
+    * callback url: https://www.getpostman.com/oauth2/callback
+    * auth url: https://api.pinterest.com/oauth
+    * access token url: https://api.pinterest.com/v1/oauth/token
+    * clientID: app ID from your pinterest app created above
+    * client secret: app secret also from your pinterest app
+    * scope: read_public,write_public,read_relationships,write_relationship
+    * state: leave blank
+    * client authentication: send as basic auth header
+    
 16. click request token
 17. you’ll be redirected to pinterest web site. Log in as yourself.
 18. when prompted, click “okay”to allow your test app access to your pinterest
