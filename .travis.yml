@@ -6,7 +6,7 @@ sudo: false  # enable container-based build
 stages:
   - test
   - name: deploy
-    if: tag IS present
+    # if: tag IS present
 
 # Generate a matrix for all Python versions we support
 python:
