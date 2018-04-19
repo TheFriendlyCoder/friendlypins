@@ -69,4 +69,20 @@ under the "Postman" app section.
 
 1. Navigate to the Pinterest developer website and sign up for a free account:
    https://developers.pinterest.com
+2. Under your personal profile, click the "Create App" button
+3. Name your app something appropriate like "My Test App"
+4. Once you create your test app, you'll need to set up a "Platform". Under
+   the "Web" platform enter: https://www.getpostman.com/oauth2/callback
+5. Download and install Postman app for your platform: https://www.getpostman.com/apps
+6. When you launch the app, you'll be prompted to set up a free account. Either
+   set up a free account or choose the "skip" link at the bottom of the page.
+7. Click the "new request" button on the wizard that pops up
+8. enter a name for your config (ie testing)
+9. click create collection and give it a name (ie my collection)
+10. click save
+11. in the “get” field enter a Pinterest rest api endpoint url like:
+    https://api.pinterest.com/v1/me/pins
+12. under “Authorization -> type” select oauth 2.0
+13. under "Add authorization data to” select “request url”
+14. click “get new access token”
 
