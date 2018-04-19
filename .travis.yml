@@ -10,12 +10,12 @@ stages:
 
 # Generate a matrix for all Python versions we support
 python:
-  - 2.7
-  - 3.4
-  - 3.5
+  #- 2.7
+  #- 3.4
+  #- 3.5
   - 3.6
-  - pypy
-  - pypy3
+  #- pypy
+  #- pypy3
 
 # Install all of our build-time dependencies
 install: pip install wheel twine tox coveralls
@@ -25,7 +25,7 @@ install: pip install wheel twine tox coveralls
 # version stated above
 script:
   - source ./travisenv.sh
-  - tox
+  #- tox
 
 # Default a secondary, custom job that only runs after the default 'test'
 # job completes successfully
