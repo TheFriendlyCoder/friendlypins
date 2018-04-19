@@ -85,4 +85,13 @@ under the "Postman" app section.
 12. under “Authorization -> type” select oauth 2.0
 13. under "Add authorization data to” select “request url”
 14. click “get new access token”
+15. fill out the form that pops up as follows:
+16. click request token
+17. you’ll be redirected to pinterest web site. Log in as yourself.
+18. when prompted, click “okay”to allow your test app access to your pinterest
+    account
+19. click “use token"
+20. The token will appear in the collection configuration. Copy the token from
+    there and paste it into your script or pass it along to the calls to `fpins`
+    on the console.
 
