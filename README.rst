@@ -5,9 +5,6 @@
 .. http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
 ..
 
-=============
-Overview
-=============
 
 .. image:: https://img.shields.io/pypi/l/friendlypins.svg
     :target: https://github.com/TheFriendlyCoder/friendlypins/blob/master/LICENSE
@@ -40,6 +37,9 @@ Overview
 .. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
     :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
     :alt: Build status
+
+Overview
+=============
 
 User friendly Python wrapper for the
 `Pinterest developer APIs <https://developers.pinterest.com/>`_.
