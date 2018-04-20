@@ -120,6 +120,25 @@ def delete_board(api_token, board_name):
     selected_board.delete()
     return 0
 
+def create_board(api_token, board_name):
+    """Deletes a board owned by a specific user
+
+    :param str api_token: Authentication token for the user who owns the board
+    :param str board_name: Name of the board to create
+    :returns: 0 if the board was created, otherwise an error code is returned
+    :rtype: :class:`int`
+    """
+    log = logging.getLogger(__name__)
+    obj = API(api_token)
+    user = obj.user
+
+    result = user.create_board(board_name)
+
+    if result.name != board_name:
+        log.error("Unable to create board %s", board_name)
+        return 1
+    return 0
+
 def check_rate_limit(api_token):
     """Checks to see when the next rate limit renewal is to occur
 
