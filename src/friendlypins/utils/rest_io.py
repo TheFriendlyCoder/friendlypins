@@ -112,6 +112,10 @@ class RestIO(object):
             result = self.get(path, properties)
             yield result
 
+            if "page" not in result:
+                break
+            if "cursor" not in result["page"]:
+                break
             if not result["page"]["cursor"]:
                 break
 
