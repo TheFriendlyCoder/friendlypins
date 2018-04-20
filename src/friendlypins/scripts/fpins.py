@@ -4,7 +4,7 @@ import logging
 import shlex
 import sys
 from friendlypins.utils.console_actions import download_thumbnails, \
-    delete_board, check_rate_limit
+    delete_board, check_rate_limit, create_board
 
 
 def _download_thumbnails(args):
@@ -23,10 +23,16 @@ def _edit_board(args):
     :returns: zero on success, non-zero on failure
     :rtype: :class:`int`
     """
+    log = logging.getLogger(__name__)
     if args.delete:
+        log.debug("Deleting board %s", args.board_name)
         return delete_board(args.token, args.board_name)
+    if args.create:
+        log.debug("Creating board %s", args.board_name)
+        return create_board(args.token, args.board_name)
 
-    return 0
+    log.error("Unsupported board edit option")
+    return 1
 
 def _check_rate_refresh(args):
     """Callback for checking when the next rate limite renewal is to occur
@@ -148,7 +154,6 @@ def configure_logging(verbosity):
     fmt = '%(asctime)s %(levelname)s (%(name)s.%(funcName)s) %(message)s'
     file_formatter = logging.Formatter(fmt=fmt)
     file_handler.setFormatter(file_formatter)
-
 
     # Make sure we capture everything with the global logger
     global_log = logging.getLogger()

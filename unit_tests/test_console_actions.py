@@ -1,7 +1,8 @@
 import pytest
 import mock
 import os
-from friendlypins.utils.console_actions import download_thumbnails, delete_board
+from friendlypins.utils.console_actions import download_thumbnails, \
+    delete_board, create_board
 import friendlypins.utils.console_actions as ca
 ca.DISABLE_PROGRESS_BARS = True
 
@@ -421,6 +422,37 @@ def test_delete_missing_board(rest_io):
     # that must have executed as part of the process were called
     assert result != 0
     mock_response.delete.assert_not_called()
+
+@mock.patch("friendlypins.api.RestIO")
+def test_create_board(rest_io):
+    # Fake user data for the user authenticating to Pinterest
+    expected_user_data = {
+        'data': {
+            'url': 'https://www.pinterest.com/MyUserName/',
+            'first_name': "John",
+            'last_name': "Doe",
+            'id': "12345678"
+        }
+    }
+
+    expected_name = "My Board"
+
+    mock_response = mock.MagicMock()
+    mock_response.get.side_effect = [
+        expected_user_data
+    ]
+    rest_io.return_value = mock_response
+    mock_response.post.return_value = {
+        "data": {
+            "name": expected_name,
+            "id": "12345"
+        }
+    }
+
+    res = create_board("1234abcd", expected_name)
+
+    assert res == 0
+    mock_response.get.assert_called_once()
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v", "-s"])
