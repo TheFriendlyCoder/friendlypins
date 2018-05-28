@@ -83,14 +83,15 @@ def download_thumbnails(api_token, board_name, output_folder,):
         "bar_format": fmt,
         "disable": DISABLE_PROGRESS_BARS
     }
+    retval = 0
     with tqdm(**parms) as pbar:
         for cur_pin in selected_board.pins:
-            retval = _download_pin(cur_pin, output_folder)
-            if retval:
-                return retval
+            temp = _download_pin(cur_pin, output_folder)
+            if temp:
+                retval = temp
             pbar.update()
 
-    return 0
+    return retval
 
 def delete_board(api_token, board_name):
     """Deletes a board owned by a specific user
