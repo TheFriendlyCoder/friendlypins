@@ -3,4 +3,4 @@
 # the version number of the project. This makes the property easy to parse
 # from various tools, including Python using the "ast" library. See
 # "ast.literal_eval()" for details.
-"0.0.1"
+"1.0.4"
