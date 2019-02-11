@@ -1,43 +1,3 @@
-.. This is a readme file encoded in reStructuredText format, intended for use
-.. on the summary page for the freindly_pinterest PyPI project. Care should be
-.. taken to make sure the encoding is compatible with PyPI's markup syntax.
-.. See this site for details:
-.. http://docutils.sourceforge.net/docs/ref/rst/restructuredtext.html
-..
-
-
-.. image:: https://img.shields.io/pypi/l/friendlypins.svg
-    :target: https://github.com/TheFriendlyCoder/friendlypins/blob/master/LICENSE
-    :alt: License
-
-.. image:: https://coveralls.io/repos/github/TheFriendlyCoder/friendlypins/badge.svg?branch=master
-    :target: https://coveralls.io/github/TheFriendlyCoder/friendlypins?branch=master
-    :alt: Test Coverage
-
-.. image:: https://readthedocs.org/projects/friendlypins/badge/?version=latest
-    :target: http://friendlypins.readthedocs.io/en/latest
-    :alt: Documentation Status
-
-.. image:: https://requires.io/github/TheFriendlyCoder/friendlypins/requirements.svg?branch=master
-     :target: https://requires.io/github/TheFriendlyCoder/friendlypins/requirements/?branch=master
-     :alt: Requirements Status
-
-.. image:: https://img.shields.io/pypi/pyversions/friendlypins.svg
-    :target: https://pypi.org/project/friendlypins/
-    :alt: Python Versions
-
-.. image:: https://img.shields.io/pypi/format/friendlypins.svg
-    :target: https://pypi.org/project/friendlypins/
-    :alt: Format
-
-.. image:: https://badge.fury.io/py/friendlypins.svg
-    :target: https://pypi.org/project/friendlypins/
-    :alt: Latest Version
-
-.. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
-    :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
-    :alt: Build status
-
 Overview
 =============
 
@@ -96,7 +56,7 @@ under the "Postman" app section.
     * scope: read_public,write_public,read_relationships,write_relationship
     * state: leave blank
     * client authentication: send as basic auth header
-    
+
 16. click request token
 17. you’ll be redirected to pinterest web site. Log in as yourself.
 18. when prompted, click “okay”to allow your test app access to your pinterest
