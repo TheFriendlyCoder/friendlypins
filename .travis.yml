@@ -1,45 +1,41 @@
 language: python
-sudo: false  # enable container-based build
 
-# Make sure we run all 'test' stages before we deply
-# and ensure we only deploy from production branches / tags
-stages:
-  - test
-  - name: deploy
-    if: tag IS present
-
-# Generate a matrix for all Python versions we support
 python:
   - 2.7
   - 3.4
   - 3.5
   - 3.6
   - pypy
-  - pypy3
+  - pypy3.5
 
-# Install all of our build-time dependencies
-install: pip install wheel twine tox coveralls
+install:
+  - pip install tox twine wheel python-coveralls
 
-# Scripts for the default "test" stage
-# one copy of this default job will be generated for each python
-# version stated above
 script:
-  - source ./travisenv.sh
-  - tox
+  - echo $TRAVIS_PYTHON_VERSION
+  - export PYVER=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1 | sed 's/^py//'`
+  - echo $PYVER
+  - tox -e py$PYVER
 
-# Default a secondary, custom job that only runs after the default 'test'
-# job completes successfully
-# NOTE: Deploy stages will only run on tags or off the master branch as
-#       defined in the stage declarations above
-# NOTE: We've restricted this deploy job to only run for Python v3.6
-#       since we're generating a version-agnostic package
+# Deploy to test.pypi.org for branches
+# Deploy to pypi.org for tags
+# NOTE: You can not replace builds published to pypi, even if you delete one
+#       so you must make sure your versions are always unique
 jobs:
   include:
-    - stage: deploy
+    - stage: deploy-release
       python: 3.6
       script:
         - python setup.py bdist_wheel
         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
+      if: tag IS true
+    - stage: deploy-snapshot
+      python: 3.6
+      script:
+        - python setup.py bdist_wheel
+        - twine upload --repository-url https://test.pypi.org/legacy/
+            dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
+      if: tag IS NOT true
 
 after_success:
- - coveralls
+  - coveralls

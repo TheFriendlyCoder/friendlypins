@@ -1,9 +1,11 @@
 """Package definition for the project"""
-import pkg_resources
+import logging
+import os
+import ast
 
-try:
-    __version__ = pkg_resources.get_distribution(__name__).version
-except pkg_resources.DistributionNotFound:  # pragma: no cover
-    # If our package isn't currently installed, assume we are running
-    # under a development environment and just return a place holder
-    __version__ = "0.0.0.dev0"
+_CUR_FILE = os.path.realpath(__file__)
+_CUR_PATH = os.path.split(_CUR_FILE)[0]
+_PROPS = open(os.path.join(_CUR_PATH, 'version.prop')).read()
+__version__ = ast.literal_eval(_PROPS)
+
+logging.getLogger(__name__).addHandler(logging.NullHandler())
