@@ -211,8 +211,8 @@ def generate_readme(project, repo=None, version=None):
     })
     headers.append({
         "image": "https://img.shields.io/pypi/l/{0}.svg".format(project),
-        "target": "https://www.gnu.org/licenses/gpl-3.0-standalone.html",
-        "text": "GPL License"
+        "target": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+        "text": "Apache License 2.0"
     })
 
     header_template = """.. image:: {0}
@@ -268,16 +268,12 @@ setup(
     extras_require={
         'dev': PROJECT["DEV_DEPENDENCIES"]
     },
-    package_data={
-        PROJECT["NAME"]: ["version.prop"]
-    },
-    license="GPL",
+    license="Apache License 2.0",
     # https://pypi.org/classifiers/
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
-        "License :: OSI Approved :: "
-        "GNU General Public License v3 or later (GPLv3+)",
+        "License :: OSI Approved :: Apache Software License",
         "Topic :: Software Development :: Libraries",
         "Natural Language :: English",
         "Operating System :: OS Independent",
