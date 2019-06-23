@@ -20,6 +20,7 @@ Submodules
    friendlypins.pin
    friendlypins.thumbnail
    friendlypins.user
+   friendlypins.version
 
 Module contents
 ---------------
