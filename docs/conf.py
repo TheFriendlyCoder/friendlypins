@@ -13,9 +13,15 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import ast
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath(os.path.join('..', 'src')))
+import os
+import sys
+
+# If extensions (or modules to document with autodoc) are in another directory,
+# add these directories to sys.path here. If the directory is relative to the
+# documentation root, use os.path.abspath to make it absolute, like shown here.
+_base_path = os.path.abspath(os.path.dirname(__file__))
+_src_dir = os.path.abspath(os.path.join(_base_path, '..', 'src'))
+sys.path.insert(0, _src_dir)
 
 
 # -- Project information -----------------------------------------------------
@@ -23,8 +29,11 @@ import ast
 copyright = '2019, Kevin S. Phillips'
 author = 'Kevin S. Phillips'
 _proj_props = ast.literal_eval(open('../project.prop').read())
-_proj_props["VERSION"] = \
-    ast.literal_eval(open("../src/" + _proj_props["NAME"] + "/version.prop").read())
+_proj_dir = os.path.join(_src_dir, _proj_props["NAME"])
+with open(os.path.join(_proj_dir, "version.py")) as prop_file:
+    _data = ast.parse(prop_file.read())
+    _proj_props["VERSION"] = _data.body[0].value.s
+
 project = _proj_props["NAME"]
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
