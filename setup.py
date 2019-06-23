@@ -78,20 +78,30 @@ def _verify_src_version(version):
 
 def _src_version(project):
     """Parses the version number from the source project
-
     :param str project: the name of the project to get the version for
     :returns: the version for the specified project
     :rtype: :class:`str`
     """
-    ver_path = os.path.join(os.getcwd(), 'src', project, 'version.prop')
+    root_dir = os.path.dirname(__file__)
+    ver_path = os.path.join(root_dir, 'src', project, 'version.py')
     assert os.path.exists(ver_path)
 
-    data = open(ver_path).read()
-    retval = ast.literal_eval(data)
+    with open(ver_path) as prop_file:
+        data = ast.parse(prop_file.read())
 
-    assert retval is not None
-    assert _verify_src_version(retval)
-    return retval
+    # The version.py file is expected to contain only a single statement
+    # of the form:
+    #       __version__ = "1.2.3"
+    assert len(data.body) == 1
+    statement = data.body[0]
+    assert isinstance(statement, ast.Assign)
+    assert len(statement.targets) == 1
+    assert statement.targets[0].id == "__version__"
+    assert isinstance(statement.value, ast.Str)
+
+    # If we get here we know the one statement in the version module has
+    # a string value with the version number in it, so we just return it here
+    return statement.value.s
 
 
 def get_version_number(project):
