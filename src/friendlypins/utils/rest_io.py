@@ -35,6 +35,12 @@ class RestIO(object):
 
         :rtype: :class:`friendlypins.headers.Headers`
         """
+        if not self._latest_header:
+            temp_url = "{0}/me".format(self._root_url)
+            properties = {"access_token": self._token}
+            response = requests.get(temp_url, params=properties)
+            self._latest_header = Headers(response.headers)
+            response.raise_for_status()
         return self._latest_header
 
     def get(self, path, properties=None):

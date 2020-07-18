@@ -1,6 +1,6 @@
-import pytest
 import mock
 from friendlypins.user import User
+
 
 def test_user_properties():
     expected_url = 'https://www.pinterest.com/MyUserName/'
@@ -63,6 +63,7 @@ def test_get_boards():
     assert expected_name == result[0].name
     assert expected_id == result[0].unique_id
 
+
 def test_create_board():
     expected_name = "My Board"
     expected_desc = "My new board is about this stuff..."
@@ -86,6 +87,3 @@ def test_create_board():
     assert board is not None
     assert board.name == expected_name
     assert board.description == expected_desc
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])

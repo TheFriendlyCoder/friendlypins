@@ -1,6 +1,6 @@
-import pytest
 import mock
 from friendlypins.pin import Pin
+
 
 def test_pin_properties():
     expected_id = 1234
@@ -78,7 +78,3 @@ def test_get_thumbnail():
     result = obj.thumbnail
 
     assert result.url == expected_url
-
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])

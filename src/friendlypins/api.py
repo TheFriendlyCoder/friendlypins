@@ -48,11 +48,7 @@ class API(object):  # pylint: disable=too-few-public-methods
 
         :rtype: :class:`datetime.datetime`
         """
-        try:
-            if self._io.headers is None:
-                self._io.get("me")
-        finally:
-            return self._io.headers.time_to_refresh  # pylint: disable=lost-exception
+        return self._io.headers.time_to_refresh
 
     @property
     def transaction_limit(self):
@@ -60,11 +56,7 @@ class API(object):  # pylint: disable=too-few-public-methods
 
         :rtype: :class:`int`
         """
-        try:
-            if self._io.headers is None:
-                self._io.get("me")
-        finally:
-            return self._io.headers.rate_limit  # pylint: disable=lost-exception
+        return self._io.headers.rate_limit
 
     @property
     def transaction_remaining(self):
@@ -72,11 +64,8 @@ class API(object):  # pylint: disable=too-few-public-methods
 
         :rtype: :class:`int`
         """
-        try:
-            if self._io.headers is None:
-                self._io.get("me")
-        finally:
-            return self._io.headers.rate_remaining  # pylint: disable=lost-exception
+        return self._io.headers.rate_remaining
+
 
 if __name__ == "__main__":
     pass

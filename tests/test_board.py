@@ -1,6 +1,6 @@
-import pytest
 import mock
 from friendlypins.board import Board
+
 
 def test_board_properties():
     expected_id = 1234
@@ -64,6 +64,7 @@ def test_get_pins():
     assert expected_id == result[0].unique_id
     assert expected_mediatype == result[0].media_type
 
+
 def test_delete():
     data = {
         "id": "12345678",
@@ -75,6 +76,3 @@ def test_delete():
     obj.delete()
 
     mock_io.delete.assert_called_once()
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])

@@ -1,10 +1,10 @@
-import pytest
 import mock
 import os
 from friendlypins.utils.console_actions import download_thumbnails, \
     delete_board, create_board
 import friendlypins.utils.console_actions as ca
 ca.DISABLE_PROGRESS_BARS = True
+
 
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
@@ -170,6 +170,7 @@ def test_download_thumbnails_error(rest_io, action_requests, mock_open, mock_os)
     mock_os.path.exists.assert_called()
     assert not mock_open.called
 
+
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
 @mock.patch("friendlypins.utils.console_actions.requests")
@@ -248,6 +249,7 @@ def test_download_thumbnails_missing_board(rest_io, action_requests, mock_open, 
     assert not mock_os.makedirs.called
     assert not mock_os.path.exists.called
     assert not mock_open.called
+
 
 @mock.patch("friendlypins.utils.console_actions.os")
 @mock.patch("friendlypins.utils.console_actions.open")
@@ -331,6 +333,7 @@ def test_download_thumbnails_exists(rest_io, action_requests, mock_open, mock_os
     assert not mock_os.makedirs.called
     mock_os.path.exists.assert_called_with(os.path.join(output_folder, expected_filename))
     assert not mock_open.called
+
 
 @mock.patch("friendlypins.api.RestIO")
 def test_delete_board(rest_io):
@@ -423,6 +426,7 @@ def test_delete_missing_board(rest_io):
     assert result != 0
     mock_response.delete.assert_not_called()
 
+
 @mock.patch("friendlypins.api.RestIO")
 def test_create_board(rest_io):
     # Fake user data for the user authenticating to Pinterest
@@ -453,6 +457,3 @@ def test_create_board(rest_io):
 
     assert res == 0
     mock_response.get.assert_called_once()
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])

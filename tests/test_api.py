@@ -1,4 +1,3 @@
-import pytest
 import mock
 from friendlypins.api import API
 from dateutil import tz
@@ -51,12 +50,12 @@ def test_transaction_limit(mock_requests):
       'Pinterest-Generated-By': '',
     }
     mock_requests.get.return_value = mock_response
-    mock_response.raise_for_status.side_effect = Exception
 
     obj = API("abcd1234")
-    obj.transaction_limit == expected_rate_limit
+    assert obj.transaction_limit == expected_rate_limit
     mock_requests.get.assert_called_once()
     mock_response.raise_for_status.assert_called_once()
+
 
 @mock.patch("friendlypins.utils.rest_io.requests")
 def test_transaction_remaining(mock_requests):
@@ -78,13 +77,13 @@ def test_transaction_remaining(mock_requests):
       'Pinterest-Generated-By': '',
     }
     mock_requests.get.return_value = mock_response
-    mock_response.raise_for_status.side_effect = Exception
 
     obj = API("abcd1234")
     tmp = obj.transaction_remaining
     mock_requests.get.assert_called_once()
     mock_response.raise_for_status.assert_called_once()
-    tmp == expected_rate_remaining
+    assert tmp == expected_rate_remaining
+
 
 @mock.patch("friendlypins.utils.rest_io.requests")
 def test_rate_refresh(mock_requests):
@@ -109,7 +108,6 @@ def test_rate_refresh(mock_requests):
       'X-Ratelimit-Refresh': str(refresh_time)
     }
     mock_requests.get.return_value = mock_response
-    mock_response.raise_for_status.side_effect = Exception
 
     obj = API("abcd1234")
     tmp = obj.rate_limit_refresh
@@ -118,7 +116,3 @@ def test_rate_refresh(mock_requests):
     mock_response.raise_for_status.assert_called_once()
     tmp = tmp.astimezone(tz.tzutc())
     assert tmp.strftime("%a, %d %b %Y %H:%M:%S") == expected_time_str
-
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])
