@@ -63,7 +63,7 @@ class Headers(object):
         :rtype: :class:`datetime.datetime`
         """
         if "X-Ratelimit-Refresh" not in self._data:
-            return datetime.now()
+            return datetime.now(tz=tz.tzutc())
 
         diff = timedelta(seconds=int(self._data['X-Ratelimit-Refresh']))
         return self.date + diff
