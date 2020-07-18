@@ -1,5 +1,3 @@
-import pytest
-import mock
 from friendlypins.headers import Headers
 from dateutil import tz
 
@@ -32,25 +30,30 @@ def test_get_date_locale():
 
     assert obj.date.tzinfo == tz.tzlocal()
 
+
 def test_get_rate_limit():
     obj = Headers(sample_header)
 
     assert obj.rate_limit == sample_rate_limit
+
 
 def test_get_rate_max():
     obj = Headers(sample_header)
 
     assert obj.rate_remaining == sample_rate_max
 
+
 def test_get_rate_percent():
     obj = Headers(sample_header)
 
     assert obj.percent_rate_remaining == 75
 
+
 def test_get_num_bytes():
     obj = Headers(sample_header)
 
     assert obj.bytes == sample_content_length
+
 
 def test_time_to_refresh():
 
@@ -60,5 +63,3 @@ def test_time_to_refresh():
 
     tmp = tmp.astimezone(tz.tzutc())
     assert tmp.strftime("%a, %d %b %Y %H:%M:%S") == expected_time_str
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "-s"])
