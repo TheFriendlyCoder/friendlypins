@@ -26,7 +26,7 @@ sys.path.insert(0, _src_dir)
 
 # -- Project information -----------------------------------------------------
 
-copyright = '2019, Kevin S. Phillips'
+copyright = '2020, Kevin S. Phillips'
 author = 'Kevin S. Phillips'
 _proj_props = ast.literal_eval(open('../project.prop').read())
 _proj_dir = os.path.join(_src_dir, _proj_props["NAME"])

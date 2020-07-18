@@ -56,7 +56,7 @@ anyone would like to contribute to this pet project feel free to fork it and
 send me pull requests for any changes you may like.
 
 Comments, suggestions and bugs may be reported to the project
-`maintainer <mailto:kevin@thefriendlycoder.com>`_
+`maintainer <mailto:thefriendlycoder@gmail.com>`_
 
 Indices and tables
 ==================
