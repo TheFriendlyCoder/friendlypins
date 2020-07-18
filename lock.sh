@@ -10,16 +10,9 @@
 #       referenced by the tox.ini config file at build time.
 #       Any changes to this pattern will need to be reflected
 #       there as well.
-virtualenv -p python2 tmp
+virtualenv -p `which python3` tmp
 source ./tmp/bin/activate
-pip install -e .[dev]
-pip freeze --exclude-editable > ./tests/python2.reqs
-deactivate
-rm -rf tmp
-
-virtualenv -p python3 tmp
-source ./tmp/bin/activate
-pip install -e .[dev]
+pip install -e ".[dev]"
 pip freeze --exclude-editable > ./tests/python3.reqs
 deactivate
 rm -rf tmp

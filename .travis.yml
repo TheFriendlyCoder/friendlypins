@@ -1,20 +1,20 @@
 language: python
 
 python:
-  - 2.7
   - 3.5
-  - 3.6
-  - pypy
+  - 3.7
+  - 3.8
   - pypy3.5
 
 install:
-  - pip install tox twine wheel python-coveralls
+  # NOTE: we had to add coverage package at a pinned version to fix pypy3 builds
+  - pip install tox tox-factor wheel python-coveralls coverage==4.5.4
 
 script:
   - echo $TRAVIS_PYTHON_VERSION
   - export PYVER=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1 | sed 's/^py//'`
   - echo $PYVER
-  - tox -e py$PYVER
+  - tox -f py$PYVER
 
 # Deploy to test.pypi.org for branches
 # Deploy to pypi.org for tags
@@ -23,14 +23,16 @@ script:
 jobs:
   include:
     - stage: deploy-release
-      python: 3.6
+      python: 3.7
       script:
+        - pip install twine
         - python setup.py bdist_wheel
         - twine upload dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
       if: tag IS true
     - stage: deploy-snapshot
-      python: 3.6
+      python: 3.7
       script:
+        - pip install twine
         - python setup.py bdist_wheel
         - twine upload --repository-url https://test.pypi.org/legacy/
             dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
