@@ -18,6 +18,22 @@ class User(object):
         self._relative_url = url
         self._data_cache = None
 
+    @staticmethod
+    def default_fields():
+        """list (str): list of fields we pre-populate when loading user data"""
+        return [
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "bio",
+            "created_at",
+            "counts",
+            "image",
+            "account_type",
+            "url"
+        ]
+
     def refresh(self):
         """Updates cached response data describing the state of this user
 
@@ -35,25 +51,14 @@ class User(object):
         limitations.
         """
         if self._data_cache is not None:
-            return self._data_cache["data"]
+            return self._data_cache
         self._log.debug("Getting authenticated user details...")
 
-        fields = ",".join([
-            "id",
-            "username",
-            "first_name",
-            "last_name",
-            "bio",
-            "created_at",
-            "counts",
-            "image",
-            "account_type",
-            "url"
-        ])
-        self._data_cache = self._io.get(self._relative_url, {"fields": fields})
-        assert 'data' in self._data_cache
-        return self._data_cache["data"]
-
+        fields = ",".join(self.default_fields())
+        temp = self._io.get(self._relative_url, {"fields": fields})
+        assert 'data' in temp
+        self._data_cache = temp["data"]
+        return self._data_cache
 
     def __str__(self):
         return json.dumps(dict(self._data), sort_keys=True, indent=4)
@@ -108,18 +113,7 @@ class User(object):
         self._log.debug('Loading boards for user %s...', self._relative_url)
 
         properties = {
-            "fields": ','.join([
-                "id",
-                "name",
-                "url",
-                "description",
-                "creator",
-                "created_at",
-                "counts",
-                "image",
-                "reason",
-                "privacy"
-            ])
+            "fields": ','.join(Board.default_fields())
         }
 
         board_url = "{0}/boards".format(self._relative_url)
@@ -127,7 +121,7 @@ class User(object):
             assert 'data' in cur_page
 
             for cur_item in cur_page['data']:
-                yield Board(cur_item, self._io)
+                yield Board.from_json(cur_item, self._io)
 
     def create_board(self, name, description=None):
         """Creates a new board for the currently authenticated user
@@ -140,18 +134,7 @@ class User(object):
             Board: reference to the newly created board
         """
         properties = {
-            "fields": ','.join([
-                "id",
-                "name",
-                "url",
-                "description",
-                "creator",
-                "created_at",
-                "counts",
-                "image",
-                "reason",
-                "privacy"
-            ])
+            "fields": ','.join(Board.default_fields())
         }
 
         data = {"name": name}
@@ -159,7 +142,7 @@ class User(object):
             data["description"] = description
 
         result = self._io.post("boards", data, properties)
-        return Board(result['data'], self._io)
+        return Board.from_json(result['data'], self._io)
 
 
 if __name__ == "__main__":  # pragma: no cover

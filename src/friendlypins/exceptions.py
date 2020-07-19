@@ -2,7 +2,7 @@
 from datetime import datetime
 from dateutil import tz
 from humanize import naturaltime
-from requests import HTTPError
+from requests.exceptions import HTTPError
 from friendlypins.headers import Headers
 
 
@@ -19,7 +19,7 @@ class RateLimitException(HTTPError):
 
     @property
     def rate_renewal(self):
-        """datetime.datemtime: time, in the current locale, when requests will
+        """datetime.datetime: time, in the current locale, when requests will
         be allowed once again"""
         return self.pin_headers.time_to_refresh
 

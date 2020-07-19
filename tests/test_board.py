@@ -17,19 +17,42 @@ def test_board_properties():
     }
 
     mock_io = mock.MagicMock()
-    obj = Board(sample_data, mock_io)
+    obj = Board("boards/"+str(expected_id), mock_io, sample_data)
     assert obj.unique_id == expected_id
     assert obj.name == expected_name
     assert obj.url == expected_url
     assert obj.num_pins == expected_pin_count
 
 
-def test_get_pins():
+def test_cache_refresh():
+    expected_url = 'https://www.pinterest.com/MyUserName/'
     data = {
-        'id': '987654321',
-        'name': 'MyBoard'
+        'url': expected_url,
     }
 
+    mock_io = mock.MagicMock()
+    mock_io.get.return_value = {"data": data}
+    obj = Board("boards/1234", mock_io)
+    # If we make multiple requests for API data, we should only get
+    # a single hit to the remote API endpoint
+    assert expected_url == obj.url
+    assert expected_url == obj.url
+    mock_io.get.assert_called_once()
+
+    # Calling refresh should clear our internal response cache
+    # which should not require any additional API calls
+    obj.refresh()
+    mock_io.get.assert_called_once()
+
+    # Subsequent requests for additional data should reload the cache,
+    # and then preserve / reuse the cache data for all subsequent calls,
+    # limiting the number of remote requests
+    assert expected_url == obj.url
+    assert expected_url == obj.url
+    assert mock_io.get.call_count == 2
+
+
+def test_get_pins():
     expected_id = 1234
     expected_url = "https://www.pinterest.ca/MyName/MyPin/"
     expected_note = "My Pin descriptive text"
@@ -52,7 +75,7 @@ def test_get_pins():
 
     mock_io = mock.MagicMock()
     mock_io.get_pages.return_value = [expected_data]
-    obj = Board(data, mock_io)
+    obj = Board("boards/1234", mock_io)
 
     result = list()
     for item in obj.pins:
@@ -66,13 +89,9 @@ def test_get_pins():
 
 
 def test_delete():
-    data = {
-        "id": "12345678",
-        "name": "MyBoard"
-    }
-
     mock_io = mock.MagicMock()
-    obj = Board(data, mock_io)
+    expected_url = "boards/1234"
+    obj = Board(expected_url, mock_io)
     obj.delete()
 
-    mock_io.delete.assert_called_once()
+    mock_io.delete.assert_called_once_with(expected_url)
