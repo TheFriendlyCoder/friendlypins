@@ -2,6 +2,7 @@
 import logging
 import requests
 from friendlypins.headers import Headers
+from friendlypins.exceptions import RateLimitException
 
 
 class RestIO(object):
@@ -38,8 +39,22 @@ class RestIO(object):
             properties = {"access_token": self._token}
             response = requests.get(temp_url, params=properties)
             self._latest_header = Headers(response.headers)
-            response.raise_for_status()
+            self._raise_for_status(response)
         return self._latest_header
+
+    @staticmethod
+    def _raise_for_status(response):
+        """Helper method that checks for various errors and raises more user
+        friendly exceptions for the caller to consume
+
+        Args:
+            response (requests.Response):
+                response object returned from the HTTP REST API
+        """
+        if response.status_code == requests.codes.too_many_requests:
+            raise RateLimitException(response)
+
+        response.raise_for_status()
 
     def get(self, path, properties=None):
         """Gets API data from a given sub-path
@@ -69,7 +84,7 @@ class RestIO(object):
         self._log.debug("Get response text is %s", response.text)
         self._latest_header = Headers(response.headers)
         self._log.debug("%s query header: %s", path, self._latest_header)
-        response.raise_for_status()
+        self._raise_for_status(response)
 
         return response.json()
 
@@ -101,7 +116,7 @@ class RestIO(object):
         self._log.debug("%s query header: %s", path, self._latest_header)
         self._log.debug("Post response text is %s", response.text)
 
-        response.raise_for_status()
+        self._raise_for_status(response)
 
         return response.json()
 
@@ -152,7 +167,7 @@ class RestIO(object):
         header = Headers(response.headers)
         self._log.debug("Headers for delete on %s are: %s", path, header)
         self._log.debug("Response from delete was %s", response.text)
-        response.raise_for_status()
+        self._raise_for_status(response)
 
 
 if __name__ == "__main__":  # pragma: no cover
