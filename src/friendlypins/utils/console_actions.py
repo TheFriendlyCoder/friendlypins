@@ -10,14 +10,16 @@ from friendlypins.headers import Headers
 # Flag used to turn progress bars for downloads and such on and off
 DISABLE_PROGRESS_BARS = False
 
+
 def _download_pin(pin, folder):
     """Helper method for downloading a thumbnail from a single pin
 
-    :param pin: reference to the pin to download the thumbnail for
-    :type pin: :class:`friendlypins.pin.Pin`
-    :param str folder: path where the pin is to be downloaded
-    :returns: status code. zero on success, non-zero on error
-    :rtype: :class:`int`
+    Args:
+        pin (Pin): reference to the pin to download the thumbnail for
+        folder (str): path where the pin is to be downloaded
+
+    Returns:
+        int: status code. zero on success, non-zero on error
     """
     log = logging.getLogger(__name__)
 
@@ -51,13 +53,15 @@ def _download_pin(pin, folder):
 def download_thumbnails(api_token, board_name, output_folder,):
     """Downloads thumbnails of all pins on a board
 
-    :param str api_token: Authentication token for accessing the Pinterest API
-    :param str board_name: name of the board containing the pins to process
-    :param str output_folder: path where the thumbnails are to be downloaded
-    :returns:
-        status code describing the result of the action
-        zero on success, non-zero on failure
-    :rtype: :class:`int`
+    Args:
+        api_token (str): Authentication token for accessing the Pinterest API
+        board_name (str): name of the board containing the pins to process
+        output_folder (str): path where the thumbnails are to be downloaded
+
+    Returns:
+        int:
+            status code describing the result of the action.
+            zero on success, non-zero on failure
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
@@ -93,13 +97,16 @@ def download_thumbnails(api_token, board_name, output_folder,):
 
     return retval
 
+
 def delete_board(api_token, board_name):
     """Deletes a board owned by a specific user
 
-    :param str api_token: Authentication token for the user who owns the board
-    :param str board_name: Name of the board to delete
-    :returns: 0 if the board was deleted, otherwise an error code is returned
-    :rtype: :class:`int`
+    Args:
+        api_token (str): Authentication token for the user who owns the board
+        board_name (str): Name of the board to delete
+
+    Returns:
+        int:  0 if the board was deleted, otherwise an error code is returned
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
@@ -121,13 +128,16 @@ def delete_board(api_token, board_name):
     selected_board.delete()
     return 0
 
-def create_board(api_token, board_name):
-    """Deletes a board owned by a specific user
 
-    :param str api_token: Authentication token for the user who owns the board
-    :param str board_name: Name of the board to create
-    :returns: 0 if the board was created, otherwise an error code is returned
-    :rtype: :class:`int`
+def create_board(api_token, board_name):
+    """Creates a new board
+
+    Args:
+        api_token (str): Authentication token for the user who owns the board
+        board_name (str): Name of the board to create
+
+    Returns:
+        int: 0 if the board was created, otherwise an error code is returned
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
@@ -140,12 +150,15 @@ def create_board(api_token, board_name):
         return 1
     return 0
 
+
 def check_rate_limit(api_token):
     """Checks to see when the next rate limit renewal is to occur
 
-    :param str api_token: Authentication token for the user who owns the board
-    :returns: 0 if the operation succeeded, otherwise an error code
-    :rtype: :class:`int`
+    Args:
+        api_token (str): Authentication token for the user who owns the board
+
+    Returns:
+        int: 0 if the operation succeeded, otherwise an error code
     """
     log = logging.getLogger(__name__)
     obj = API(api_token)
@@ -154,5 +167,6 @@ def check_rate_limit(api_token):
     log.info("Next rate limit renewal is at %s", obj.rate_limit_refresh)
     return 0
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  # pragma: no cover
     pass

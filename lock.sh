@@ -10,9 +10,20 @@
 #       referenced by the tox.ini config file at build time.
 #       Any changes to this pattern will need to be reflected
 #       there as well.
+rm -rf src/*.egg-info
+rm -rf build
+rm -rf dist
 virtualenv -p `which python3` tmp
 source ./tmp/bin/activate
 pip install -e ".[dev]"
-pip freeze --exclude-editable > ./tests/python3.reqs
+pip freeze --exclude-editable > ./requirements.txt
+deactivate
+rm -rf tmp
+
+# Update dependencies specific for ReadTheDocs
+virtualenv -p `which python3` tmp
+source ./tmp/bin/activate
+pip install sphinx sphinxcontrib-apidoc sphinx-rtd-theme
+pip freeze > ./docs/requirements.txt
 deactivate
 rm -rf tmp

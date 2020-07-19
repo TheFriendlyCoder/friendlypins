@@ -42,7 +42,7 @@ Welcome to friendlypins' documentation!
    :maxdepth: 1
    :caption: Contents:
 
-   modules
+   api/modules
 
 Overview
 ========

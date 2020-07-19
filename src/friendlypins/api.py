@@ -6,23 +6,21 @@ from friendlypins.utils.rest_io import RestIO
 
 
 class API(object):  # pylint: disable=too-few-public-methods
-    """High level abstraction for the core Pinterest API
-
-    :param str personal_access_token:
-            API authentication token used for secure access to a users'
-            Pinterest data
-    """
+    """High level abstraction for the core Pinterest API"""
 
     def __init__(self, personal_access_token):
+        """
+        Args:
+            personal_access_token (str):
+                API authentication token used for secure access to a users'
+                Pinterest data
+        """
         self._log = logging.getLogger(__name__)
         self._io = RestIO(personal_access_token)
 
     @property
     def user(self):
-        """Gets all primitives associated with the authenticated user
-        :returns: currently authenticated pinterest user
-        :rtype: :class:`friendlypins.user.User`
-        """
+        """User: Gets all primitives associated with the authenticated user"""
         self._log.debug("Getting authenticated user details...")
 
         fields = ",".join([
@@ -44,28 +42,22 @@ class API(object):  # pylint: disable=too-few-public-methods
 
     @property
     def rate_limit_refresh(self):
-        """Gets the time when the next refresh for API queries takes effect
-
-        :rtype: :class:`datetime.datetime`
-        """
+        """datetime.datetime: Gets the time when the next refresh for API
+        queries takes effect"""
         return self._io.headers.time_to_refresh
 
     @property
     def transaction_limit(self):
-        """Gets the total number of transactions per hour we're allotted
-
-        :rtype: :class:`int`
+        """int: Gets the total number of transactions per hour we're allotted
         """
         return self._io.headers.rate_limit
 
     @property
     def transaction_remaining(self):
-        """Gets the total number of transactions per hour we're allotted
-
-        :rtype: :class:`int`
+        """int: Gets the total number of transactions per hour we're allotted
         """
         return self._io.headers.rate_remaining
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     pass

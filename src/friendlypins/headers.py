@@ -5,63 +5,48 @@ from dateutil import tz
 
 
 class Headers(object):
-    """Abstraction around the Pinterest API HTTP response header
-
-    :param dict data: Header data parsed from the HTTP response
-    """
+    """Abstraction around the Pinterest API HTTP response header"""
     def __init__(self, data):
+        """
+        Args:
+            data (dict): Header data parsed from the HTTP response
+        """
         self._data = data
 
     def __str__(self):
-        """String representation of this header, for debugging purposes
-
-        :rtype: :class:`str`
-        """
         return json.dumps(dict(self._data), sort_keys=True, indent=4)
 
     def __repr__(self):
-        """Header representation in string format
-
-        :rtype: :class:`str`
-        """
         return "<{0} ({1})>".format(self.__class__.__name__, self.date)
 
     @property
     def rate_limit(self):
-        """number of API requests in total permitted for the authenticated user
-
-        :rtype: :class:`int`
-        """
+        """int: number of API requests in total permitted for the
+        authenticated user"""
         return int(self._data['X-Ratelimit-Limit'])
 
     @property
     def rate_remaining(self):
-        """Number of API requests the authenticated user is allowed to make
+        """int: Number of API requests the authenticated user is allowed to make
 
         The remaining number of requests resets every hour, according to
         the API docs
-
-        :rtype: :class:`int`
         """
         return int(self._data['X-Ratelimit-Remaining'])
 
     @property
     def percent_rate_remaining(self):
-        """Gets a percentage representation of the number of API requests left
+        """int: percentage representation of the number of API requests left
 
         See :meth:`rate_remaining` for more info
-
-        :rtype: :class:`int`
         """
         percent = float(self.rate_remaining) / float(self.rate_limit)
         return int(percent * 100)
 
     @property
     def time_to_refresh(self):
-        """Gets the time stamp of when the rate limiting threshold is renewed
-
-        :rtype: :class:`datetime.datetime`
-        """
+        """datetime.datetime: the time stamp of when the rate limiting
+        threshold is renewed"""
         if "X-Ratelimit-Refresh" not in self._data:
             return datetime.now(tz=tz.tzutc())
 
@@ -70,11 +55,8 @@ class Headers(object):
 
     @property
     def date(self):
-        """Date/time when this header was last populated
-
-        :rtype: :class:`datetime.datetime`
-        """
-        # parse dateimte string
+        """datetime.datetime: Date/time when this header was last populated"""
+        # parse datetime string
         parsed_date = \
             datetime.strptime(self._data['Date'], "%a, %d %b %Y %H:%M:%S %Z")
 
@@ -93,12 +75,9 @@ class Headers(object):
 
     @property
     def bytes(self):
-        """Gets the number of bytes contained in the response data
-
-        :rtype: :class:`int`
-        """
+        """int: Gets the number of bytes contained in the response data"""
         return int(self._data['Content-Length'])
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     pass

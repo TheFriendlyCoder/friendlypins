@@ -19,6 +19,7 @@
         "pylint",
         "sphinx",
         "sphinxcontrib-apidoc",
+        "sphinx-rtd-theme",
         "tox",
         "tox-factor"
     ],
