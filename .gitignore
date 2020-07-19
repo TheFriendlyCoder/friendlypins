@@ -10,7 +10,7 @@ build/
 # Temporary unit test files
 htmlcov/
 .tox/
-.coverage
+.coverage*
 docs/_*
 docs/api/*
 htmldocs/*

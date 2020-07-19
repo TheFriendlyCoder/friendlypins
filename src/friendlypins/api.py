@@ -1,5 +1,4 @@
 """Primary entry point for the Friendly Pinterest library"""
-from __future__ import print_function
 import logging
 from friendlypins.user import User
 from friendlypins.utils.rest_io import RestIO
@@ -21,24 +20,7 @@ class API(object):  # pylint: disable=too-few-public-methods
     @property
     def user(self):
         """User: Gets all primitives associated with the authenticated user"""
-        self._log.debug("Getting authenticated user details...")
-
-        fields = ",".join([
-            "id",
-            "username",
-            "first_name",
-            "last_name",
-            "bio",
-            "created_at",
-            "counts",
-            "image",
-            "account_type",
-            "url"
-        ])
-        result = self._io.get("me", {"fields": fields})
-        assert 'data' in result
-
-        return User(result['data'], self._io)
+        return User("me", self._io)
 
     @property
     def rate_limit_refresh(self):

@@ -21,13 +21,43 @@ def test_user_properties():
     }
 
     mock_io = mock.MagicMock()
-    obj = User(data, mock_io)
+    mock_io.get.return_value = {"data": data}
+    obj = User("me", mock_io)
     assert expected_url == obj.url
     assert expected_firstname == obj.first_name
     assert expected_lastname == obj.last_name
     assert expected_id == obj.unique_id
     assert expected_board_count == obj.num_boards
     assert expected_pin_count == obj.num_pins
+    mock_io.get.assert_called_once()
+
+
+def test_cache_refresh():
+    expected_url = 'https://www.pinterest.com/MyUserName/'
+    data = {
+        'url': expected_url,
+    }
+
+    mock_io = mock.MagicMock()
+    mock_io.get.return_value = {"data": data}
+    obj = User("me", mock_io)
+    # If we make multiple requests for API data, we should only get
+    # a single hit to the remote API endpoint
+    assert expected_url == obj.url
+    assert expected_url == obj.url
+    mock_io.get.assert_called_once()
+
+    # Calling refresh should clear our internal response cache
+    # which should not require any additional API calls
+    obj.refresh()
+    mock_io.get.assert_called_once()
+
+    # Subsequent requests for additional data should reload the cache,
+    # and then preserve / reuse the cache data for all subsequent calls,
+    # limiting the number of remote requests
+    assert expected_url == obj.url
+    assert expected_url == obj.url
+    assert mock_io.get.call_count == 2
 
 
 def test_get_boards():
