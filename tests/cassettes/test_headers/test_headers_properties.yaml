@@ -1,0 +1,104 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/me?access_token=DUMMY
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+        <title>Redirecting...</title>
+
+        <h1>Redirecting...</h1>
+
+        <p>You should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/me/?access_token=DUMMY">https://api.pinterest.com/v1/me/?access_token=DUMMY</a>.  If
+        not click the link.'
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '451'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sat, 25 Jul 2020 14:23:17 GMT
+      Location:
+      - https://api.pinterest.com/v1/me/?access_token=DUMMY
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a0107a3
+      x-envoy-upstream-service-time:
+      - '7'
+      x-pinterest-rid:
+      - '6076973873864432'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/me/?access_token=DUMMY
+  response:
+    body:
+      string: "{\n  \"message\": \"You have exceeded your rate limit. Try again later.\",
+        \n  \"type\": \"api\"\n}\n"
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '89'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 25 Jul 2020 14:23:18 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a01868a
+      x-envoy-upstream-service-time:
+      - '37'
+      x-pinterest-rid:
+      - '5263151033811346'
+      x-ratelimit-refresh:
+      - '523'
+    status:
+      code: 429
+      message: Too Many Requests
+version: 1

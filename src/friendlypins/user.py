@@ -1,6 +1,8 @@
 """Interfaces for interacting with Pinterest users"""
 import logging
 import json
+from datetime import datetime
+from dateutil import tz
 from friendlypins.board import Board
 
 
@@ -90,7 +92,12 @@ class User(object):
 
         alias for first_name + last_name
         """
-        return "{0} {1}".format(self.first_name, self.last_name)
+        return "{0} {1}".format(self.first_name, self.last_name).strip()
+
+    @property
+    def username(self):
+        """str: display name, used for logging in to Pinterest"""
+        return self._data["username"]
 
     @property
     def url(self):
@@ -100,12 +107,35 @@ class User(object):
     @property
     def num_pins(self):
         """int: the total number of pins owned by this user"""
-        return int(self._data['counts']['pins'])
+        return self._data['counts']['pins']
 
     @property
     def num_boards(self):
         """int: the total number of boards owned by this user"""
-        return int(self._data['counts']['boards'])
+        return self._data['counts']['boards']
+
+    @property
+    def num_followers(self):
+        """int: number of people following this Pinterest user"""
+        return self._data["counts"]["followers"]
+
+    @property
+    def created(self):
+        """datetime.datetime: when this user's profile was created"""
+        # sample datetime to parse: "2020-07-21T16:16:03" (in UTC)
+        raw_date = self._data["created_at"]
+        retval = datetime.strptime(raw_date, "%Y-%m-%dT%H:%M:%S")
+        return retval.replace(tzinfo=tz.tzutc())
+
+    @property
+    def account_type(self):
+        """str: type of Pinterest account (ie: individual / business)"""
+        return self._data["account_type"]
+
+    @property
+    def bio(self):
+        """str: description of who this user is"""
+        return self._data["bio"]
 
     @property
     def boards(self):

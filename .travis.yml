@@ -20,7 +20,9 @@ script:
   # For CPython the TravisCI env var mapping should be: 3.8 -> py38
   - '[ "$TRAVIS_PYTHON_VERSION" = "pypy3.5" ] && export PYVER=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1` || export PYVER=py`echo $TRAVIS_PYTHON_VERSION | sed "s/\.//" | sed "s/^py//"`'
   - echo $PYVER
-  - tox -f $PYVER
+  - tox -e $PYVER-lint
+  - tox -e $PYVER-test -- --block-network
+  - tox -e $PYVER-docs
   # Only publish coverage metrics for the latest supported Python version
   - '[ "$TRAVIS_PYTHON_VERSION" = "3.8" ] && coveralls || echo Skipping Coveralls'
 

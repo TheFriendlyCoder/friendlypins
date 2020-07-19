@@ -1,35 +1,40 @@
 import mock
+import pytest
+from datetime import datetime
+from dateutil import tz
+from friendlypins.api import API
+from friendlypins.board import Board
 from friendlypins.user import User
 
 
-def test_user_properties():
-    expected_url = 'https://www.pinterest.com/MyUserName/'
-    expected_firstname = "John"
-    expected_lastname = "Doe"
-    expected_id = 12345678
-    expected_board_count = 32
-    expected_pin_count = 512
-    data = {
-        'url': expected_url,
-        'first_name': expected_firstname,
-        'last_name': expected_lastname,
-        'id': str(expected_id),
-        'counts': {
-            'boards': str(expected_board_count),
-            'pins': str(expected_pin_count)
-        }
-    }
+@pytest.mark.vcr()
+def test_user_properties(test_env):
+    obj = API(test_env["key"])
+    user = obj.user
+    assert isinstance(user, User)
+    assert user.url == test_env["test_user"]["url"]
+    assert user.first_name == test_env["test_user"]["first_name"]
+    assert user.last_name == test_env["test_user"]["last_name"]
+    assert user.name == test_env["test_user"]["full_name"]
+    assert user.username == test_env["test_user"]["username"]
+    assert user.unique_id == test_env["test_user"]["id"]
+    assert isinstance(user.num_boards, int)
+    assert isinstance(user.num_pins, int)
+    assert isinstance(user.num_followers, int)
+    assert user.account_type == test_env["test_user"]["type"]
+    assert user.bio == test_env["test_user"]["bio"]
+    expected_creation_date = datetime(year=2015, month=3, day=1, hour=2, minute=57, second=37, tzinfo=tz.tzutc())
+    assert user.created == expected_creation_date
 
-    mock_io = mock.MagicMock()
-    mock_io.get.return_value = {"data": data}
-    obj = User("me", mock_io)
-    assert expected_url == obj.url
-    assert expected_firstname == obj.first_name
-    assert expected_lastname == obj.last_name
-    assert expected_id == obj.unique_id
-    assert expected_board_count == obj.num_boards
-    assert expected_pin_count == obj.num_pins
-    mock_io.get.assert_called_once()
+
+@pytest.mark.vcr()
+def test_get_boards(test_env):
+    obj = API(test_env["key"])
+    boards = obj.user.boards
+    assert boards is not None
+    results = list(boards)
+    assert all([isinstance(i, Board) for i in results])
+    assert any([i.name == test_env["test_board"]["name"] for i in results])
 
 
 def test_cache_refresh():
@@ -58,35 +63,6 @@ def test_cache_refresh():
     assert expected_url == obj.url
     assert expected_url == obj.url
     assert mock_io.get.call_count == 2
-
-
-def test_get_boards():
-    expected_id = 1234
-    expected_name = "MyBoard"
-    expected_url = "https://www.pinterest.ca/MyName/MyBoard/"
-    expected_data = {
-        "data": [{
-            "id": str(expected_id),
-            "name": expected_name,
-            "url": expected_url
-        }],
-        "page": {
-            "cursor": None
-        }
-    }
-
-    mock_io = mock.MagicMock()
-    mock_io.get_pages.return_value = [expected_data]
-    obj = User("me", mock_io)
-
-    result = list()
-    for item in obj.boards:
-        result.append(item)
-
-    assert len(result) == 1
-    assert expected_url == result[0].url
-    assert expected_name == result[0].name
-    assert expected_id == result[0].unique_id
 
 
 def test_create_board():

@@ -1,0 +1,110 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/boards/485262997288961007?access_token=DUMMY&fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&limit=100
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+        <title>Redirecting...</title>
+
+        <h1>Redirecting...</h1>
+
+        <p>You should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/boards/485262997288961007/?limit=100&amp;access_token=DUMMY&amp;fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy">https://api.pinterest.com/v1/boards/485262997288961007/?limit=100&amp;access_token=DUMMY&amp;fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy</a>.  If
+        not click the link.'
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '705'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sat, 25 Jul 2020 19:37:27 GMT
+      Location:
+      - https://api.pinterest.com/v1/boards/485262997288961007/?limit=100&access_token=DUMMY&fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a01885a
+      x-envoy-upstream-service-time:
+      - '10'
+      x-pinterest-rid:
+      - '5816201325039197'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/boards/485262997288961007/?access_token=DUMMY&fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&limit=100
+  response:
+    body:
+      string: '{"data":{"id":"485262997288961007","name":"testing","url":"https://www.pinterest.com/thefriendlycoder/testing/","description":"Board
+        used for unit testing","created_at":"2020-07-21T16:16:03","counts":{"pins":2,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/e7/f5/50/e7f550c0e688fcc24b0568415fe83a72.jpg","width":60,"height":60}},"reason":null,"privacy":"public"}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '403'
+      Content-Type:
+      - application/json
+      Date:
+      - Sat, 25 Jul 2020 19:37:28 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a01072e
+      pinterest-version:
+      - 71bea45
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '65'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - '1116874069926147'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -26,3 +26,7 @@ venv*/
 # project files
 .vscode/
 .idea/
+
+.report.json
+key.txt
+debug.log

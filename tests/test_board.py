@@ -1,27 +1,38 @@
 import mock
+import pytest
+from friendlypins.api import API
 from friendlypins.board import Board
+from datetime import datetime
+from dateutil import tz
 
 
-def test_board_properties():
-    expected_id = 1234
-    expected_name = "MyBoard"
-    expected_url = "https://www.pinterest.ca/MyName/MyBoard/"
-    expected_pin_count = 42
-    sample_data = {
-        "id": str(expected_id),
-        "name": expected_name,
-        "url": expected_url,
-        "counts": {
-            "pins": str(expected_pin_count)
-        }
-    }
+@pytest.mark.vcr()
+def test_board_properties(test_env):
+    obj = API(test_env["key"])
+    board = obj.get_board_by_id(test_env["test_board"]["id"])
+    assert board.unique_id == test_env["test_board"]["id"]
+    assert board.name == test_env["test_board"]["name"]
+    assert board.description == test_env["test_board"]["description"]
+    expected_creation_date = datetime(year=2020, month=7, day=21, hour=16, minute=16, second=3, tzinfo=tz.tzutc())
+    assert board.creation_date == expected_creation_date
+    assert board.privacy_setting == test_env["test_board"]["privacy"]
+    assert isinstance(board.num_followers, int)
+    assert isinstance(board.num_collaborators, int)
+    assert isinstance(board.num_pins, int)
+    all_pins = test_env["test_board"]["pins"] + test_env["section_pins"]
+    assert board.num_pins == len(all_pins)
 
-    mock_io = mock.MagicMock()
-    obj = Board("boards/"+str(expected_id), mock_io, sample_data)
-    assert obj.unique_id == expected_id
-    assert obj.name == expected_name
-    assert obj.url == expected_url
-    assert obj.num_pins == expected_pin_count
+
+@pytest.mark.vcr()
+def test_get_pins(test_env):
+    obj = API(test_env["key"])
+    board = obj.get_board_by_id(test_env["test_board"]["id"])
+    pins = list(board.pins)
+    all_pins = test_env["test_board"]["pins"] + test_env["section_pins"]
+    assert len(pins) == len(all_pins)
+    for cur_pin in pins:
+        assert cur_pin.unique_id in all_pins
+        all_pins.remove(cur_pin.unique_id)
 
 
 def test_cache_refresh():
@@ -50,42 +61,6 @@ def test_cache_refresh():
     assert expected_url == obj.url
     assert expected_url == obj.url
     assert mock_io.get.call_count == 2
-
-
-def test_get_pins():
-    expected_id = 1234
-    expected_url = "https://www.pinterest.ca/MyName/MyPin/"
-    expected_note = "My Pin descriptive text"
-    expected_link ="http://www.mysite.com/target"
-    expected_mediatype = "image"
-    expected_data = {
-        "data": [{
-            "id": str(expected_id),
-            "url": expected_url,
-            "note": expected_note,
-            "link": expected_link,
-            "media": {
-                "type": expected_mediatype
-            }
-        }],
-        "page": {
-            "cursor": None
-        }
-    }
-
-    mock_io = mock.MagicMock()
-    mock_io.get_pages.return_value = [expected_data]
-    obj = Board("boards/1234", mock_io)
-
-    result = list()
-    for item in obj.pins:
-        result.append(item)
-
-    assert len(result) == 1
-    assert expected_url == result[0].url
-    assert expected_note == result[0].note
-    assert expected_id == result[0].unique_id
-    assert expected_mediatype == result[0].media_type
 
 
 def test_delete():

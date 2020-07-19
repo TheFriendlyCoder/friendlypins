@@ -31,15 +31,22 @@ class RestIO(object):
         """str: authentication token"""
         return self._token
 
+    def refresh_headers(self):
+        """Forces an update to the cached headers"""
+        self._latest_header = None
+
     @property
     def headers(self):
         """Headers: the HTTP headers from the most recent API operation"""
-        if not self._latest_header:
-            temp_url = "{0}/me".format(self._root_url)
-            properties = {"access_token": self._token}
-            response = requests.get(temp_url, params=properties)
-            self._latest_header = Headers(response.headers)
-            self._raise_for_status(response)
+        if self._latest_header:
+            return self._latest_header
+
+        temp_url = "{0}/me".format(self._root_url)
+        properties = {"access_token": self._token}
+
+        response = requests.get(temp_url, params=properties)
+        self._latest_header = Headers(response.headers)
+
         return self._latest_header
 
     @staticmethod
