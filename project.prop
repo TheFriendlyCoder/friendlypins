@@ -9,7 +9,8 @@
         "six",
         "dateutils",
         "tqdm",
-        "pillow"
+        "pillow",
+        "humanize"
     ],
     "DEV_DEPENDENCIES" : [
         "pytest",
