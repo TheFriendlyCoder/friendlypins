@@ -5,36 +5,34 @@ from friendlypins.headers import Headers
 
 
 class RestIO(object):
-    """Interface for low level REST API interactions
-
-    :param str authentication_token:
-        Personal API token for authenticating to REST API
-    """
+    """Interface for low level REST API interactions"""
 
     # URL of the root namespace for the Pinterest API
     _root_url = 'https://api.pinterest.com/v1'
 
     def __init__(self, authentication_token):
+        """
+        Args:
+            authentication_token (str):
+                Personal API token for authenticating to REST API
+        """
         self._log = logging.getLogger(__name__)
         self._token = authentication_token
         self._latest_header = None
 
     @property
     def root_url(self):
-        """Gets root url"""
+        """str: canonical url for the REST API"""
         return self._root_url
 
     @property
     def token(self):
-        """Gets API token"""
+        """str: authentication token"""
         return self._token
 
     @property
     def headers(self):
-        """Gets the HTTP headers from the most recent API operation
-
-        :rtype: :class:`friendlypins.headers.Headers`
-        """
+        """Headers: the HTTP headers from the most recent API operation"""
         if not self._latest_header:
             temp_url = "{0}/me".format(self._root_url)
             properties = {"access_token": self._token}
@@ -46,11 +44,13 @@ class RestIO(object):
     def get(self, path, properties=None):
         """Gets API data from a given sub-path
 
-        :param str path: sub-path with in the REST API to query
-        :param dict properties:
-            optional set of request properties to append to the API call
-        :returns: json data returned from the API endpoint
-        :rtype: :class:`dict`
+        Args:
+            path (str): sub-path with in the REST API to query
+            properties (dict):
+                optional set of request properties to append to the API call
+
+        Returns:
+            dict: json data returned from the API endpoint
         """
         self._log.debug(
             "Getting data from %s with options %s",
@@ -76,12 +76,14 @@ class RestIO(object):
     def post(self, path, data, properties=None):
         """Posts API data to a given sub-path
 
-        :param str path: sub-path with in the REST API to send data to
-        :param dict data: form data to be posted to the API endpoint
-        :param dict properties:
-            optional set of request properties to append to the API call
-        :returns: json data returned from the API endpoint
-        :rtype: :class:`dict`
+        Args:
+            path (str): sub-path with in the REST API to send data to
+            data (str): form data to be posted to the API endpoint
+            properties (dict):
+                optional set of request properties to append to the API call
+
+        Returns:
+            dict: json data returned from the API endpoint
         """
         self._log.debug(
             "Posting data from %s with options %s",
@@ -106,11 +108,13 @@ class RestIO(object):
     def get_pages(self, path, properties=None):
         """Generator for iterating over paged results returned from API
 
-        :param str path: sub-path with in the REST API to query
-        :param dict properties:
-            optional set of request properties to append to the API call
-        :returns: json data returned from the API endpoint
-        :rtype: Generator of :class:`dict`
+        Args:
+            path (str): sub-path with in the REST API to query
+            properties (dict):
+                optional set of request properties to append to the API call
+
+        Returns:
+            dict: json data returned from the API endpoint
         """
         page = 0
         while True:
@@ -133,7 +137,9 @@ class RestIO(object):
     def delete(self, path):
         """Sends a delete request to a remote endpoint
 
-        :param str path: API endpoint to send delete request to"""
+        Args:
+            path (str): API endpoint to send delete request to
+        """
         temp_url = '{0}/{1}'.format(
             self._root_url,
             path)
@@ -148,5 +154,6 @@ class RestIO(object):
         self._log.debug("Response from delete was %s", response.text)
         response.raise_for_status()
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  # pragma: no cover
     pass

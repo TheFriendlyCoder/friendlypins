@@ -26,12 +26,15 @@ def load_console_scripts(project):
         'console_scripts': load_console_scripts(project_name)
     }
 
-    :param str project:
-        the name of the current project. It is also assumed that the project
-        sources will be located under a sub-folder of the same name.
-    :return:
-        list of shell scripts exposed by this project. Produces an empty
-        list if there are no shell scripts supported by the project.
+    Args:
+        project (str):
+            the name of the current project. It is also assumed that the project
+            sources will be located under a sub-folder of the same name.
+
+    Return:
+        list (str):
+            list of shell scripts exposed by this project. Produces an empty
+            list if there are no shell scripts supported by the project.
     """
     scripts_path = os.path.join(project, 'scripts')
     if not os.path.exists(scripts_path):
@@ -58,9 +61,11 @@ def _verify_src_version(version):
 
     Version numbers are expected to be of the form X.Y.Z
 
-    :param str version: string to validate
-    :returns: True if the string is a version number, else false
-    :rtype: :class:`bool`
+    Args:
+        version (str): string to validate
+
+    Returns:
+        bool: True if the string is a version number, else false
     """
     if not isinstance(version, str):
         return False
@@ -78,9 +83,12 @@ def _verify_src_version(version):
 
 def _src_version(project):
     """Parses the version number from the source project
-    :param str project: the name of the project to get the version for
-    :returns: the version for the specified project
-    :rtype: :class:`str`
+
+    Args:
+        project (str): the name of the project to get the version for
+
+    Returns:
+        str: the version for the specified project
     """
     root_dir = os.path.dirname(__file__)
     ver_path = os.path.join(root_dir, 'src', project, 'version.py')
@@ -105,7 +113,14 @@ def _src_version(project):
 
 
 def get_version_number(project):
-    """Retrieves the version number for a project"""
+    """Retrieves the version number for a project
+
+    Args:
+        project (str): name of the project
+
+    Returns:
+        str: Version associated with the project
+    """
 
     retval = _src_version(project)
 
@@ -138,15 +153,19 @@ def get_version_number(project):
 def generate_readme(project, repo=None, version=None):
     """Generates a readme for the Python package, based on the readme file
 
-    :param str project: name of the project to generate the readme for
-    :param str repo:
-        optional name of the git repo for the project
-        if not provided, it is assumed the repo name matches the project name
-    :param str version:
-        optional version of the package being generated
-        when not provided, the "
-    :returns: readme text for the package
-    :rtype: :class:`str`
+    Args:
+        project (str):
+            name of the project to generate the readme for
+        repo (str):
+            optional name of the git repo for the project
+            if not provided, it is assumed the repo name matches the project
+            name
+        version (str):
+            optional version of the package being generated
+            when not provided, the readme will use 'latest' instead
+
+    Returns:
+        str: readme text for the package
     """
     if repo is None:
         repo = project
@@ -233,11 +252,7 @@ def generate_readme(project, repo=None, version=None):
 
 
 def load_project_properties():
-    """Loads project specific properties from the project.prop file
-
-    :returns: project properties
-    :rtype: :class:`dict`
-    """
+    """dict: Loads project specific properties from the project.prop file"""
     cur_file = os.path.realpath(__file__)
     cur_path = os.path.split(cur_file)[0]
     props = open(os.path.join(cur_path, 'project.prop')).read()
@@ -277,7 +292,6 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Natural Language :: English",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
     ]
 )

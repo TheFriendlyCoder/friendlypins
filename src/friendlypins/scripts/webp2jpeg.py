@@ -16,9 +16,12 @@ from PIL import Image
 def _convert(args):
     """Worker function that converts webp images to jpeg
 
-    :param args: Command line arguements customizing the behavior of the action
-    :returns: zero on success, non-zero on failure
-    :rtype: :class:`int`
+    Args:
+        args (argparse.ArgumentParser):
+            Command line arguments customizing the behavior of the action
+
+    Returns:
+        int: zero on success, non-zero on failure
     """
     log = logging.getLogger(__name__)
     (output_folder, old_filename) = os.path.split(args.source_file)
@@ -41,11 +44,13 @@ def _convert(args):
 def get_args(args):
     """Helper method used to parse command line parameters
 
-    :param str args:
-        optional command line arguements to be parsed
-        if not provided, args will be parsed from the console
-    :returns: parsed arguments
-    :rtype: :class:`argparse.Namespace`
+    Args:
+        args (str):
+            optional command line arguments to be parsed
+            if not provided, args will be parsed from the console
+
+    Returns:
+        argparse.ArgumentParser: parsed arguments
     """
     parser = argparse.ArgumentParser(
         description="Tool for converting webp formatted images to jpeg"
@@ -84,9 +89,10 @@ def get_args(args):
 def configure_logging(verbosity):
     """Configures the global logger for the application
 
-    :param int verbosity:
-        numeric value for the verbosity level for the log
-        the larger the number, the more verbose the output
+    Args:
+        verbosity (int):
+            numeric value for the verbosity level for the log
+            the larger the number, the more verbose the output
     """
     # Configure a console logger for everything that should show up
     # on the shell to the user
@@ -122,14 +128,14 @@ def configure_logging(verbosity):
 def main(args=None):
     """Entry point function
 
-    :params str args:
-        sample command line parameters to use when launching the tool
-        used for debug and testing purposes only
-        When not provided, arguments will be parsed from the command line
+    Args:
+        args (str):
+            sample command line parameters to use when launching the tool
+            used for debug and testing purposes only
+            When not provided, arguments will be parsed from the command line
 
-    :returns: error code produced by completing the given operation
-
-    :rtype: :class:`int`
+    Returns:
+        int: error code produced by completing the given operation
     """
     log = logging.getLogger(__name__)
     try:
@@ -145,5 +151,6 @@ def main(args=None):
         log.debug("Details: ", exc_info=True)
         return -1
 
-if __name__ == "__main__":
+
+if __name__ == "__main__":  # pragma: no cover
     main("my/path/test.webp")

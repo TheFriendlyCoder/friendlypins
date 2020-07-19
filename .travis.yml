@@ -4,11 +4,10 @@ python:
   - 3.5
   - 3.7
   - 3.8
-  - pypy3.5
+  #- pypy3.5
 
 install:
-  # NOTE: we had to add coverage package at a pinned version to fix pypy3 builds
-  - pip install tox tox-factor wheel python-coveralls coverage==4.5.4
+  - pip install tox tox-factor wheel python-coveralls
 
 script:
   - echo $TRAVIS_PYTHON_VERSION
