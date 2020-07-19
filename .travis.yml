@@ -7,13 +7,16 @@ python:
   #- pypy3.5
 
 install:
-  - pip install tox tox-factor wheel python-coveralls
+  # pinning coverage package until bugs with coveralls plugin is fixed
+  # https://github.com/z4r/python-coveralls/issues/73
+  - pip install tox tox-factor wheel python-coveralls "coverage<5.0"
 
 script:
   - echo $TRAVIS_PYTHON_VERSION
   - export PYVER=`echo $TRAVIS_PYTHON_VERSION | tr "." "\n" | head -n 1 | sed 's/^py//'`
   - echo $PYVER
-  - tox -f py$PYVER
+  - tox -e py$PYVER-lint
+  - tox -e py$PYVER-test
 
 # Deploy to test.pypi.org for branches
 # Deploy to pypi.org for tags
