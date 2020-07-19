@@ -456,4 +456,9 @@ def test_create_board(rest_io):
     res = create_board("1234abcd", expected_name)
 
     assert res == 0
-    mock_response.get.assert_called_once()
+    # Now that we lazy load user data we should never need to call get
+    # to create a board
+    assert mock_response.get.call_count == 0
+
+    # The post operation should have occurred once to create the board
+    mock_response.post.assert_called_once()

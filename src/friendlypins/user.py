@@ -7,15 +7,53 @@ from friendlypins.board import Board
 class User(object):
     """Abstraction around a Pinterest user and their associated data"""
 
-    def __init__(self, data, rest_io):
+    def __init__(self, url, rest_io):
         """
         Args:
-            data (dict): JSON data parsed from the API
+            url (str): URL for this user, relative to the API root
             rest_io (RestIO): reference to the Pinterest REST API
         """
         self._log = logging.getLogger(__name__)
-        self._data = data
         self._io = rest_io
+        self._relative_url = url
+        self._data_cache = None
+
+    def refresh(self):
+        """Updates cached response data describing the state of this user
+
+        NOTE: This method simply clears the internal cache, and updated
+        information will automatically be pulled on demand as additional
+        queries are made through the API"""
+        self._data_cache = None
+
+    @property
+    def _data(self):
+        """dict: JSON response containing details of the users' profile
+
+        This internal helper caches the user profile data to minimize the
+        number of calls to the REST API, to make more efficient use of rate
+        limitations.
+        """
+        if self._data_cache is not None:
+            return self._data_cache["data"]
+        self._log.debug("Getting authenticated user details...")
+
+        fields = ",".join([
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "bio",
+            "created_at",
+            "counts",
+            "image",
+            "account_type",
+            "url"
+        ])
+        self._data_cache = self._io.get(self._relative_url, {"fields": fields})
+        assert 'data' in self._data_cache
+        return self._data_cache["data"]
+
 
     def __str__(self):
         return json.dumps(dict(self._data), sort_keys=True, indent=4)
@@ -67,7 +105,7 @@ class User(object):
     @property
     def boards(self):
         """Board: Generator for iterating over the boards owned by this user"""
-        self._log.debug('Loading boards for user %s...', self.name)
+        self._log.debug('Loading boards for user %s...', self._relative_url)
 
         properties = {
             "fields": ','.join([
@@ -84,7 +122,8 @@ class User(object):
             ])
         }
 
-        for cur_page in self._io.get_pages("me/boards", properties):
+        board_url = "{0}/boards".format(self._relative_url)
+        for cur_page in self._io.get_pages(board_url, properties):
             assert 'data' in cur_page
 
             for cur_item in cur_page['data']:
