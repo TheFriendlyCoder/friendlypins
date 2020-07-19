@@ -12,7 +12,6 @@
         "pillow"
     ],
     "DEV_DEPENDENCIES" : [
-        "twine",
         "pytest",
         "pytest-cov",
         "mock",
@@ -22,6 +21,7 @@
         "sphinx-rtd-theme",
         "tox",
         "tox-factor",
+        "tox-pyenv",
         # pinning coverage package until bugs with coveralls plugin is fixed
         # https://github.com/z4r/python-coveralls/issues/73
         "coverage<5.0"
