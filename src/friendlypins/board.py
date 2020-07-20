@@ -1,34 +1,22 @@
 """Primitives for interacting with Pinterest boards"""
-import logging
-import json
 from friendlypins.pin import Pin
+from friendlypins.utils.base_object import BaseObject
 
 
-class Board(object):
+class Board(BaseObject):
     """Abstraction around a Pinterest board"""
+    @staticmethod
+    def default_url(unique_id):
+        """Generates a URL for the REST API endpoint for a board with a given
+        identification number
 
-    def __init__(self, url, rest_io, json_data=None):
-        """
         Args:
-            url (str): URL for this board, relative to the API root
-            rest_io (RestIO): reference to the Pinterest REST API
-            json_data (dict):
-                Optional JSON response data describing this board
-                if not provided, the class will lazy load response data
-                when needed
+            unique_id (int): unique ID for the board
+
+        Returns:
+            str: URL for the API endpoint
         """
-        self._log = logging.getLogger(__name__)
-        self._data_cache = json_data
-        self._relative_url = url
-        self._io = rest_io
-
-    def refresh(self):
-        """Updates cached response data describing the state of this board
-
-        NOTE: This method simply clears the internal cache, and updated
-        information will automatically be pulled on demand as additional
-        queries are made through the API"""
-        self._data_cache = None
+        return "boards/{0}".format(unique_id)
 
     @staticmethod
     def default_fields():
@@ -44,51 +32,6 @@ class Board(object):
             "reason",
             "privacy"
         ]
-
-    @property
-    def _data(self):
-        """dict: gets response data, either from the internal cache or from the
-        REST API"""
-        if self._data_cache is not None:
-            return self._data_cache
-        self._log.debug("Lazy loading board data for: %s", self._relative_url)
-        properties = {
-            "fields": ','.join(self.default_fields())
-        }
-        temp = self._io.get(self._relative_url, properties)
-        assert "data" in temp
-        self._data_cache = temp["data"]
-
-        return self._data_cache
-
-    @classmethod
-    def from_json(cls, json_data, rest_io):
-        """Factory method that instantiates an instance of this class
-        from JSON response data loaded by the caller
-
-        Args:
-            json_data (dict):
-                pre-loaded response data describing the board
-            rest_io (RestIO):
-                pre-initialized session object for communicating with the
-                REST API
-
-        Returns:
-            Board: instance of this class encapsulating the response data
-        """
-        board_url = "boards/{0}".format(json_data["id"])
-        return Board(board_url, rest_io, json_data)
-
-    @property
-    def json(self):
-        """dict: returns raw json representation of this object"""
-        return self._data
-
-    def __str__(self):
-        return json.dumps(self._data, sort_keys=True, indent=4)
-
-    def __repr__(self):
-        return "<{0} ({1})>".format(self.__class__.__name__, self.name)
 
     @property
     def unique_id(self):
@@ -121,21 +64,7 @@ class Board(object):
         self._log.debug('Loading pins for board %s...', self._relative_url)
 
         properties = {
-            "fields": ','.join([
-                "id",
-                "link",
-                "url",
-                "board",
-                "created_at",
-                "note",
-                "color",
-                "counts",
-                "media",
-                "attribution",
-                "image",
-                "metadata",
-                "original_link"
-            ])
+            "fields": ','.join(Pin.default_fields())
         }
 
         path = "{0}/pins".format(self._relative_url)
@@ -143,7 +72,7 @@ class Board(object):
             assert 'data' in cur_page
 
             for cur_item in cur_page['data']:
-                yield Pin(cur_item, self._io)
+                yield Pin.from_json(cur_item, self._io)
 
     def delete(self):
         """Removes this board and all pins attached to it"""
