@@ -1,27 +1,42 @@
 """Primitives for operating on Pinterest pins"""
-import logging
-import json
 from friendlypins.thumbnail import Thumbnail
+from friendlypins.utils.base_object import BaseObject
 
 
-class Pin(object):
+class Pin(BaseObject):
     """Abstraction around a Pinterest pin"""
 
-    def __init__(self, data, rest_io):
-        """
+    @staticmethod
+    def default_url(unique_id):
+        """Generates a URL for the REST API endpoint for a pin with a given
+        identification number
+
         Args:
-            data (dict): Raw Pinterest API data describing a pin
-            rest_io (RestIO): reference to the Pinterest REST API
+            unique_id (int): unique ID for the pin
+
+        Returns:
+            str: URL for the API endpoint
         """
-        self._log = logging.getLogger(__name__)
-        self._io = rest_io
-        self._data = data
+        return "pins/{0}".format(unique_id)
 
-    def __str__(self):
-        return json.dumps(dict(self._data), sort_keys=True, indent=4)
-
-    def __repr__(self):
-        return "<{0} ({1})>".format(self.__class__.__name__, self.note)
+    @staticmethod
+    def default_fields():
+        """list (str): list of fields we pre-populate when loading pin data"""
+        return [
+            "id",
+            "link",
+            "url",
+            "board",
+            "created_at",
+            "note",
+            "color",
+            "counts",
+            "media",
+            "attribution",
+            "image",
+            "metadata",
+            "original_link"
+        ]
 
     @property
     def url(self):
@@ -63,8 +78,8 @@ class Pin(object):
 
     def delete(self):
         """Removes this pin from it's respective board"""
-        self._log.debug('Deleting pin %s', repr(self))
-        self._io.delete('pins/{0}'.format(self.unique_id))
+        self._log.debug('Deleting pin %s', self._relative_url)
+        self._io.delete(self._relative_url)
 
 
 if __name__ == "__main__":  # pragma: no cover

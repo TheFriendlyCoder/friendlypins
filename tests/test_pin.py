@@ -19,7 +19,7 @@ def test_pin_properties():
     }
 
     mock_io = mock.MagicMock()
-    obj = Pin(sample_data, mock_io)
+    obj = Pin("pins/1234", mock_io, sample_data)
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
@@ -41,7 +41,7 @@ def test_pin_missing_media_type():
     }
 
     mock_io = mock.MagicMock()
-    obj = Pin(sample_data, mock_io)
+    obj = Pin("pins/1234", mock_io, sample_data)
 
     assert obj.unique_id == expected_id
     assert obj.note == expected_note
@@ -74,7 +74,7 @@ def test_get_thumbnail():
     }
 
     mock_io = mock.MagicMock()
-    obj = Pin(data, mock_io)
+    obj = Pin("pins/1234", mock_io, data)
     result = obj.thumbnail
 
     assert result.url == expected_url
