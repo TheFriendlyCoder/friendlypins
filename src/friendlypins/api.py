@@ -1,6 +1,7 @@
 """Primary entry point for the Friendly Pinterest library"""
 import logging
 from friendlypins.user import User
+from friendlypins.board import Board
 from friendlypins.utils.rest_io import RestIO
 
 
@@ -16,6 +17,23 @@ class API(object):  # pylint: disable=too-few-public-methods
         """
         self._log = logging.getLogger(__name__)
         self._io = RestIO(personal_access_token)
+
+    def get_board_by_id(self, board_id):
+        """Locates a specific Pinterest board given it's internal identifier
+
+        NOTE: this API assumes that the ID provided references a valid board.
+        If it does not, the object returned will be invalid and any attempts
+        to access data from the board will result in an error.
+
+        Args:
+            board_id (int):
+                the unique identifier for the board
+
+        Returns:
+            Board: reference to the Pinterest board
+        """
+        board_url = "boards/{0}".format(board_id)
+        return Board(board_url, self._io)
 
     @property
     def user(self):

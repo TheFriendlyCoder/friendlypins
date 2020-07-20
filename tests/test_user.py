@@ -61,11 +61,6 @@ def test_cache_refresh():
 
 
 def test_get_boards():
-    data = {
-        "first_name": "John",
-        "last_name": "Doe"
-    }
-
     expected_id = 1234
     expected_name = "MyBoard"
     expected_url = "https://www.pinterest.ca/MyName/MyBoard/"
@@ -82,7 +77,7 @@ def test_get_boards():
 
     mock_io = mock.MagicMock()
     mock_io.get_pages.return_value = [expected_data]
-    obj = User(data, mock_io)
+    obj = User("me", mock_io)
 
     result = list()
     for item in obj.boards:
@@ -97,11 +92,6 @@ def test_get_boards():
 def test_create_board():
     expected_name = "My Board"
     expected_desc = "My new board is about this stuff..."
-    data = {
-        "id": "1234",
-        "first_name": "Jonh",
-        "last_name": "Doe"
-    }
     mock_io = mock.MagicMock()
     mock_io.post.return_value = {
         "data": {
@@ -110,7 +100,7 @@ def test_create_board():
             "id": "12345"
         }
     }
-    obj = User(data, mock_io)
+    obj = User("me", mock_io)
 
     board = obj.create_board(expected_name, expected_desc)
     mock_io.post.assert_called_once()
