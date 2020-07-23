@@ -1,5 +1,7 @@
 import mock
 from friendlypins.api import API
+from friendlypins.board import Board
+from friendlypins.pin import Pin
 from dateutil import tz
 
 
@@ -28,6 +30,30 @@ def test_get_user():
         assert expected_firstname == result.first_name
         assert expected_lastname == result.last_name
         assert expected_id == result.unique_id
+
+
+@mock.patch("friendlypins.utils.rest_io.requests")
+def test_get_board_by_id(mock_requests):
+    mock_response = mock.MagicMock()
+    mock_requests.get.return_value = mock_response
+
+    obj = API("abcd1234")
+    result = obj.get_board_by_id("1234")
+    assert result is not None
+    assert isinstance(result, Board)
+    assert mock_requests.get.call_count == 0
+
+
+@mock.patch("friendlypins.utils.rest_io.requests")
+def test_get_pin_by_id(mock_requests):
+    mock_response = mock.MagicMock()
+    mock_requests.get.return_value = mock_response
+
+    obj = API("abcd1234")
+    result = obj.get_pin_by_id("1234")
+    assert result is not None
+    assert isinstance(result, Pin)
+    assert mock_requests.get.call_count == 0
 
 
 @mock.patch("friendlypins.utils.rest_io.requests")
