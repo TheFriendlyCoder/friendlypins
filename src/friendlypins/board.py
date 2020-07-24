@@ -60,7 +60,13 @@ class Board(BaseObject):
 
     @property
     def pins(self):
-        """Pin: Generator for iterating over the pins linked to this board"""
+        """pins linked to this board
+
+        Yield:
+            Pin:
+                generator that lazy loads the definitions for every pin
+                on this board
+        """
         self._log.debug('Loading pins for board %s...', self._relative_url)
 
         properties = {
