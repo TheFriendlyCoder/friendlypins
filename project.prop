@@ -17,6 +17,7 @@
         "pytest-cov",
         "pytest-recording",
         "pytest-json-report",
+        "pyyaml",
         "mock",
         "pylint",
         "sphinx",
