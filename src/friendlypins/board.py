@@ -1,8 +1,9 @@
 """Primitives for interacting with Pinterest boards"""
 from datetime import datetime
 from dateutil import tz
-from friendlypins.pin import Pin
 from friendlypins.utils.base_object import BaseObject
+from friendlypins.pin import Pin
+from friendlypins.section import Section
 
 
 class Board(BaseObject):
@@ -104,6 +105,43 @@ class Board(BaseObject):
 
             for cur_item in cur_page['data']:
                 yield Pin.from_json(cur_item, self._io)
+
+    def get_section_by_id(self, identifier):
+        new_url = "{0}/sections/{1}".format(self._relative_url, identifier)
+        return Section(new_url, self._io)
+
+    @property
+    def sections(self):
+        """list (Section): subsections on board used for sorting pins"""
+        self._log.debug("Loading board sections for board %s...",
+                        self._relative_url)
+        # NOTE: the URL for querying board sections doesn't match the URL
+        #       for the board itself:
+        #
+        #       Board URL: boards/1234
+        #       Sections URL: board/1234/sections
+        #
+        #       So we need to rebuild it here, without making use of data
+        #       that may not yet be lazy loaded from the API
+        path = "board/{0}/sections".format("/".join(self._relative_url.split("/")[1:]))
+        self._log.debug("Loading board sections from " + path)
+
+        properties = {
+            "fields": ','.join(["id", "title"])
+        }
+        for cur_page in self._io.get_pages(path, properties):
+            assert "data" in cur_page
+
+            for cur_item in cur_page["data"]:
+                yield Section.from_json(cur_item, self._io)
+
+    def create_section(self, title):
+        path = "board/{0}/sections".format("/".join(self._relative_url.split("/")[1:]))
+        params = {
+            "title": title
+        }
+        retval = self._io.put(path, params)
+        return Section.from_json(retval["data"], self._io)
 
     def delete(self):
         """Removes this board and all pins attached to it"""

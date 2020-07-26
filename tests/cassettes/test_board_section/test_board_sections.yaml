@@ -1,0 +1,104 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/board/485262997288961007/sections?access_token=DUMMY&fields=id%2Ctitle&limit=100
+  response:
+    body:
+      string: 'b''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You
+        should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/board/485262997288961007/sections/?limit=100&amp;fields=id%2Ctitle&amp;access_token=DUMMY">https://api.pinterest.com/v1/board/485262997288961007/sections/?limit=100&amp;fields=id%2Ctitle&amp;access_token=DUMMY</a>.  If
+        not click the link.'''
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '585'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Mon, 27 Jul 2020 22:49:58 GMT
+      Location:
+      - https://api.pinterest.com/v1/board/485262997288961007/sections/?limit=100&fields=id%2Ctitle&access_token=DUMMY
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a010669
+      x-envoy-upstream-service-time:
+      - '9'
+      x-pinterest-rid:
+      - '5943094159256582'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/board/485262997288961007/sections/?access_token=DUMMY&fields=id%2Ctitle&limit=100
+  response:
+    body:
+      string: '{"data":["<BoardSection 5112670794503201800>","<BoardSection 5111575990144913664>"],"page":{"cursor":null,"next":null}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '119'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 27 Jul 2020 22:49:58 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018f7e
+      pinterest-version:
+      - 16e084c
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '60'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - '6496954350150682'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -51,10 +51,11 @@ class BaseObject:
         if self._data_cache is not None:
             return self._data_cache
         self._log.debug("Lazy loading data for: %s", self._relative_url)
-        properties = {
-            "fields": ','.join(self.default_fields())
-        }
-        temp = self._io.get(self._relative_url, properties)
+        properties = dict()
+        if self.default_fields():
+            properties["fields"] = ','.join(self.default_fields())
+
+        temp = self._io.get(self._relative_url, properties or None)
         assert "data" in temp
         self._data_cache = temp["data"]
 

@@ -1,8 +1,5 @@
 #!/usr/bin/env python
 """Helper script that auto-updates all response data for integration tests"""
-# TODO: rework implementation to use logging instead of print so we can see timestamps of operations
-# TODO: add a nested progress bar to show number of remaining tests to fix
-# TODO: add support for verbosity levels (ie: by default just show progress bars)
 from time import sleep
 import math
 import sys
