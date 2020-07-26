@@ -1,3 +1,6 @@
+from datetime import datetime
+import pytest
+from friendlypins.utils.rest_io import RestIO
 from friendlypins.headers import Headers
 from dateutil import tz
 
@@ -25,10 +28,32 @@ sample_header = {
     }
 
 
-def test_get_date_locale():
-    obj = Headers(sample_header)
+@pytest.mark.vcr()
+def test_headers_properties(test_env):
+    obj = RestIO(test_env["key"])
+    headers = obj.headers
+    assert isinstance(headers.date, datetime)
+    assert headers.date.tzinfo == tz.tzlocal()
+    assert isinstance(headers.rate_limit, int)
+    assert headers.rate_limit == 1
+    assert isinstance(headers.rate_remaining, int)
+    assert isinstance(headers.percent_rate_remaining, int)
+    assert isinstance(headers.time_to_refresh, datetime)
+    assert headers.time_to_refresh.tzinfo == tz.tzlocal()
 
-    assert obj.date.tzinfo == tz.tzlocal()
+
+@pytest.mark.vcr()
+def test_rate_limit_exceeded(test_env):
+    obj = RestIO(test_env["key"])
+
+    # Wait for our request limit to get reached
+    headers = obj.headers
+    while headers.rate_remaining > 0:
+        obj.refresh_headers()
+        headers = obj.headers
+
+    assert headers.rate_remaining == 0
+    assert headers.percent_rate_remaining == 0
 
 
 def test_get_rate_limit():
@@ -59,7 +84,5 @@ def test_time_to_refresh():
 
     obj = Headers(sample_header)
     tmp = obj.time_to_refresh
-    expected_time_str = 'Sat, 31 Mar 2018 10:58:39'
-
-    tmp = tmp.astimezone(tz.tzutc())
-    assert tmp.strftime("%a, %d %b %Y %H:%M:%S") == expected_time_str
+    expected_time = datetime(year=2018, month=3, day=31, hour=10, minute=58, second=39, tzinfo=tz.tzutc())
+    assert tmp == expected_time

@@ -1,0 +1,118 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/me/boards?access_token=DUMMY&fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&limit=100
+  response:
+    body:
+      string: 'b''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You
+        should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/me/boards/?fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&amp;access_token=DUMMY&amp;limit=100">https://api.pinterest.com/v1/me/boards/?fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&amp;access_token=DUMMY&amp;limit=100</a>.  If
+        not click the link.'''
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '673'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sun, 26 Jul 2020 12:29:24 GMT
+      Location:
+      - https://api.pinterest.com/v1/me/boards/?fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&access_token=DUMMY&limit=100
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018807
+      x-envoy-upstream-service-time:
+      - '7'
+      x-pinterest-rid:
+      - '9599859972013669'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/me/boards/?access_token=DUMMY&fields=id%2Cname%2Curl%2Cdescription%2Ccreated_at%2Ccounts%2Cimage%2Creason%2Cprivacy&limit=100
+  response:
+    body:
+      string: '{"data":[{"id":"485262997288627163","name":"office stuff","url":"https://www.pinterest.com/thefriendlycoder/office-stuff/","description":"","created_at":"2016-10-29T17:37:30","counts":{"pins":98,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/97/c9/33/97c9337abb8d6fe30fd17cfb600c09ce.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288752149","name":"bedroom","url":"https://www.pinterest.com/thefriendlycoder/bedroom/","description":"","created_at":"2017-09-27T03:05:33","counts":{"pins":364,"followers":107,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/11/9a/21/119a217292c34674a7f758219f9be8d7.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288824087","name":"furniture
+        and decor","url":"https://www.pinterest.com/thefriendlycoder/furniture-and-decor/","description":"","created_at":"2018-08-09T00:40:10","counts":{"pins":487,"followers":101,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/52/fd/85/52fd851253fa606b02b549d6557f606e.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288836624","name":"drawing
+        favs","url":"https://www.pinterest.com/thefriendlycoder/drawing-favs/","description":"","created_at":"2018-10-13T22:14:35","counts":{"pins":9661,"followers":103,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/3a/e1/f4/3ae1f41f7a36130e4302d2650013d784.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288953559","name":"New
+        folder","url":"https://www.pinterest.com/thefriendlycoder/new-folder/","description":"","created_at":"2020-06-13T23:18:58","counts":{"pins":1784,"followers":101,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/fc/75/ab/fc75ab8ecbfcdd9038a962c502771d10.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288800348","name":"dreams","url":"https://www.pinterest.com/thefriendlycoder/dreams/","description":"","created_at":"2018-04-10T08:37:18","counts":{"pins":3827,"followers":110,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/f5/fb/c8/f5fbc807df7831d50fdf29f51a84c13f.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288593104","name":"Idea","url":"https://www.pinterest.com/thefriendlycoder/idea/","description":"","created_at":"2016-07-01T19:44:37","counts":{"pins":386,"followers":105,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/af/59/84/af5984e78a964fdbe8659aed54b89115.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288623701","name":"stuff
+        to buy","url":"https://www.pinterest.com/thefriendlycoder/stuff-to-buy/","description":"","created_at":"2016-10-18T22:14:29","counts":{"pins":1586,"followers":105,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/a2/a8/10/a2a8106736b6087845961fde14f09c24.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288394824","name":"neat","url":"https://www.pinterest.com/thefriendlycoder/neat/","description":"","created_at":"2015-03-04T03:01:45","counts":{"pins":182,"followers":102,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/6b/63/d2/6b63d2a2fcb8ba38ef0049523f01acdf.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288950720","name":"Procreate","url":"https://www.pinterest.com/thefriendlycoder/procreate/","description":"","created_at":"2020-05-30T11:41:52","counts":{"pins":59,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/01/47/a9/0147a922d01e113cab4596ff8c4c08e0.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288580555","name":"Minecraft
+        Crafts","url":"https://www.pinterest.com/thefriendlycoder/minecraft-crafts/","description":"","created_at":"2016-05-18T23:44:34","counts":{"pins":23,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/6c/d9/5b/6cd95be8286593cd0d0a63104dc30018.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288791685","name":"Minecraft
+        builds","url":"https://www.pinterest.com/thefriendlycoder/minecraft-builds/","description":"","created_at":"2018-03-04T00:23:25","counts":{"pins":408,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/20/d6/58/20d6588a414301214802a2ad3662a592.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288702465","name":"drawing","url":"https://www.pinterest.com/thefriendlycoder/drawing/","description":"","created_at":"2017-04-09T19:33:53","counts":{"pins":10545,"followers":125,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/b3/bc/01/b3bc01f8646b3b5811ac2de1013cb89f.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288793742","name":"sayings","url":"https://www.pinterest.com/thefriendlycoder/sayings/","description":"","created_at":"2018-03-12T13:53:50","counts":{"pins":1438,"followers":103,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/4d/37/2d/4d372d6acd2f654c71b1f5f7dd375b87.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288839246","name":"goth
+        favs","url":"https://www.pinterest.com/thefriendlycoder/goth-favs/","description":"","created_at":"2018-10-24T16:45:20","counts":{"pins":1929,"followers":114,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/81/7a/8b/817a8bd6598604334cff5240eb47aa8c.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288805071","name":"playroom","url":"https://www.pinterest.com/thefriendlycoder/playroom/","description":"","created_at":"2018-05-02T22:11:30","counts":{"pins":24,"followers":101,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/57/62/55/576255e22ba4667ecfb4a9687df34304.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288753743","name":"outdoors","url":"https://www.pinterest.com/thefriendlycoder/outdoors/","description":"","created_at":"2017-10-03T22:33:42","counts":{"pins":356,"followers":101,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/c2/6c/d6/c26cd6daabf3ae2f5d21cdd5b40272aa.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288619079","name":"crafts","url":"https://www.pinterest.com/thefriendlycoder/crafts/","description":"","created_at":"2016-10-03T21:37:09","counts":{"pins":9,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/93/1f/39/931f39c0e6b6de7b79c7602810b2a290.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288936719","name":"Articles","url":"https://www.pinterest.com/thefriendlycoder/articles/","description":"","created_at":"2020-03-30T09:48:11","counts":{"pins":1,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/76/da/89/76da895da0b0fc4f52d710fdc09e3705.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288762685","name":"workouts","url":"https://www.pinterest.com/thefriendlycoder/workouts/","description":"","created_at":"2017-11-11T01:13:34","counts":{"pins":852,"followers":102,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/52/53/df/5253df129a735f179efc7bbc3a718a28.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288873341","name":"top
+        ten","url":"https://www.pinterest.com/thefriendlycoder/top-ten/","description":"","created_at":"2019-04-13T17:17:39","counts":{"pins":9,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/46/11/f0/4611f02c31d72080ad400e804d89d5b6.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288800954","name":"new
+        office","url":"https://www.pinterest.com/thefriendlycoder/new-office/","description":"","created_at":"2018-04-13T02:57:46","counts":{"pins":721,"followers":103,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/38/81/31/3881317c09f47669bb50847ba6b9c4f3.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288843897","name":"garage","url":"https://www.pinterest.com/thefriendlycoder/garage/","description":"","created_at":"2018-11-17T05:34:33","counts":{"pins":21,"followers":101,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/1a/87/14/1a8714dabd9e98d8e9d4f8a5994481be.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288606186","name":"projects","url":"https://www.pinterest.com/thefriendlycoder/projects/","description":"","created_at":"2016-08-19T22:33:13","counts":{"pins":332,"followers":105,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/46/55/66/4655661009f4c65fe447232ec19b6534.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288763236","name":"drawing
+        samples","url":"https://www.pinterest.com/thefriendlycoder/drawing-samples/","description":"","created_at":"2017-11-13T04:29:34","counts":{"pins":5682,"followers":123,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/b0/20/d2/b020d2b4bc894165fdbd0fa2d7f013ad.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288937828","name":"Recipes","url":"https://www.pinterest.com/thefriendlycoder/recipes/","description":"","created_at":"2020-04-04T12:11:48","counts":{"pins":64,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/da/fd/f3/dafdf354c1b42922dbc8982c0625f838.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288741217","name":"business","url":"https://www.pinterest.com/thefriendlycoder/business/","description":"","created_at":"2017-08-13T09:23:12","counts":{"pins":13,"followers":99,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/73/75/76/737576e08f7df9448c4c297eafbb0e40.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288754529","name":"costume
+        favs","url":"https://www.pinterest.com/thefriendlycoder/costume-favs/","description":"","created_at":"2017-10-07T17:26:20","counts":{"pins":1112,"followers":110,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/1e/be/2a/1ebe2a1a901245d242396943f996c1c4.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288835308","name":"Halloween","url":"https://www.pinterest.com/thefriendlycoder/halloween/","description":"","created_at":"2018-10-07T11:36:06","counts":{"pins":8,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/fd/8a/75/fd8a75ec1924a9ef862a127842641e5c.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288605734","name":"Lego","url":"https://www.pinterest.com/thefriendlycoder/lego/","description":"","created_at":"2016-08-18T02:32:41","counts":{"pins":1,"followers":99,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/23/16/ba/2316baaa338bacd750f28213b8c86216.jpg","width":60,"height":60}},"reason":null,"privacy":"public"},{"id":"485262997288961007","name":"testing","url":"https://www.pinterest.com/thefriendlycoder/testing/","description":"Board
+        used for unit testing","created_at":"2020-07-21T16:16:03","counts":{"pins":2,"followers":100,"collaborators":0},"image":{"60x60":{"url":"https://i.pinimg.com/60x60/e7/f5/50/e7f550c0e688fcc24b0568415fe83a72.jpg","width":60,"height":60}},"reason":null,"privacy":"public"}]}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 26 Jul 2020 12:29:24 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      Vary:
+      - Accept-Encoding
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      content-length:
+      - '11624'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018835
+      pinterest-version:
+      - 71bea45
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '341'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - 0703401016015669
+    status:
+      code: 200
+      message: OK
+version: 1

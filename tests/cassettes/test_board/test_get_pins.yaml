@@ -1,0 +1,109 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/boards/485262997288961007/pins?access_token=DUMMY&fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&limit=100
+  response:
+    body:
+      string: 'b''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You
+        should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/boards/485262997288961007/pins/?fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&amp;limit=100&amp;access_token=DUMMY">https://api.pinterest.com/v1/boards/485262997288961007/pins/?fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&amp;limit=100&amp;access_token=DUMMY</a>.  If
+        not click the link.'''
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '793'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sun, 26 Jul 2020 09:16:39 GMT
+      Location:
+      - https://api.pinterest.com/v1/boards/485262997288961007/pins/?fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&limit=100&access_token=DUMMY
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018136
+      x-envoy-upstream-service-time:
+      - '14'
+      x-pinterest-rid:
+      - '8644605226947724'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/boards/485262997288961007/pins/?access_token=DUMMY&fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&limit=100
+  response:
+    body:
+      string: '{"data":[{"id":"485262928605821260","link":"https://www.pinterest.com/r/pin/485262928605821260/4958580308141162276/542fde098be2cd21ea99b8da6522dee01377d21734b25a7ae0096b6938c2ee4b","url":"https://www.pinterest.com/pin/485262928605821260/","board":{"id":"485262997288961007","url":"https://www.pinterest.com/thefriendlycoder/testing/","name":"testing"},"created_at":"2020-07-21T20:49:16","note":"
+        ","color":"#82635e","counts":{"saves":0,"comments":0},"media":{"type":"image"},"attribution":null,"image":{"original":{"url":"https://i.pinimg.com/originals/60/00/46/6000469f784b3853b0fddd0633bf615f.jpg","width":460,"height":459}},"metadata":{"link":{"title":"mountain
+        line drawing","description":"Amazon.com: mountain line drawing","favicon":"https://i.pinimg.com/favicons/bfa8ab3f7c94a9f60a8c02554126076ef970784c5116a2069fa68008.ico?ca6619b86c2f6e6068b69ba3aaddb7e4","locale":"en","site_name":"amazon.com"}},"original_link":"https://www.amazon.com/gp/search?ie=UTF8&tag=whereshop09-26-20&linkCode=ur2&linkId=6312f0d6526ecb5b1a6f18d8b34fe384&camp=1789&creative=9325&index=aps&keywords=Dmountain+line+drawing"},{"id":"485262928605818444","link":"","url":"https://www.pinterest.com/pin/485262928605818444/","board":{"id":"485262997288961007","url":"https://www.pinterest.com/thefriendlycoder/testing/","name":"testing"},"created_at":"2020-07-21T16:16:03","note":"Here
+        is my note","color":"#fbfcfb","counts":{"saves":0,"comments":0},"media":{"type":"image"},"attribution":null,"image":{"original":{"url":"https://i.pinimg.com/originals/e7/f5/50/e7f550c0e688fcc24b0568415fe83a72.jpg","width":735,"height":907}},"metadata":{},"original_link":""}],"page":{"cursor":null,"next":null}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 26 Jul 2020 09:16:39 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      Vary:
+      - Accept-Encoding
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      content-length:
+      - '1674'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018ccd
+      pinterest-version:
+      - 71bea45
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '66'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - '8343788415234982'
+    status:
+      code: 200
+      message: OK
+version: 1

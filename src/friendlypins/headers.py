@@ -48,7 +48,7 @@ class Headers(object):
         """datetime.datetime: the time stamp of when the rate limiting
         threshold is renewed"""
         if "X-Ratelimit-Refresh" not in self._data:
-            return datetime.now(tz=tz.tzutc())
+            return datetime.now(tz=tz.tzlocal())
 
         diff = timedelta(seconds=int(self._data['X-Ratelimit-Refresh']))
         return self.date + diff

@@ -1,4 +1,6 @@
 """Primitives for interacting with Pinterest boards"""
+from datetime import datetime
+from dateutil import tz
 from friendlypins.pin import Pin
 from friendlypins.utils.base_object import BaseObject
 
@@ -56,7 +58,30 @@ class Board(BaseObject):
     @property
     def num_pins(self):
         """int: The total number of pins linked to this board"""
-        return int(self._data['counts']['pins'])
+        return self._data['counts']['pins']
+
+    @property
+    def num_followers(self):
+        """int: number of people following this board"""
+        return self._data["counts"]["followers"]
+
+    @property
+    def num_collaborators(self):
+        """int: number of people with edit permissions to this board"""
+        return self._data["counts"]["collaborators"]
+
+    @property
+    def creation_date(self):
+        """datetime.datetime: when this board was created"""
+        # sample datetime to parse: "2020-07-21T16:16:03" (in UTC)
+        retval = datetime.strptime(self._data["created_at"],
+                                   "%Y-%m-%dT%H:%M:%S")
+        return retval.replace(tzinfo=tz.tzutc())
+
+    @property
+    def privacy_setting(self):
+        """str: description of the restriction / privacy level of the board"""
+        return self._data["privacy"]
 
     @property
     def pins(self):

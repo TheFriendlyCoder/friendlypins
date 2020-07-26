@@ -80,7 +80,6 @@ def test_transaction_limit(mock_requests):
     obj = API("abcd1234")
     assert obj.transaction_limit == expected_rate_limit
     mock_requests.get.assert_called_once()
-    mock_response.raise_for_status.assert_called_once()
 
 
 @mock.patch("friendlypins.utils.rest_io.requests")
@@ -107,7 +106,6 @@ def test_transaction_remaining(mock_requests):
     obj = API("abcd1234")
     tmp = obj.transaction_remaining
     mock_requests.get.assert_called_once()
-    mock_response.raise_for_status.assert_called_once()
     assert tmp == expected_rate_remaining
 
 
@@ -139,6 +137,5 @@ def test_rate_refresh(mock_requests):
     tmp = obj.rate_limit_refresh
 
     mock_requests.get.assert_called_once()
-    mock_response.raise_for_status.assert_called_once()
     tmp = tmp.astimezone(tz.tzutc())
     assert tmp.strftime("%a, %d %b %Y %H:%M:%S") == expected_time_str

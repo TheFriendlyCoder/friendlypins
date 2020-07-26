@@ -1,0 +1,105 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/pins/485262928605818444?access_token=DUMMY&fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&limit=100
+  response:
+    body:
+      string: 'b''<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">\n<title>Redirecting...</title>\n<h1>Redirecting...</h1>\n<p>You
+        should be redirected automatically to target URL: <a href="https://api.pinterest.com/v1/pins/485262928605818444/?limit=100&amp;fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&amp;access_token=DUMMY">https://api.pinterest.com/v1/pins/485262928605818444/?limit=100&amp;fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&amp;access_token=DUMMY</a>.  If
+        not click the link.'''
+    headers:
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '779'
+      Content-Type:
+      - text/html; charset=utf-8
+      Date:
+      - Sun, 26 Jul 2020 10:29:42 GMT
+      Location:
+      - https://api.pinterest.com/v1/pins/485262928605818444/?limit=100&fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&access_token=DUMMY
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a018682
+      x-envoy-upstream-service-time:
+      - '10'
+      x-pinterest-rid:
+      - '8842370835359567'
+    status:
+      code: 308
+      message: Permanent Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Cookie:
+      - _ir=0
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://api.pinterest.com/v1/pins/485262928605818444/?access_token=DUMMY&fields=id%2Clink%2Curl%2Cboard%2Ccreated_at%2Cnote%2Ccolor%2Ccounts%2Cmedia%2Cattribution%2Cimage%2Cmetadata%2Coriginal_link&limit=100
+  response:
+    body:
+      string: '{"data":{"id":"485262928605818444","link":"","url":"https://www.pinterest.com/pin/485262928605818444/","board":{"id":"485262997288961007","url":"https://www.pinterest.com/thefriendlycoder/testing/","name":"testing"},"created_at":"2020-07-21T16:16:03","note":"Here
+        is my note","color":"#fbfcfb","counts":{"saves":0,"comments":0},"media":{"type":"image"},"attribution":null,"image":{"original":{"url":"https://i.pinimg.com/originals/e7/f5/50/e7f550c0e688fcc24b0568415fe83a72.jpg","width":735,"height":907}},"metadata":{},"original_link":""}}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '539'
+      Content-Type:
+      - application/json
+      Date:
+      - Sun, 26 Jul 2020 10:29:43 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a01c03a
+      pinterest-version:
+      - 71bea45
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '53'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - '7955497740258358'
+    status:
+      code: 200
+      message: OK
+version: 1
