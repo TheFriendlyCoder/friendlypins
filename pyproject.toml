@@ -1,0 +1,64 @@
+[tool.poetry]
+name = "friendlypins"
+version = "2.0.0"
+description = "Python wrapper around the Pinterest developer APIs"
+authors = ["Kevin Phillips <thefriendlycoder@gmail.com>"]
+keywords = ["pinterest", "api", "wrapper", "library"]
+license = "Apache-2.0"
+repository = "https://github.com/TheFriendlyCoder/friendlypins"
+documentation = "https://friendlypins.readthedocs.io/en/latest/"
+readme = "README.rst"
+
+# https://pypi.org/classifiers/
+classifiers=[
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "License :: OSI Approved :: Apache Software License",
+    "Topic :: Software Development :: Libraries",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.scripts]
+fpins = "friendlypins.scripts.fpins:main"
+webp2jpeg = "friendlypins.scripts.webp2jpeg:main"
+
+[tool.poetry.dependencies]
+python = "^3.5"
+requests = "*"
+six = "*"
+dateutils = "*"
+tqdm = "*"
+pillow = "*"
+humanize = "*"
+
+[tool.poetry.dev-dependencies]
+# Test running tools
+pytest = "*"
+pytest-cov = "*"
+pytest-recording = "*"
+pytest-json-report = "*"
+tox = "*"
+tox-factor = "*"
+tox-pyenv = "*"
+
+# Misc test framework
+mock = "*"
+pylint = "*"
+# pining coverage package until bugs with coveralls plugin is fixed
+# https://github.com/z4r/python-coveralls/issues/73
+coverage = "<5.0"
+
+# Stuff only needed for docs
+sphinx = "*"
+sphinxcontrib-apidoc = "*"
+sphinx-rtd-theme = "*"
+
+# Stuff needed just for update.py
+pyyaml = "*"
+Click = "*"
+colorama = "*"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
