@@ -2,6 +2,7 @@
 import logging
 from friendlypins.user import User
 from friendlypins.board import Board
+from friendlypins.section import Section
 from friendlypins.pin import Pin
 from friendlypins.utils.rest_io import RestIO
 
@@ -18,6 +19,23 @@ class API(object):
         """
         self._log = logging.getLogger(__name__)
         self._io = RestIO(personal_access_token)
+
+    def get_section_by_id(self, section_id):
+        """Locates a specific Pinterest board subsection given it's internal
+        identifier
+
+        NOTE: this API assumes that the ID provided references a valid section.
+        If it does not, the object returned will be invalid and any attempts
+        to access data from the board will result in an error.
+
+        Args:
+            section_id (int):
+                the unique identifier for the section
+
+        Returns:
+            Section: reference to the Pinterest section
+        """
+        return Section(Section.default_url(section_id), self._io)
 
     def get_board_by_id(self, board_id):
         """Locates a specific Pinterest board given it's internal identifier

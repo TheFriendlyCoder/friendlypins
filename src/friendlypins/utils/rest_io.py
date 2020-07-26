@@ -127,6 +127,38 @@ class RestIO(object):
 
         return response.json()
 
+    def put(self, path, data, properties=None):
+        """put API data to a given sub-path
+
+        Args:
+            path (str): sub-path with in the REST API to send data to
+            data (str): form data to be posted to the API endpoint
+            properties (dict):
+                optional set of request properties to append to the API call
+
+        Returns:
+            dict: json data returned from the API endpoint
+        """
+        self._log.debug(
+            "Putting data from %s with options %s",
+            path,
+            properties
+        )
+        temp_url = "{0}/{1}/".format(self._root_url, path)
+
+        if properties is None:
+            properties = dict()
+        properties["access_token"] = self._token
+
+        response = requests.put(temp_url, data=data, params=properties)
+        self._latest_header = Headers(response.headers)
+        self._log.debug("%s query header: %s", path, self._latest_header)
+        self._log.debug("Put response text is %s", response.text)
+
+        self._raise_for_status(response)
+
+        return response.json()
+
     def get_pages(self, path, properties=None):
         """Generator for iterating over paged results returned from API
 

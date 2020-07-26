@@ -1,0 +1,60 @@
+interactions:
+- request:
+    body: title=My+Cool+Title
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '19'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      User-Agent:
+      - python-requests/2.24.0
+    method: PUT
+    uri: https://api.pinterest.com/v1/board/485262997288961007/sections/?access_token=DUMMY
+  response:
+    body:
+      string: '{"data":"<BoardSection 5112670794503201800>"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - private
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '45'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 27 Jul 2020 21:49:17 GMT
+      Set-Cookie:
+      - _ir=0; Max-Age=1800; HttpOnly; Path=/; Secure
+      X-CDN:
+      - akamai
+      X-RateLimit-Limit:
+      - '1'
+      X-RateLimit-Remaining:
+      - '0'
+      pinterest-generated-by:
+      - coreapp-ngapi-prod-0a0100c3
+      pinterest-version:
+      - 94a05e0
+      x-content-type-options:
+      - nosniff
+      x-envoy-upstream-service-time:
+      - '197'
+      x-frame-options:
+      - DENY
+      x-pinterest-rid:
+      - '1237606953406829'
+    status:
+      code: 200
+      message: OK
+version: 1
