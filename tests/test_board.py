@@ -19,8 +19,7 @@ def test_board_properties(test_env):
     assert isinstance(board.num_followers, int)
     assert isinstance(board.num_collaborators, int)
     assert isinstance(board.num_pins, int)
-    all_pins = test_env["test_board"]["pins"] + test_env["section_pins"]
-    assert board.num_pins == len(all_pins)
+    assert board.num_pins == len(test_env["test_board"]["pins"])
 
 
 @pytest.mark.vcr()
@@ -28,11 +27,10 @@ def test_get_pins(test_env):
     obj = API(test_env["key"])
     board = obj.get_board_by_id(test_env["test_board"]["id"])
     pins = list(board.pins)
-    all_pins = test_env["test_board"]["pins"] + test_env["section_pins"]
-    assert len(pins) == len(all_pins)
+    assert len(pins) == len(test_env["test_board"]["pins"])
     for cur_pin in pins:
-        assert cur_pin.unique_id in all_pins
-        all_pins.remove(cur_pin.unique_id)
+        assert cur_pin.unique_id in test_env["test_board"]["pins"]
+        test_env["test_board"]["pins"].remove(cur_pin.unique_id)
 
 
 def test_cache_refresh():

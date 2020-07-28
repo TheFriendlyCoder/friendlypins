@@ -29,7 +29,8 @@
         "colorama",
         # pinning coverage package until bugs with coveralls plugin is fixed
         # https://github.com/z4r/python-coveralls/issues/73
-        "coverage<5.0"
+        "coverage<5.0",
+        "pyyaml"
     ],
     "DESCRIPTION" : "Python wrapper around the Pinterest developer APIs",
     "KEYWORDS" : "pinterest api wrapper library",

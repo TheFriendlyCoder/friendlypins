@@ -57,8 +57,10 @@ def load_report():
     if not REPORT_FILE.exists():
         raise Exception("pytest report file not found: " + REPORT_FILE.name)
 
-    return json.loads(REPORT_FILE.read_text())
-
+    retval = json.loads(REPORT_FILE.read_text())
+    # Reformat our JSON report to make it easier to read
+    REPORT_FILE.write_text(json.dumps(retval, indent=4))
+    return retval
 
 def analyse_report(report):
     """Analyses a pytest report, and displays summary information to the console
@@ -77,7 +79,7 @@ def analyse_report(report):
 
     current_failures = list()
     for cur_test in report["tests"]:
-        if cur_test["outcome"] == "passed":
+        if cur_test["outcome"] in ("passed", "skipped"):
             continue
         if "RateLimitException" not in str(cur_test) and "Network is disabled" not in str(cur_test):
             raise Exception("Unit test {0} has failed for unexpected reasons. See debug.log for details".format(
@@ -95,7 +97,7 @@ def analyse_report(report):
     if PREVIOUS_REPORT:
         fixed_tests = list()
         for cur_test in PREVIOUS_REPORT["tests"]:
-            if cur_test["outcome"] == "passed":
+            if cur_test["outcome"] in ("passed", "skipped"):
                 continue
             if cur_test["nodeid"] not in current_failures:
                 fixed_tests.append(cur_test["nodeid"])

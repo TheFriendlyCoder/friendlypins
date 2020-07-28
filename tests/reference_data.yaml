@@ -1,0 +1,46 @@
+test_board:
+  # Sample board used for testing properties and attributes of boards
+  # Must contain at least 1 pin and 1 section (see the test_section node below)
+  description: Board used for unit testing
+  id: 485262997288961007
+  name: testing
+  pins:
+  # IDs of pins on this board
+  # NOTE: the Pinterest API will report all pins from all subsections of a board
+  #       when listing the pins for the board itself
+  - 485262928605818444
+  - 485262928605821260
+  privacy: public
+
+test_pin:
+  # Sample pin used for testing properties and attributes of boards
+  id: 485262928605818444
+  link: ''
+  note: Here is my note
+  thumbnail_height: 907
+  thumbnail_url: https://i.pinimg.com/originals/e7/f5/50/e7f550c0e688fcc24b0568415fe83a72.jpg
+  thumbnail_width: 735
+  type: image
+  url: https://www.pinterest.com/pin/485262928605818444/
+
+test_section:
+  # Sample board subsection to use for testing sections
+  # Must contain at least 1 pin
+  id: 5111575990144913664
+  pins:
+  # IDs of pins in this section
+  # NOTE: the Pinterest API will report pins from board sections together with
+  #       the pins of the parent board when querying the board itself
+  - 485262928605821260
+  title: Sample Section
+
+test_user:
+  # Sample user to use for testing properties and attributes of Pinterest users
+  bio: Interesting reference links
+  first_name: Kevin
+  full_name: Kevin
+  id: 485263066007653091
+  last_name: ''
+  type: individual
+  url: https://www.pinterest.com/thefriendlycoder/
+  username: thefriendlycoder
