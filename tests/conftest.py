@@ -1,11 +1,13 @@
 import os
+from copy import deepcopy
 import json
 from pathlib import Path
+import yaml
 import pytest
 
 CUR_PATH = Path(__file__).parent
 DEFAULT_KEY_FILE = CUR_PATH.parent.joinpath("key.txt")
-REFERECE_DATA = CUR_PATH.joinpath("reference_data.json")
+REFERENCE_DATA = CUR_PATH.joinpath("reference_data.yaml")
 
 
 def scrub_response(secret):
@@ -56,8 +58,17 @@ def scrub_response(secret):
 
         # Scrub our authentication token from the response headers
         if "Location" in response["headers"]:
-            temp = response["headers"]["Location"][0]
-            response["headers"]["Location"][0] = temp.replace(secret, "DUMMY")
+            # The default location header field has an upper case L
+            loc_key = "Location"
+        elif "location" in response["headers"]:
+            # When the API rate limit has been reached the header field for
+            # location gets changed to a lower case l for some weird reason
+            loc_key = "location"
+        else:
+            loc_key = None
+        if loc_key:
+            temp = response["headers"][loc_key][0]
+            response["headers"][loc_key][0] = temp.replace(secret, "DUMMY")
 
         # One final sanity check to make sure the token doesn't appear
         # anywhere else in the response data structure
@@ -77,6 +88,13 @@ def vcr_config(request):
     if key_file and os.path.exists(key_file):
         with open(key_file) as fh:
             secret = fh.read().strip()
+    else:
+        # If no auth key provided, let's try and load a default one
+        # This is needed when running in an IDE, and to make it easier
+        # to run the tests form the shell when one uses a consistent
+        # naming convention for the API key
+        if DEFAULT_KEY_FILE.exists():
+            secret = DEFAULT_KEY_FILE.read_text().strip()
 
     retval = {
         "filter_query_parameters": [("access_token", "DUMMY")],
@@ -94,29 +112,35 @@ def vcr_config(request):
     if request.config.getoption("--record-mode") == "none":
         retval["record_mode"] = "once"
 
-    return retval
+    return deepcopy(retval)
 
 
 @pytest.fixture(scope="function")
 def test_env(request):
-    if not REFERECE_DATA.exists():
+    if not REFERENCE_DATA.exists():
         raise Exception("Reference data for integration tests must be stored in a file name " +
-                        str(REFERECE_DATA.name))
+                        str(REFERENCE_DATA.name))
 
     key_file = request.config.getoption("--key-file")
-    key = "DUMMY"
+    key = None
     if key_file:
         if not os.path.exists(key_file):
             raise Exception("API authentication token file not found")
 
         with open(key_file) as fh:
             key = fh.read().strip()
-    elif request.config.getoption("--record-mode") == "rewrite":
+    else:
+        # If no explicit auth token can be found, lets try loading a default one
+        if DEFAULT_KEY_FILE.exists():
+            key = DEFAULT_KEY_FILE.read_text().strip()
+
+    if request.config.getoption("--record-mode") == "rewrite" and not key:
         raise Exception("Rewrite mode can only work with a valid auth key. "
                         "Use --key-file to run the tests.")
 
-    retval = json.loads(REFERECE_DATA.read_text())
-    retval["key"] = key
+    retval = yaml.safe_load(REFERENCE_DATA.read_text())
+    retval["key"] = key or "DUMMY"  # If we have no auth token, provide a dummy value
+
     yield retval
 
 
