@@ -1,0 +1,51 @@
+version: 2.1
+
+orbs:
+  # https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@1.3.2
+
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.6.13
+    steps:
+      - checkout
+      - run:
+          # have to update pip before running the install-packages
+          # orb because of a bug in the cryptographic library
+          # https://github.com/pyca/cryptography/issues/5771
+          name: Update pip
+          command: pip install --upgrade pip
+      - python/install-packages:
+          pkg-manager: pip
+          pip-dependency-file: requirements.txt
+          pypi-cache: true
+      - run:
+          name: build
+          command: |
+            export PYVER=py3
+            python -m tox --sitepackages -e $PYVER-lint
+            python -m tox --sitepackages -e $PYVER-test -- --block-network
+            coveralls
+            python -m tox --sitepackages -e $PYVER-docs
+            python setup.py bdist_wheel
+      - run:
+          name: deploy
+          command: |
+            [[ -z "${CIRCLE_TAG}" ]] && REPO_URL="--repository-url https://test.pypi.org/legacy/"
+            twine upload ${REPO_URL} ./dist/*.whl -u $DEPLOY_USER -p $DEPLOY_PASS
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            tags:
+              # NOTE: we can't run builds for every tag
+              # because pre-release builds generate tags
+              # and we don't want an infinite loop building
+              # against those tags
+              only: /^\d+\.\d+\.\d+$/
+
+# TODO: Get the CircleCI test results to show output from pytest
