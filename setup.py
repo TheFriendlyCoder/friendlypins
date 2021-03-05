@@ -124,17 +124,17 @@ def get_version_number(project):
 
     retval = _src_version(project)
 
-    if 'TRAVIS_TAG' in os.environ and not os.environ['TRAVIS_TAG'] == '':
+    if 'CIRCLE_TAG' in os.environ and os.environ['CIRCLE_TAG'] != '':
         # HACK: Let us assume we're going to use the tag name
         #       when building the template project. Makes it
         #       easier to test release builds
         if project == "ksp_sample":
-            return os.environ['TRAVIS_TAG']
+            return os.environ['CIRCLE_TAG']
 
         # make sure the tag name matches our version number
-        if not os.environ['TRAVIS_TAG'] == retval:
+        if not os.environ['CIRCLE_TAG'] == retval:
             raise Exception("Tag {0} is expected to be {1}".format(
-                os.environ['TRAVIS_TAG'],
+                os.environ['CIRCLE_TAG'],
                 retval
             ))
         # If we build from a tag, just use the version number verbatim
@@ -142,8 +142,8 @@ def get_version_number(project):
 
     # Pre release versions need a non-numeric suffix on the version number
     retval += ".dev"
-    if 'TRAVIS_BUILD_NUMBER' in os.environ:
-        retval += os.environ['TRAVIS_BUILD_NUMBER']
+    if 'CIRCLE_BUILD_NUM' in os.environ:
+        retval += os.environ['CIRCLE_BUILD_NUM']
     else:
         retval += "0"
 
