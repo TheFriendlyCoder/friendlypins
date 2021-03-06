@@ -34,8 +34,8 @@ Welcome to friendlypins' documentation!
     :target: https://pypi.org/project/friendlypins/
     :alt: Latest Version
 
-.. image:: https://api.travis-ci.org/TheFriendlyCoder/friendlypins.svg?branch=master
-    :target: https://travis-ci.org/TheFriendlyCoder/friendlypins
+.. image:: https://circleci.com/gh/TheFriendlyCoder/friendlypins.svg?style=svg
+    :target: https://circleci.com/gh/TheFriendlyCoder/friendlypins
     :alt: Build status
 
 .. toctree::

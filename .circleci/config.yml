@@ -21,13 +21,20 @@ jobs:
           pip-dependency-file: requirements.txt
           pypi-cache: true
       - run:
-          name: build
+          name: analyse
           command: |
-            export PYVER=py3
-            python -m tox --sitepackages -e $PYVER-lint
-            python -m tox --sitepackages -e $PYVER-test -- --block-network
+            python -m tox --sitepackages -e py3-lint
+      - run:
+          name: test
+          command: |
+            python -m tox --sitepackages -e py3-test -- --block-network --junit-xml ./build/junit.xml
             coveralls
-            python -m tox --sitepackages -e $PYVER-docs
+            python -m tox --sitepackages -e py3-docs
+      - store_test_results:
+          path: build/
+      - run:
+          name: package
+          command: |
             python setup.py bdist_wheel
       - run:
           name: deploy
@@ -48,4 +55,3 @@ workflows:
               # against those tags
               only: /^\d+\.\d+\.\d+$/
 
-# TODO: Get the CircleCI test results to show output from pytest

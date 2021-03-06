@@ -180,10 +180,10 @@ def generate_readme(project, repo=None, version=None):
     headers = list()
     headers.append({
         "image":
-            "https://travis-ci.org/TheFriendlyCoder/{0}.svg?{1}".
+            "https://circleci.com/gh/TheFriendlyCoder/{0}/tree/{1}.svg?style=svg".
             format(repo, branch),
         "target":
-            "https://travis-ci.org/TheFriendlyCoder/{0}".
+            "https://circleci.com/gh/TheFriendlyCoder/{0}".
             format(repo),
         "text": "Build Automation"
     })
