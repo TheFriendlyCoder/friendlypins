@@ -40,7 +40,7 @@ jobs:
           name: deploy
           command: |
             [[ -z "${CIRCLE_TAG}" ]] && REPO_URL="--repository-url https://test.pypi.org/legacy/"
-            twine upload ${REPO_URL} ./dist/*.whl -u $PYPI_DEPLOY_USER -p $PYPI_DEPLOY_PASS
+            twine upload ${REPO_URL} ./dist/*.whl -u $PYPI_DEPLOY_USER -p $PYPI_DEPLOY_PASSWORD
 
 workflows:
   version: 2
